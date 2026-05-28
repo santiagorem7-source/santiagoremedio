@@ -412,37 +412,45 @@ let S={
 function load(){try{const v=localStorage.getItem('salesos3');if(v)S=JSON.parse(v);}catch(e){}}
 function save(){try{localStorage.setItem('salesos3',JSON.stringify(S));}catch(e){}}
 
-// ── GOOGLE SHEETS SYNC ──
+// ── GOOGLE SHEETS SYNC (JSONP) ──
 const SHEETS_URL='https://script.google.com/macros/s/AKfycby6jtSUw1nbRzHXj-q5c-Ch28VMlPOZ1b3hjP5yTyqMsEjokjPGsbnECM2CYBwzbzwrKw/exec';
+
+function jsonp(url){
+  return new Promise((resolve,reject)=>{
+    const cb='_cb'+Date.now();
+    const s=document.createElement('script');
+    window[cb]=data=>{delete window[cb];document.head.removeChild(s);resolve(data);};
+    s.onerror=()=>{delete window[cb];document.head.removeChild(s);reject(new Error('JSONP error'));};
+    s.src=url+(url.includes('?')?'&':'?')+'cb='+cb;
+    document.head.appendChild(s);
+  });
+}
 
 async function pushToSheets(key){
   const d=S.data[key]||{};
   const tipo=key.startsWith('week')?'week':'month';
-  const rows=[];
-  ['s1','s2'].forEach(id=>{
-    if(!S.cfg.active[id])return;
-    const p=d[id]||{};
-    rows.push({tipo,key,id,leads:p.leads||0,appts:p.appts||0,calls:0,shows:0,closes:0,revenue:0,aov:0,
-      goal_team:(d.goals&&d.goals.team)||0,goal_c1:(d.goals&&d.goals.c1)||0,goal_c2:(d.goals&&d.goals.c2)||0,goal_c3:(d.goals&&d.goals.c3)||0});
-  });
-  ['c1','c2','c3'].forEach(id=>{
-    if(!S.cfg.active[id])return;
-    const p=d[id]||{};
-    rows.push({tipo,key,id,leads:0,appts:0,calls:p.calls||0,shows:p.shows||0,closes:p.closes||0,revenue:p.revenue||0,aov:p.aov||0,
-      goal_team:(d.goals&&d.goals.team)||0,goal_c1:(d.goals&&d.goals.c1)||0,goal_c2:(d.goals&&d.goals.c2)||0,goal_c3:(d.goals&&d.goals.c3)||0});
-  });
-  for(const row of rows){
-    await fetch(SHEETS_URL,{method:'POST',body:JSON.stringify(row)}).catch(()=>{});
+  const ids=[];
+  ['s1','s2'].forEach(id=>{if(S.cfg.active[id])ids.push({id,p:d[id]||{},isSetter:true});});
+  ['c1','c2','c3'].forEach(id=>{if(S.cfg.active[id])ids.push({id,p:d[id]||{},isSetter:false});});
+  for(const {id,p,isSetter} of ids){
+    const row={tipo,key,id,
+      leads:p.leads||0,appts:p.appts||0,
+      calls:p.calls||0,shows:p.shows||0,closes:p.closes||0,
+      revenue:p.revenue||0,aov:p.aov||0,
+      goal_team:(d.goals&&d.goals.team)||0,
+      goal_c1:(d.goals&&d.goals.c1)||0,
+      goal_c2:(d.goals&&d.goals.c2)||0,
+      goal_c3:(d.goals&&d.goals.c3)||0};
+    const url=SHEETS_URL+'?action=write&data='+encodeURIComponent(JSON.stringify(row));
+    await jsonp(url).catch(()=>{});
   }
 }
 
 async function pullFromSheets(){
   try{
-    const res=await fetch(SHEETS_URL);
-    const text=await res.text();
-    const json=JSON.parse(text);
-    if(!json.rows||!json.rows.length)return false;
-    json.rows.forEach(r=>{
+    const data=await jsonp(SHEETS_URL);
+    if(!data.rows||!data.rows.length)return false;
+    data.rows.forEach(r=>{
       const key=r.key;if(!key)return;
       if(!S.data[key])S.data[key]={};
       const d=S.data[key];
