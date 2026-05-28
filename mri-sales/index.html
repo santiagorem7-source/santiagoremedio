@@ -413,7 +413,7 @@ function load(){try{const v=localStorage.getItem('salesos3');if(v)S=JSON.parse(v
 function save(){try{localStorage.setItem('salesos3',JSON.stringify(S));}catch(e){}}
 
 // ── GOOGLE SHEETS SYNC (JSONP) ──
-const SHEETS_URL='https://script.google.com/macros/s/AKfycby6jtSUw1nbRzHXj-q5c-Ch28VMlPOZ1b3hjP5yTyqMsEjokjPGsbnECM2CYBwzbzwrKw/exec';
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbwl-Fx7DVOejlOUxI6j7D2BLoOwIzsEwe2KRsrVozc2vhrAYZGHKq7NpGuZQPQ1F5F_/exec';
 
 function jsonp(url){
   return new Promise((resolve,reject)=>{
