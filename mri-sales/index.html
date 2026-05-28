@@ -235,7 +235,7 @@ body{animation:flicker 10s infinite}
       <input type="number" class="px-input" id="date-year" min="2020" max="2099" placeholder="AÑO" style="width:80px" onchange="renderDashboard()">
     </div>
     <button class="px-btn px-btn-cfg" onclick="toggleConfig()">⚙ CONFIG</button>
-    <button class="px-btn px-btn-sm" id="sync-btn" onclick="syncSheets()">☁ SYNC</button>
+    <button class="px-btn px-btn-sm" id="sync-btn" onclick="syncData()">☁ SYNC</button>
     <button class="px-btn" onclick="openModal()">+ DATOS</button>
   </div>
 </div>
@@ -412,27 +412,10 @@ let S={
 function load(){try{const v=localStorage.getItem('salesos3');if(v)S=JSON.parse(v);}catch(e){}}
 function save(){try{localStorage.setItem('salesos3',JSON.stringify(S));}catch(e){}}
 
-// ── SUPABASE SYNC ──
-const SB_URL='https://kvlwpgqihnfsxxjhsvuj.supabase.co';
-const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2bHdwZ3FpaG5mc3h4amhzdnVqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5OTQ2MTMsImV4cCI6MjA5NTU3MDYxM30.Fm4pl_JAeTxfvsu1QUBbaTlL6Jd1YnRLpLEeWQd98Ng';
+// ── SYNC VIA PROXY ──
+const API='/api/sync';
 
-async function sbFetch(path, opts={}){
-  const res = await fetch(SB_URL+'/rest/v1/'+path, {
-    ...opts,
-    headers: {
-      'apikey': SB_KEY,
-      'Authorization': 'Bearer '+SB_KEY,
-      'Content-Type': 'application/json',
-      'Prefer': opts.prefer||'',
-      ...opts.headers
-    }
-  });
-  if(!res.ok) throw new Error(await res.text());
-  const text = await res.text();
-  return text ? JSON.parse(text) : null;
-}
-
-async function pushToSupabase(key){
+async function pushData(key){
   const d=S.data[key]||{};
   const tipo=key.startsWith('week')?'week':'month';
   const ids=[];
@@ -449,18 +432,14 @@ async function pushToSupabase(key){
       goal_c2:(d.goals&&d.goals.c2)||0,
       goal_c3:(d.goals&&d.goals.c3)||0
     };
-    await sbFetch('datos?on_conflict=tipo,key,closer_id', {
-      method:'POST',
-      prefer:'resolution=merge-duplicates',
-      headers:{'Prefer':'resolution=merge-duplicates'},
-      body:JSON.stringify(row)
-    }).catch(()=>{});
+    await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(row)}).catch(()=>{});
   }
 }
 
-async function pullFromSupabase(){
+async function pullData(){
   try{
-    const rows = await sbFetch('datos?select=*');
+    const res=await fetch(API);
+    const rows=await res.json();
     if(!rows||!rows.length) return false;
     rows.forEach(r=>{
       const key=r.key; if(!key) return;
@@ -479,10 +458,10 @@ async function pullFromSupabase(){
   }catch(e){console.error('pull error',e);return false;}
 }
 
-async function syncSheets(){
+async function syncData(){
   const btn=document.getElementById('sync-btn');
   btn.textContent='☁ SYNC...';btn.disabled=true;
-  const ok=await pullFromSupabase();
+  const ok=await pullData();
   btn.textContent='☁ SYNC';btn.disabled=false;
   if(ok){renderDashboard();toast('☁ SYNC OK — DATOS ACTUALIZADOS');}
   else toast('✗ ERROR DE SYNC');
@@ -924,7 +903,7 @@ function saveModal(){
   d.goals={team:gi('m-goal-team'),c1:gi('m-goal-c1'),c2:gi('m-goal-c2'),c3:gi('m-goal-c3')};
   save();closeModal();
   renderDashboard();toast('✓ GUARDADO — SUBIENDO...');
-  pushToSupabase(key).then(()=>toast('✓ GUARDADO EN SUPABASE ☁'));
+  pushData(key).then(()=>toast('✓ GUARDADO EN LA NUBE ☁'));
 }
 
 // ── CONFIG ──
@@ -956,7 +935,7 @@ function syncCfgUI(){
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2200);}
 
 load();syncCfgUI();initDateSelectors();renderDashboard();
-pullFromSupabase().then(ok=>{if(ok){renderDashboard();toast('☁ DATOS CARGADOS DESDE SUPABASE');}});
+pullData().then(ok=>{if(ok){renderDashboard();toast('☁ DATOS CARGADOS DESDE LA NUBE');}});
 </script>
 </body>
 </html>
