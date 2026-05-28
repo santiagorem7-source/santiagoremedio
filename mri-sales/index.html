@@ -412,51 +412,63 @@ let S={
 function load(){try{const v=localStorage.getItem('salesos3');if(v)S=JSON.parse(v);}catch(e){}}
 function save(){try{localStorage.setItem('salesos3',JSON.stringify(S));}catch(e){}}
 
-// ── GOOGLE SHEETS SYNC (JSONP) ──
-const SHEETS_URL='https://script.google.com/macros/s/AKfycbwl-Fx7DVOejlOUxI6j7D2BLoOwIzsEwe2KRsrVozc2vhrAYZGHKq7NpGuZQPQ1F5F_/exec';
+// ── SUPABASE SYNC ──
+const SB_URL='https://kvlwpgqihnfsxxjhsvuj.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2bHdwZ3FpaG5mc3h4amhzdnVqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5OTQ2MTMsImV4cCI6MjA5NTU3MDYxM30.Fm4pl_JAeTxfvsu1QUBbaTlL6Jd1YnRLpLEeWQd98Ng';
 
-function jsonp(url){
-  return new Promise((resolve,reject)=>{
-    const cb='_cb'+Date.now();
-    const s=document.createElement('script');
-    window[cb]=data=>{delete window[cb];document.head.removeChild(s);resolve(data);};
-    s.onerror=()=>{delete window[cb];document.head.removeChild(s);reject(new Error('JSONP error'));};
-    s.src=url+(url.includes('?')?'&':'?')+'cb='+cb;
-    document.head.appendChild(s);
+async function sbFetch(path, opts={}){
+  const res = await fetch(SB_URL+'/rest/v1/'+path, {
+    ...opts,
+    headers: {
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer '+SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': opts.prefer||'',
+      ...opts.headers
+    }
   });
+  if(!res.ok) throw new Error(await res.text());
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
 }
 
-async function pushToSheets(key){
+async function pushToSupabase(key){
   const d=S.data[key]||{};
   const tipo=key.startsWith('week')?'week':'month';
   const ids=[];
-  ['s1','s2'].forEach(id=>{if(S.cfg.active[id])ids.push({id,p:d[id]||{},isSetter:true});});
-  ['c1','c2','c3'].forEach(id=>{if(S.cfg.active[id])ids.push({id,p:d[id]||{},isSetter:false});});
-  for(const {id,p,isSetter} of ids){
-    const row={tipo,key,id,
-      leads:p.leads||0,appts:p.appts||0,
-      calls:p.calls||0,shows:p.shows||0,closes:p.closes||0,
-      revenue:p.revenue||0,aov:p.aov||0,
+  ['s1','s2'].forEach(id=>{if(S.cfg.active[id])ids.push({id,p:d[id]||{}});});
+  ['c1','c2','c3'].forEach(id=>{if(S.cfg.active[id])ids.push({id,p:d[id]||{}});});
+  for(const {id,p} of ids){
+    const row={
+      tipo, key, closer_id:id,
+      leads:p.leads||0, appts:p.appts||0,
+      calls:p.calls||0, shows:p.shows||0, closes:p.closes||0,
+      revenue:p.revenue||0, aov:p.aov||0,
       goal_team:(d.goals&&d.goals.team)||0,
       goal_c1:(d.goals&&d.goals.c1)||0,
       goal_c2:(d.goals&&d.goals.c2)||0,
-      goal_c3:(d.goals&&d.goals.c3)||0};
-    const url=SHEETS_URL+'?action=write&data='+encodeURIComponent(JSON.stringify(row));
-    await jsonp(url).catch(()=>{});
+      goal_c3:(d.goals&&d.goals.c3)||0
+    };
+    await sbFetch('datos?on_conflict=tipo,key,closer_id', {
+      method:'POST',
+      prefer:'resolution=merge-duplicates',
+      headers:{'Prefer':'resolution=merge-duplicates'},
+      body:JSON.stringify(row)
+    }).catch(()=>{});
   }
 }
 
-async function pullFromSheets(){
+async function pullFromSupabase(){
   try{
-    const data=await jsonp(SHEETS_URL);
-    if(!data.rows||!data.rows.length)return false;
-    data.rows.forEach(r=>{
-      const key=r.key;if(!key)return;
-      if(!S.data[key])S.data[key]={};
+    const rows = await sbFetch('datos?select=*');
+    if(!rows||!rows.length) return false;
+    rows.forEach(r=>{
+      const key=r.key; if(!key) return;
+      if(!S.data[key]) S.data[key]={};
       const d=S.data[key];
-      const id=r.id;if(!id)return;
+      const id=r.closer_id; if(!id) return;
       d[id]={leads:+r.leads||0,appts:+r.appts||0,calls:+r.calls||0,shows:+r.shows||0,closes:+r.closes||0,revenue:+r.revenue||0,aov:+r.aov||0};
-      if(!d.goals)d.goals={};
+      if(!d.goals) d.goals={};
       d.goals.team=+r.goal_team||d.goals.team||0;
       d.goals.c1=+r.goal_c1||d.goals.c1||0;
       d.goals.c2=+r.goal_c2||d.goals.c2||0;
@@ -464,13 +476,13 @@ async function pullFromSheets(){
     });
     save();
     return true;
-  }catch(e){return false;}
+  }catch(e){console.error('pull error',e);return false;}
 }
 
 async function syncSheets(){
   const btn=document.getElementById('sync-btn');
   btn.textContent='☁ SYNC...';btn.disabled=true;
-  const ok=await pullFromSheets();
+  const ok=await pullFromSupabase();
   btn.textContent='☁ SYNC';btn.disabled=false;
   if(ok){renderDashboard();toast('☁ SYNC OK — DATOS ACTUALIZADOS');}
   else toast('✗ ERROR DE SYNC');
@@ -911,8 +923,8 @@ function saveModal(){
   ['c1','c2','c3'].forEach(id=>{if(!S.cfg.active[id])return;d[id]={calls:gi(`m-${id}-calls`),shows:gi(`m-${id}-shows`),closes:gi(`m-${id}-closes`),revenue:gi(`m-${id}-revenue`),aov:gi(`m-${id}-aov`),leads:0,appts:0};});
   d.goals={team:gi('m-goal-team'),c1:gi('m-goal-c1'),c2:gi('m-goal-c2'),c3:gi('m-goal-c3')};
   save();closeModal();
-  renderDashboard();toast('✓ GUARDADO — SUBIENDO A SHEETS...');
-  pushToSheets(key).then(()=>toast('✓ GUARDADO EN SHEETS ☁'));
+  renderDashboard();toast('✓ GUARDADO — SUBIENDO...');
+  pushToSupabase(key).then(()=>toast('✓ GUARDADO EN SUPABASE ☁'));
 }
 
 // ── CONFIG ──
@@ -944,7 +956,7 @@ function syncCfgUI(){
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2200);}
 
 load();syncCfgUI();initDateSelectors();renderDashboard();
-pullFromSheets().then(ok=>{if(ok){renderDashboard();toast('☁ DATOS CARGADOS DESDE SHEETS');}});
+pullFromSupabase().then(ok=>{if(ok){renderDashboard();toast('☁ DATOS CARGADOS DESDE SUPABASE');}});
 </script>
 </body>
 </html>
