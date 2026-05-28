@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/api/sync", "destination": "/api/sync" },
+    { "source": "/mri-sales", "destination": "/mri-sales/index.html" },
+    { "source": "/mri-sales/(.*)", "destination": "/mri-sales/$1" }
+  ]
+}
