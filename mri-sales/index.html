@@ -123,6 +123,7 @@ body{animation:flicker 10s infinite}
 .player-card:hover{transform:translate(-3px,-3px)}
 .px-box-blue.player-card:hover{box-shadow:7px 7px 0 #000,0 0 28px rgba(68,136,255,0.3)!important}
 .px-box-purple.player-card:hover{box-shadow:7px 7px 0 #000,0 0 28px rgba(170,68,255,0.3)!important}
+.px-box-yellow.player-card:hover{box-shadow:7px 7px 0 #000,0 0 28px rgba(255,204,0,0.3)!important}
 .player-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.03) 0%,transparent 50%);pointer-events:none;opacity:0;transition:opacity .2s}
 .player-card:hover::after{opacity:1}
 
@@ -133,8 +134,10 @@ body{animation:flicker 10s infinite}
 .player-card:hover .pixel-char{transform:translateY(-3px) scale(1.05)}
 .char-setter{filter:drop-shadow(0 0 10px var(--blue))}
 .char-closer{filter:drop-shadow(0 0 10px var(--purple))}
+.char-ceo{filter:drop-shadow(0 0 10px var(--yellow))}
 .player-card:hover .char-setter{filter:drop-shadow(0 0 18px var(--blue)) brightness(1.2)}
 .player-card:hover .char-closer{filter:drop-shadow(0 0 18px var(--purple)) brightness(1.2)}
+.player-card:hover .char-ceo{filter:drop-shadow(0 0 18px var(--yellow)) brightness(1.2)}
 .card-stars{font-size:16px;color:var(--yellow);letter-spacing:2px;line-height:1;transition:text-shadow .2s}
 .player-card:hover .card-stars{text-shadow:0 0 12px var(--yellow)}
 
@@ -262,10 +265,14 @@ body{animation:flicker 10s infinite}
       <div class="config-group"><div class="config-label">CLOSE RATE CLOSER<br>AMARILLO ≥ (%)</div><input class="px-input" id="cfg-ccy" type="number" value="25" min="0" max="100"></div>
       <div class="config-group"><div class="config-label">AOV MÍNIMO ($)<br>ALERTA SI CAE ABAJO</div><input class="px-input" id="cfg-aov" type="number" value="1700"></div>
       <div class="config-group"><div class="config-label">TICKET PROMEDIO ($)<br>DEFAULT SI NO SE INGRESA</div><input class="px-input" id="cfg-ticket" type="number" value="2500"></div>
+      <div class="config-group"><div class="config-label">MÍN. REELS CUENTA 1<br>POR PERÍODO (CEO)</div><input class="px-input" id="cfg-ceor1" type="number" value="12" min="0"></div>
+      <div class="config-group"><div class="config-label">MÍN. REELS CUENTA 2<br>POR PERÍODO (CEO)</div><input class="px-input" id="cfg-ceor2" type="number" value="12" min="0"></div>
+      <div class="config-group"><div class="config-label">MÍN. VIDEOS YOUTUBE<br>POR PERÍODO (CEO)</div><input class="px-input" id="cfg-ceoyt" type="number" value="4" min="0"></div>
     </div>
     <hr class="px-divider">
     <div style="font-size:9px;color:var(--cyan);letter-spacing:2px;margin-bottom:12px">NOMBRES DEL EQUIPO</div>
     <div class="config-grid">
+      <div class="config-group"><div class="config-label">CEO / DIRECCIÓN</div><input class="px-input" id="cfg-ceon" type="text" value="Alex" maxlength="14"></div>
       <div class="config-group"><div class="config-label">SETTER 1</div><input class="px-input" id="cfg-s1n" type="text" value="Setter 1" maxlength="14"></div>
       <div class="config-group"><div class="config-label">SETTER 2</div><input class="px-input" id="cfg-s2n" type="text" value="Setter 2" maxlength="14"></div>
       <div class="config-group"><div class="config-label">CLOSER 1</div><input class="px-input" id="cfg-c1n" type="text" value="Closer 1" maxlength="14"></div>
@@ -275,6 +282,8 @@ body{animation:flicker 10s infinite}
     <hr class="px-divider">
     <div style="font-size:9px;color:var(--cyan);letter-spacing:2px;margin-bottom:12px">PERSONAS ACTIVAS</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px">
+      <button class="px-btn px-btn-sm tog-on" id="tog-ceo" onclick="tog('ceo')">CEO</button>
+      <span style="width:2px;background:var(--border2);margin:0 6px"></span>
       <button class="px-btn px-btn-sm tog-on" id="tog-s1" onclick="tog('s1')">S1</button>
       <button class="px-btn px-btn-sm" id="tog-s2" onclick="tog('s2')">S2</button>
       <span style="width:2px;background:var(--border2);margin:0 6px"></span>
@@ -318,6 +327,8 @@ body{animation:flicker 10s infinite}
 <!-- TAB: EQUIPO -->
 <div class="tab-content" id="content-equipo">
   <div class="main">
+    <div class="period-label">DIRECCIÓN</div>
+    <div class="grid-auto" id="ceo-cards" style="margin-bottom:24px"></div>
     <div class="period-label">SETTERS</div>
     <div class="grid-auto" id="setter-cards" style="margin-bottom:24px"></div>
     <div class="period-label">CLOSERS</div>
@@ -396,6 +407,30 @@ body{animation:flicker 10s infinite}
   <rect x="5" y="13" width="2" height="1" fill="#00cc66"/>
   <rect x="9" y="13" width="2" height="1" fill="#00cc66"/>
 </symbol>
+<symbol id="sp-ceo" viewBox="0 0 16 16">
+  <rect x="4" y="0" width="1" height="2" fill="#ffcc00"/>
+  <rect x="7" y="0" width="2" height="2" fill="#ffcc00"/>
+  <rect x="11" y="0" width="1" height="2" fill="#ffcc00"/>
+  <rect x="4" y="2" width="8" height="1" fill="#ffd633"/>
+  <rect x="5" y="2" width="1" height="1" fill="#ff3355"/>
+  <rect x="10" y="2" width="1" height="1" fill="#00ddff"/>
+  <rect x="3" y="3" width="10" height="4" fill="#332b1a"/>
+  <rect x="4" y="3" width="8" height="2" fill="#3d3320"/>
+  <rect x="6" y="4" width="1" height="2" fill="#ffffff"/>
+  <rect x="9" y="4" width="1" height="2" fill="#ffffff"/>
+  <rect x="4" y="7" width="8" height="1" fill="#241d12"/>
+  <rect x="2" y="8" width="12" height="4" fill="#ffcc88"/>
+  <rect x="4" y="10" width="2" height="1" fill="#884400"/>
+  <rect x="10" y="10" width="2" height="1" fill="#884400"/>
+  <rect x="5" y="11" width="6" height="1" fill="#ffaa66"/>
+  <rect x="3" y="12" width="10" height="4" fill="#1a1a24"/>
+  <rect x="7" y="12" width="2" height="4" fill="#ffffff"/>
+  <rect x="7" y="12" width="2" height="1" fill="#ffcc00"/>
+  <rect x="6" y="13" width="1" height="1" fill="#ffcc00"/>
+  <rect x="9" y="13" width="1" height="1" fill="#ffcc00"/>
+  <rect x="1" y="9" width="2" height="4" fill="#cc9900"/>
+  <rect x="13" y="9" width="2" height="4" fill="#cc9900"/>
+</symbol>
 <symbol id="dot-g" viewBox="0 0 10 10"><rect x="3" y="0" width="4" height="2" fill="#00ff88"/><rect x="0" y="2" width="10" height="6" fill="#00ff88"/><rect x="3" y="8" width="4" height="2" fill="#00ff88"/></symbol>
 <symbol id="dot-y" viewBox="0 0 10 10"><rect x="3" y="0" width="4" height="2" fill="#ffcc00"/><rect x="0" y="2" width="10" height="6" fill="#ffcc00"/><rect x="3" y="8" width="4" height="2" fill="#ffcc00"/></symbol>
 <symbol id="dot-r" viewBox="0 0 10 10"><rect x="3" y="0" width="4" height="2" fill="#ff3355"/><rect x="0" y="2" width="10" height="6" fill="#ff3355"/><rect x="3" y="8" width="4" height="2" fill="#ff3355"/></symbol>
@@ -404,12 +439,19 @@ body{animation:flicker 10s infinite}
 <script>
 let S={
   cfg:{sbg:20,sby:12,ssg:75,ssy:60,csg:75,csy:60,ccg:35,ccy:25,aov:1700,ticket:2500,
-    names:{s1:'Setter 1',s2:'Setter 2',c1:'Closer 1',c2:'Closer 2',c3:'Closer 3'},
-    active:{s1:true,s2:false,c1:true,c2:true,c3:false}},
+    ceo:{r1:12,r2:12,yt:4},
+    names:{s1:'Setter 1',s2:'Setter 2',c1:'Closer 1',c2:'Closer 2',c3:'Closer 3',ceo:'Alex'},
+    active:{s1:true,s2:false,c1:true,c2:true,c3:false,ceo:true}},
   data:{}
 };
+// Migración suave para datos guardados de versiones previas
+function migrate(){
+  if(!S.cfg.ceo)S.cfg.ceo={r1:12,r2:12,yt:4};
+  if(!S.cfg.names.ceo)S.cfg.names.ceo='Alex';
+  if(S.cfg.active.ceo===undefined)S.cfg.active.ceo=true;
+}
 
-function load(){try{const v=localStorage.getItem('salesos3');if(v)S=JSON.parse(v);}catch(e){}}
+function load(){try{const v=localStorage.getItem('salesos3');if(v)S=JSON.parse(v);}catch(e){}migrate();}
 function save(){try{localStorage.setItem('salesos3',JSON.stringify(S));}catch(e){}}
 
 // ── SYNC VIA PROXY ──
@@ -419,6 +461,7 @@ async function pushData(key){
   const d=S.data[key]||{};
   const tipo=key.startsWith('week')?'week':'month';
   const ids=[];
+  if(S.cfg.active.ceo){const cd=d.ceo||{};ids.push({id:'ceo',p:{leads:cd.reels1||0,appts:cd.reels2||0,calls:cd.yt||0}});}
   ['s1','s2'].forEach(id=>{if(S.cfg.active[id])ids.push({id,p:d[id]||{}});});
   ['c1','c2','c3'].forEach(id=>{if(S.cfg.active[id])ids.push({id,p:d[id]||{}});});
   for(const {id,p} of ids){
@@ -439,13 +482,23 @@ async function pushData(key){
 async function pullData(){
   try{
     const res=await fetch(API);
-    const rows=await res.json();
+    if(!res.ok)return false;
+    // Si el endpoint /api/sync no existe (ej: abriendo el HTML sin backend),
+    // el server devuelve HTML en vez de JSON. Lo detectamos y salimos sin romper.
+    const ct=res.headers.get('content-type')||'';
+    const txt=await res.text();
+    if(!ct.includes('application/json')&&!txt.trim().startsWith('[')&&!txt.trim().startsWith('{')){
+      return false;
+    }
+    let rows;
+    try{rows=JSON.parse(txt);}catch(_){return false;}
     if(!rows||!rows.length) return false;
     rows.forEach(r=>{
       const key=r.key; if(!key) return;
       if(!S.data[key]) S.data[key]={};
       const d=S.data[key];
       const id=r.closer_id; if(!id) return;
+      if(id==='ceo'){d.ceo={reels1:+r.leads||0,reels2:+r.appts||0,yt:+r.calls||0};return;}
       d[id]={leads:+r.leads||0,appts:+r.appts||0,calls:+r.calls||0,shows:+r.shows||0,closes:+r.closes||0,revenue:+r.revenue||0,aov:+r.aov||0};
       if(!d.goals) d.goals={};
       d.goals.team=+r.goal_team||d.goals.team||0;
@@ -455,7 +508,7 @@ async function pullData(){
     });
     save();
     return true;
-  }catch(e){console.error('pull error',e);return false;}
+  }catch(e){console.warn('sync no disponible:',e.message);return false;}
 }
 
 async function syncData(){
@@ -512,6 +565,9 @@ function initModalSelectors(){
 
 // ── DATA HELPERS ──
 function pd(key,id){return(S.data[key]||{})[id]||{leads:0,appts:0,calls:0,shows:0,closes:0,revenue:0,aov:0};}
+function ceoData(key){return(S.data[key]||{}).ceo||{reels1:0,reels2:0,yt:0};}
+// color para conteos del CEO: verde si llega al mínimo, amarillo si >=60% del mínimo, rojo si menos
+function colMin(v,min){if(!min)return'neutral';return v>=min?'green':v>=Math.ceil(min*0.6)?'yellow':'red';}
 function goals(key){return(S.data[key]||{}).goals||{team:0,c1:0,c2:0,c3:0};}
 function pct(a,b){return b>0?Math.round(a/b*100):0;}
 function col(v,g,y){return v>=g?'green':v>=y?'yellow':'red';}
@@ -537,6 +593,7 @@ function renderDashboard(){
   renderCash(key,prev);
   renderRings(key);
   renderHistoric();
+  renderCeo(key,prev);
   renderSetters(key,prev);
   renderClosers(key,prev);
 }
@@ -723,6 +780,56 @@ function renderHistoric(){
   document.getElementById('historic-section').innerHTML=html;
 }
 
+// ── CEO / DIRECCIÓN ──
+function renderCeo(key,prev){
+  const cont=document.getElementById('ceo-cards');
+  if(!cont)return;
+  const active=S.cfg.active.ceo;
+  const d=ceoData(key);const pp=ceoData(prev);
+  const hasPrev=Object.keys(S.data[prev]||{}).length>0;
+  const m=S.cfg.ceo||{r1:0,r2:0,yt:0};
+  const mets=[
+    {name:'REELS CUENTA 1',val:d.reels1||0,prev:pp.reels1||0,min:m.r1||0},
+    {name:'REELS CUENTA 2',val:d.reels2||0,prev:pp.reels2||0,min:m.r2||0},
+    {name:'VIDEO YOUTUBE', val:d.yt||0,    prev:pp.yt||0,    min:m.yt||0}
+  ];
+  const greens=mets.filter(x=>x.min>0&&x.val>=x.min).length;
+  const lv=Math.min(greens,3);
+  const stars='★'.repeat(lv)+'☆'.repeat(3-lv);
+  let rows='';
+  mets.forEach(x=>{
+    const c=colMin(x.val,x.min);
+    rows+=`<div class="metric-row">
+      <div class="metric-name">${x.name}</div>
+      <div class="metric-right">
+        ${hasPrev?deltaBadge(x.val,x.prev,''):''}
+        <div class="metric-value ${c}">${x.val}${x.min?` <span style="font-size:16px;color:var(--text2)">/ ${x.min}</span>`:''}</div>
+        ${x.min?dot(c):''}
+      </div>
+    </div>`;
+  });
+  cont.innerHTML=`<div class="px-box px-box-yellow player-card">
+    <div class="scan"></div>
+    ${!active?'<div class="inactive-overlay">INACTIVO</div>':''}
+    <div class="card-top">
+      <div class="card-char-col">
+        <svg class="pixel-char char-ceo"><use href="#sp-ceo"/></svg>
+        <div class="card-stars">${stars}</div>
+      </div>
+      <div class="card-info-col">
+        <div class="player-role" style="color:var(--yellow)">CEO · DIRECCIÓN</div>
+        <div class="player-name">${S.cfg.names.ceo}</div>
+        <div class="card-sub-stats">
+          <div class="card-sub-stat"><div class="card-sub-label">REELS C1</div><div class="card-sub-val" style="color:var(--text)">${d.reels1||0}</div></div>
+          <div class="card-sub-stat"><div class="card-sub-label">REELS C2</div><div class="card-sub-val" style="color:var(--text)">${d.reels2||0}</div></div>
+          <div class="card-sub-stat"><div class="card-sub-label">YT</div><div class="card-sub-val" style="color:var(--red)">${d.yt||0}</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-metrics">${rows}</div>
+  </div>`;
+}
+
 // ── SETTERS ──
 function renderSetters(key,prev){
   const aC=activeC();let tAppts=0,tShows=0,pAppts=0,pShows=0;
@@ -863,6 +970,16 @@ function renderModalBody(){
   const p=key.split('-');
   const label=`${months[parseInt(p[2])-1]} ${p[1]}`;
   let h=`<div style="font-size:9px;color:var(--cyan);letter-spacing:2px;margin-bottom:14px">PERÍODO: ${label}</div>`;
+  if(S.cfg.active.ceo){
+    const cd=ceoData(key);
+    h+=`<div class="input-title" style="color:var(--yellow)">DIRECCIÓN</div>`;
+    h+=`<div style="margin-bottom:16px"><div style="font-size:9px;color:var(--yellow);letter-spacing:2px;margin-bottom:10px">— ${S.cfg.names.ceo} (CEO) —</div>
+    <div class="input-grid">
+      <div class="input-group"><div class="input-label">REELS CUENTA 1</div><input class="px-input" type="number" min="0" id="m-ceo-reels1" value="${cd.reels1||''}"></div>
+      <div class="input-group"><div class="input-label">REELS CUENTA 2</div><input class="px-input" type="number" min="0" id="m-ceo-reels2" value="${cd.reels2||''}"></div>
+      <div class="input-group"><div class="input-label">VIDEOS YOUTUBE</div><input class="px-input" type="number" min="0" id="m-ceo-yt" value="${cd.yt||''}"></div>
+    </div></div><hr class="px-divider">`;
+  }
   h+=`<div class="input-title">SETTERS</div>`;
   ['s1','s2'].forEach(id=>{
     if(!S.cfg.active[id])return;const d=pd(key,id);
@@ -898,6 +1015,7 @@ function saveModal(){
   const key=mModalKey();
   if(!S.data[key])S.data[key]={};const d=S.data[key];
   const gi=id=>parseInt(document.getElementById(id)?.value||0)||0;
+  if(S.cfg.active.ceo){d.ceo={reels1:gi('m-ceo-reels1'),reels2:gi('m-ceo-reels2'),yt:gi('m-ceo-yt')};}
   ['s1','s2'].forEach(id=>{if(!S.cfg.active[id])return;d[id]={leads:gi(`m-${id}-leads`),appts:gi(`m-${id}-appts`),calls:0,shows:0,closes:0,revenue:0,aov:0};});
   ['c1','c2','c3'].forEach(id=>{if(!S.cfg.active[id])return;d[id]={calls:gi(`m-${id}-calls`),shows:gi(`m-${id}-shows`),closes:gi(`m-${id}-closes`),revenue:gi(`m-${id}-revenue`),aov:gi(`m-${id}-aov`),leads:0,appts:0};});
   d.goals={team:gi('m-goal-team'),c1:gi('m-goal-c1'),c2:gi('m-goal-c2'),c3:gi('m-goal-c3')};
@@ -916,6 +1034,8 @@ function saveConfig(){
   c.csg=+n('cfg-csg').value;c.csy=+n('cfg-csy').value;
   c.ccg=+n('cfg-ccg').value;c.ccy=+n('cfg-ccy').value;
   c.aov=+n('cfg-aov').value;c.ticket=+n('cfg-ticket').value;
+  c.ceo={r1:+n('cfg-ceor1').value||0,r2:+n('cfg-ceor2').value||0,yt:+n('cfg-ceoyt').value||0};
+  {const v=n('cfg-ceon').value.trim();if(v)c.names.ceo=v;}
   ['s1','s2','c1','c2','c3'].forEach(id=>{const v=n('cfg-'+id+'n').value.trim();if(v)c.names[id]=v;});
   save();document.getElementById('cfg-panel').classList.remove('open');renderDashboard();toast('⚙ CONFIG GUARDADA');
 }
@@ -926,6 +1046,9 @@ function syncCfgUI(){
   n('cfg-csg').value=c.csg;n('cfg-csy').value=c.csy;
   n('cfg-ccg').value=c.ccg;n('cfg-ccy').value=c.ccy;
   n('cfg-aov').value=c.aov;n('cfg-ticket').value=c.ticket;
+  n('cfg-ceor1').value=c.ceo.r1;n('cfg-ceor2').value=c.ceo.r2;n('cfg-ceoyt').value=c.ceo.yt;
+  n('cfg-ceon').value=c.names.ceo;
+  n('tog-ceo').classList.toggle('tog-on',c.active.ceo);
   ['s1','s2','c1','c2','c3'].forEach(id=>{
     n('cfg-'+id+'n').value=c.names[id];
     n('tog-'+id).classList.toggle('tog-on',c.active[id]);
