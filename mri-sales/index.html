@@ -884,8 +884,9 @@ function renderCeo(key,prev){
 
 // ── SETTERS ──
 function renderSetters(key,prev){
-  const aC=activeC();let tAppts=0,tShows=0,pAppts=0,pShows=0;
-  aC.forEach(id=>{const d=pd(key,id),pp=pd(prev,id);tAppts+=d.calls||0;tShows+=d.shows||0;pAppts+=pp.calls||0;pShows+=pp.shows||0;});
+  const activeSetters=['s1','s2'].filter(id=>S.cfg.active[id]);let tAppts=0,tShows=0,pAppts=0,pShows=0;
+  // Show rate equipo: calls/shows de los closers activos
+  activeC().forEach(id=>{const d=pd(key,id),pp=pd(prev,id);tAppts+=d.calls||0;tShows+=d.shows||0;pAppts+=pp.calls||0;pShows+=pp.shows||0;});
   const tsr=pct(tShows,tAppts);const ptsr=pct(pShows,pAppts);
   const hasPrev=Object.keys(S.data[prev]||{}).length>0;
   let html='';
