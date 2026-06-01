@@ -515,7 +515,8 @@ async function pullData(){
       const d=S.data[key];
       const id=r.closer_id; if(!id) return;
       if(id==='ceo'){d.ceo={reels1:+r.leads||0,reels2:+r.appts||0,yt:+r.calls||0};return;}
-      d[id]={leads:+r.leads||0,appts:+r.appts||0,calls:+r.calls||0,shows:+r.shows||0,closes:+r.closes||0,revenue:+r.revenue||0,aov:+r.aov||0};
+      const ex=d[id]||{};
+      d[id]={leads:(+r.leads)||ex.leads||0,appts:(+r.appts)||ex.appts||0,calls:(+r.calls)||ex.calls||0,shows:(+r.shows)||ex.shows||0,closes:(+r.closes)||ex.closes||0,revenue:(+r.revenue)||ex.revenue||0,aov:(+r.aov)||ex.aov||0};
       if(!d.goals) d.goals={};
       d.goals.team=+r.goal_team||d.goals.team||0;
       d.goals.c1=+r.goal_c1||d.goals.c1||0;
