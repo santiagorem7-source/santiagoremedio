@@ -515,8 +515,7 @@ async function pullData(){
       const d=S.data[key];
       const id=r.closer_id; if(!id) return;
       if(id==='ceo'){d.ceo={reels1:+r.leads||0,reels2:+r.appts||0,yt:+r.calls||0};return;}
-      const ex=d[id]||{};
-      d[id]={leads:(+r.leads)||ex.leads||0,appts:(+r.appts)||ex.appts||0,calls:(+r.calls)||ex.calls||0,shows:(+r.shows)||ex.shows||0,closes:(+r.closes)||ex.closes||0,revenue:(+r.revenue)||ex.revenue||0,aov:(+r.aov)||ex.aov||0};
+      d[id]={leads:+r.leads||0,appts:+r.appts||0,calls:+r.calls||0,shows:+r.shows||0,closes:+r.closes||0,revenue:+r.revenue||0,aov:+r.aov||0};
       if(!d.goals) d.goals={};
       d.goals.team=+r.goal_team||d.goals.team||0;
       d.goals.c1=+r.goal_c1||d.goals.c1||0;
@@ -587,6 +586,7 @@ function ceoData(key){return(S.data[key]||{}).ceo||{reels1:0,reels2:0,yt:0};}
 function colMin(v,min){if(!min)return'neutral';return v>=min?'green':v>=Math.ceil(min*0.6)?'yellow':'red';}
 function goals(key){return(S.data[key]||{}).goals||{team:0,c1:0,c2:0,c3:0};}
 function pct(a,b){return b>0?Math.round(a/b*100):0;}
+function pctD(a,b){return b>0?Math.round(a/b*1000)/10:0;}
 function col(v,g,y){return v>=g?'green':v>=y?'yellow':'red';}
 function rev(key,id){const d=pd(key,id);return d.revenue>0?d.revenue:d.closes*S.cfg.ticket;}
 function aovVal(key,id){const d=pd(key,id);if(d.aov>0)return d.aov;if(d.closes>0&&d.revenue>0)return Math.round(d.revenue/d.closes);return d.closes>0?S.cfg.ticket:0;}
@@ -596,7 +596,7 @@ function deltaBadge(cur,prev,suffix,invert){
   suffix=suffix||'';
   if(prev===0&&cur===0)return'';
   if(prev===0)return`<span class="delta delta-up">▲ ${cur}${suffix}</span>`;
-  const diff=cur-prev;if(diff===0)return`<span class="delta delta-flat">— ${suffix}</span>`;
+  let diff=Math.round((cur-prev)*10)/10;if(diff===0)return`<span class="delta delta-flat">— ${suffix}</span>`;
   const up=invert?diff<0:diff>0;const sign=diff>0?'+':'';
   return`<span class="delta ${up?'delta-up':'delta-down'}">${up?'▲':'▼'} ${sign}${diff}${suffix}</span>`;
 }
@@ -662,7 +662,7 @@ function renderCompanyMetrics(key,prev){
   });
   const showRate=pct(tShows,tCalls);
   const closeRate=pct(tCloses,tShows);
-  const bookingRate=pct(tAppts,tLeads);
+  const bookingRate=pctD(tAppts,tLeads);
   const avgAov=tCloses>0?Math.round(tRev/tCloses):0;
   const metrics=[
     {icon:'📞',label:'LLAMADAS TOTALES',val:tCalls,color:'blue',sub:hasPrev&&pCalls?deltaBadge(tCalls,pCalls,''):'—'},
@@ -885,16 +885,15 @@ function renderCeo(key,prev){
 
 // ── SETTERS ──
 function renderSetters(key,prev){
-  const activeSetters=['s1','s2'].filter(id=>S.cfg.active[id]);let tAppts=0,tShows=0,pAppts=0,pShows=0;
-  // Show rate equipo: calls/shows de los closers activos
-  activeC().forEach(id=>{const d=pd(key,id),pp=pd(prev,id);tAppts+=d.calls||0;tShows+=d.shows||0;pAppts+=pp.calls||0;pShows+=pp.shows||0;});
+  const aC=activeC();let tAppts=0,tShows=0,pAppts=0,pShows=0;
+  aC.forEach(id=>{const d=pd(key,id),pp=pd(prev,id);tAppts+=d.calls||0;tShows+=d.shows||0;pAppts+=pp.calls||0;pShows+=pp.shows||0;});
   const tsr=pct(tShows,tAppts);const ptsr=pct(pShows,pAppts);
   const hasPrev=Object.keys(S.data[prev]||{}).length>0;
   let html='';
   ['s1','s2'].forEach(id=>{
     const active=S.cfg.active[id];
     const d=pd(key,id);const pp=pd(prev,id);
-    const br=pct(d.appts,d.leads);const pbr=pct(pp.appts,pp.leads);
+    const br=pctD(d.appts,d.leads);const pbr=pctD(pp.appts,pp.leads);
     const brc=col(br,S.cfg.sbg,S.cfg.sby);
     const src=col(tsr,S.cfg.ssg,S.cfg.ssy);
     const stars='★'.repeat(br>=S.cfg.sbg?3:br>=S.cfg.sby?2:1)+'☆'.repeat(br>=S.cfg.sbg?0:br>=S.cfg.sby?1:2);
