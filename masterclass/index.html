@@ -23,7 +23,7 @@ const CONFIG = {
 
   //    OPCIÓN A · Webhook genérico (Google Apps Script o Web3Forms).
   //    Pegá acá la URL que te da cualquiera de los dos.
-  webhookUrl: "",
+  webhookUrl: "https://script.google.com/macros/s/AKfycbyPwpSiizF6S37QYn69LuG-luGTpX9TYDhQ5G8bQ75AI5T3jzoCZYGyv_cu3tI7IaS4/exec",
 
   //    OPCIÓN B · Supabase (ya lo usás en SalesOS). Completá los 3 campos.
   supabase: { url: "", anonKey: "", table: "leads" },
@@ -379,9 +379,10 @@ const CONFIG = {
       });
     }
     if(CONFIG.webhookUrl){
+      // text/plain evita el preflight CORS -> compatible con Google Apps Script
       return fetch(CONFIG.webhookUrl, {
         method:'POST',
-        headers:{'Content-Type':'application/json'},
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
         body:JSON.stringify(payload)
       });
     }
