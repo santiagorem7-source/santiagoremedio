@@ -227,7 +227,8 @@ nav {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: clamp(40px, 5.5vw, 72px);
   font-weight: 800;
-  line-height: 1.0;
+  line-height: 1.1;
+  padding-bottom: 0.14em;
   letter-spacing: -0.04em;
   margin-bottom: 28px;
   opacity: 0;
@@ -969,7 +970,7 @@ footer{display:flex;flex-direction:column;align-items:center;gap:9px;}
   /* Hero rhythm */
   .hero{padding:90px 0 54px;min-height:auto;}
   .brand-lockup{font-size:12px;letter-spacing:0.36em;padding-left:0.36em;margin-bottom:20px;}
-  .hero-title{font-size:36px;line-height:1.06;margin-bottom:20px;}
+  .hero-title{font-size:36px;line-height:1.12;margin-bottom:20px;}
   .hero-subtitle{font-size:16px;line-height:1.55;margin-bottom:28px;}
   .price-pill{margin-bottom:26px;}
   .hero-ctas{gap:12px;margin-bottom:52px;}
@@ -1248,7 +1249,17 @@ footer{display:flex;flex-direction:column;align-items:center;gap:9px;}
 
 /* Serif itálica de acento (mix tipográfico tipo "Trust the process") */
 .ital{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;
-  letter-spacing:0;font-size:1.07em;line-height:.95;}
+  letter-spacing:0;font-size:1.07em;line-height:1;}
+
+/* Glow sutil que sigue al cursor (mismo lenguaje iris) */
+.cursor-glow{
+  position:fixed;top:0;left:0;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;
+  background:radial-gradient(circle, rgba(201,182,255,.16) 0%, rgba(159,216,255,.09) 38%, transparent 70%);
+  pointer-events:none;z-index:0;opacity:0;mix-blend-mode:screen;
+  transition:opacity .6s ease;will-change:transform;
+}
+@media (hover:none){.cursor-glow{display:none;}}
+@media (prefers-reduced-motion:reduce){.cursor-glow{display:none;}}
 
 /* Brillo holográfico en esquina del form (inspirado en "Welcome back") */
 .form-wrap::after{content:'';position:absolute;top:0;left:0;width:55%;height:55%;pointer-events:none;z-index:-1;
@@ -1260,6 +1271,7 @@ footer{display:flex;flex-direction:column;align-items:center;gap:9px;}
 
 <div class="grid-bg"></div>
 <div class="glow-ambient"></div>
+<div class="cursor-glow" aria-hidden="true"></div>
 
 <nav>
   <a href="#inicio" class="nav-logo" aria-label="Santiago Remedio">
@@ -1663,6 +1675,22 @@ footer{display:flex;flex-direction:column;align-items:center;gap:9px;}
     });
   }, { threshold: 0.1 });
   reveals.forEach(el => obs.observe(el));
+
+  // Glow sutil que sigue al cursor (solo con mouse y sin reduced-motion)
+  const cg = document.querySelector('.cursor-glow');
+  if (cg && matchMedia('(hover:hover)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches) {
+    let tx = 0, ty = 0, cx = 0, cy = 0, shown = false, raf = null;
+    function loop() {
+      cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12;
+      cg.style.transform = `translate3d(${cx}px,${cy}px,0)`;
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); } else { raf = null; }
+    }
+    window.addEventListener('mousemove', (e) => {
+      tx = e.clientX; ty = e.clientY;
+      if (!shown) { shown = true; cx = tx; cy = ty; cg.style.opacity = '1'; }
+      if (!raf) raf = requestAnimationFrame(loop);
+    }, { passive: true });
+  }
 
   // Counter animation
   function animateCounter(el) {
