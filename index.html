@@ -1155,6 +1155,103 @@ footer{display:flex;flex-direction:column;align-items:center;gap:9px;}
   .about-content h2{font-size:27px;}
   .form-wrap{padding:32px 18px;}
 }
+
+/* ============================================================
+   COMPARATIVA  (cursos sueltos vs Cardinal)
+   ============================================================ */
+.compare-section{padding:30px 0 40px;}
+.compare{max-width:760px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.compare-head{
+  position:relative;overflow:hidden;border-radius:18px;padding:24px 20px;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;text-align:center;
+}
+.compare-head--alt{background:rgba(255,255,255,.02);border:1px solid var(--border);}
+.compare-head--card{background:var(--glass-strong);border:1px solid var(--border-bright);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.compare-head--card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,#fff,transparent);opacity:.7;}
+.ch-tag{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:#000;background:#fff;padding:4px 11px;border-radius:100px;}
+.ch-label{font-family:'Inter',sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.01em;}
+.compare-head--alt .ch-label{color:var(--gray);}
+.compare-head--card .ch-label{color:#fff;}
+.ch-price{font-family:'Inter',sans-serif;font-weight:800;letter-spacing:-0.02em;}
+.compare-head--alt .ch-price{font-size:18px;color:var(--gray-dim);text-decoration:line-through;}
+.compare-head--card .ch-price{font-size:24px;color:#fff;}
+.ch-price small{font-size:12px;font-weight:600;letter-spacing:0;}
+.compare-head--card .ch-price small{color:var(--gray);}
+.ch-note{font-size:11px;color:var(--gray-dim);}
+
+.compare-cell{
+  display:flex;align-items:center;gap:12px;border-radius:15px;padding:15px 16px;
+  font-size:13.5px;line-height:1.35;
+}
+.compare-cell--alt{background:rgba(255,255,255,.02);border:1px solid var(--border);color:var(--gray-dim);}
+.compare-cell--card{background:var(--glass);border:1px solid var(--glass-border);color:#e8e8e8;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+.cmp-ico{flex-shrink:0;width:24px;height:24px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;}
+.cmp-ico svg{width:12px;height:12px;}
+.cmp-ico--no{background:rgba(255,255,255,.03);border:1px solid var(--border);color:var(--gray-dim);}
+.cmp-ico--yes{background:rgba(255,255,255,.10);border:1px solid var(--border-bright);color:#fff;
+  box-shadow:0 0 12px rgba(255,255,255,.14);}
+
+/* ============================================================
+   CONFIANZA + PAGO
+   ============================================================ */
+.trust-wrap{max-width:620px;margin:30px auto 0;}
+.trust-card{
+  background:var(--glass);border:1px solid var(--glass-border);border-radius:22px;
+  padding:32px 34px;display:flex;flex-direction:column;gap:22px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.trust-row{display:flex;align-items:center;gap:18px;}
+.trust-ico{flex-shrink:0;width:48px;height:48px;border-radius:14px;
+  background:rgba(255,255,255,.06);border:1px solid var(--glass-border);
+  display:flex;align-items:center;justify-content:center;color:#fff;}
+.trust-ico svg{width:23px;height:23px;}
+.trust-txt strong{display:block;font-family:'Inter',sans-serif;font-weight:700;
+  font-size:18px;color:#fff;letter-spacing:-0.01em;line-height:1.2;}
+.trust-txt span{font-size:13.5px;color:var(--gray);}
+
+.pay{text-align:center;max-width:620px;margin:24px auto 0;}
+.pay-label{font-size:13px;color:var(--gray);letter-spacing:.03em;}
+.pay-methods{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.pay-pill{
+  display:flex;align-items:center;justify-content:center;min-width:66px;height:42px;padding:0 16px;
+  border-radius:11px;background:var(--glass);border:1px solid var(--glass-border);
+  color:#cdcdcd;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.pay-pill svg{height:15px;width:auto;display:block;}
+.pay-pill .mc{display:flex;align-items:center;}
+.pay-pill .mc i{width:15px;height:15px;border-radius:50%;display:block;}
+.pay-pill .mc i:first-child{background:#9a9a9a;}
+.pay-pill .mc i:last-child{background:#cfcfcf;margin-left:-7px;mix-blend-mode:screen;}
+
+/* Responsive nuevas secciones */
+@media (max-width:900px){
+  .compare-section{padding:18px 0 30px;}
+}
+@media (max-width:600px){
+  .compare{gap:8px;}
+  .compare-head{padding:18px 12px;}
+  .ch-label{font-size:13.5px;}
+  .compare-head--card .ch-price{font-size:20px;}
+  .compare-head--alt .ch-price{font-size:16px;}
+  .ch-tag{font-size:9px;padding:3px 9px;}
+  .ch-note{font-size:10px;}
+  .compare-cell{padding:12px 11px;font-size:11.5px;gap:9px;border-radius:13px;}
+  .cmp-ico{width:21px;height:21px;}
+  .cmp-ico svg{width:11px;height:11px;}
+  .trust-card{padding:26px 22px;gap:18px;}
+  .trust-row{gap:14px;}
+  .trust-ico{width:44px;height:44px;}
+  .trust-txt strong{font-size:16.5px;}
+  .pay-pill{min-width:0;height:38px;padding:0 13px;}
+}
+@media (max-width:400px){
+  .compare-cell{font-size:10.8px;padding:11px 9px;}
+  .ch-label{font-size:12.5px;}
+}
 </style>
 <link rel="icon" type="image/png" href="data:image/png;base64,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tOi27fb73nP/sTO3My5KpfIXPve5bHYlSojba4BvCkC9amU+W9mzu3tiauX0vff3lF5+6XKld3Bg+vK01hqR3iQNaiAdgnpmIkJiCIZphqFSSrZ39i3Mzx46dPDU2++8+123rsytZHNZUlIRhFINDez54Aff/4mPPEAGuzqz9Fdf+utv/OPXWva6r2uXsmEFjLFCIR8omeDO1VW89dzx2efPl6G3oyM9M3M1qkU5Y0IILgzD4EIIwzAM0zQM0xDCMC3btmw7JgwzbtsawDT5hx9837GbTldD1ZnKoJbFUsAse3j36Lvvu+/k6dOOp+avTl+48OrXv/61hx/+5+Ygvf0uJW85odK4YIzl83nHKaO7slhN3373cW9lkbcPpxO251aDUDEhDGHYpm1almFapmka3DRM0zbtWDKZTmeSyUwqmero7ErF0idP3mCnOhjDw/sGgScWl/LHbrg58KuWabZ3tGsVFNZWn7nw4hOPf+fJn/yopV27kcJWtLnJGRbE5uCVSiQGRw7fdGTIKdZ4pr8jY9aqXn6t4HseaeCcCcPgjDOGnDPGORcGZ0xwpjSR1oYhTr/99DNPXzhx8sbjxw///Vf/oau7PwgrVcdNJJJ2zFxdXR0bG5ucnNy0DbE9xsdND3u0wJ+W1+x4orOjvS3THo/HLcvijEslZSjDMFRaSinDUCqllZJB4AdBQESe53POfL8WdS62ORoV9eK378rswMBG6qPGAQBovb41/6uOKK437x40n3ba6pzTNmzg9ha242ErImp+daPedxThdY4tT2z9aodAt+/Z/8/nX097b3NEdv0a+F+d/+s+m7khVzSnP3zzuB6Kr6d32zLnrePCb423xv/T8V8YOGgA1VPOtgAAAABJRU5ErkJggg==">
 </head>
@@ -1320,6 +1417,50 @@ footer{display:flex;flex-direction:column;align-items:center;gap:9px;}
 </section>
 
 
+<section class="compare-section" id="compara">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Por qué Cardinal</div>
+      <h2 class="section-title">Un curso suelto te da piezas. <span class="iris">Cardinal te da el sistema.</span></h2>
+      <p class="section-desc">Tutoriales sueltos y consultorías a medida te dejan armando el rompecabezas solo. Cardinal te entrega todo conectado, con la comunidad y los recursos al lado.</p>
+    </div>
+
+    <div class="compare reveal">
+      <div class="compare-head compare-head--alt">
+        <span class="ch-label">Cursos &amp; consultorías sueltas</span>
+        <span class="ch-price">$3.000+</span>
+        <span class="ch-note">en piezas, sin sistema</span>
+      </div>
+      <div class="compare-head compare-head--card">
+        <span class="ch-tag">Por tiempo limitado</span>
+        <span class="ch-label">Cardinal</span>
+        <span class="ch-price">$297<small> /año</small></span>
+      </div>
+
+      <div class="compare-cell compare-cell--alt"><span class="cmp-ico cmp-ico--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Sistema de ventas completo</div>
+      <div class="compare-cell compare-cell--card"><span class="cmp-ico cmp-ico--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Sistema de ventas completo</div>
+
+      <div class="compare-cell compare-cell--alt"><span class="cmp-ico cmp-ico--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Comunidad de dueños digitales</div>
+      <div class="compare-cell compare-cell--card"><span class="cmp-ico cmp-ico--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Comunidad de dueños digitales</div>
+
+      <div class="compare-cell compare-cell--alt"><span class="cmp-ico cmp-ico--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Plantillas listas para implementar</div>
+      <div class="compare-cell compare-cell--card"><span class="cmp-ico cmp-ico--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Plantillas listas para implementar</div>
+
+      <div class="compare-cell compare-cell--alt"><span class="cmp-ico cmp-ico--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Setting, calificación y closing</div>
+      <div class="compare-cell compare-cell--card"><span class="cmp-ico cmp-ico--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Setting, calificación y closing</div>
+
+      <div class="compare-cell compare-cell--alt"><span class="cmp-ico cmp-ico--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Automatización e infraestructura</div>
+      <div class="compare-cell compare-cell--card"><span class="cmp-ico cmp-ico--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Automatización e infraestructura</div>
+
+      <div class="compare-cell compare-cell--alt"><span class="cmp-ico cmp-ico--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Equipo y operación</div>
+      <div class="compare-cell compare-cell--card"><span class="cmp-ico cmp-ico--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Equipo y operación</div>
+
+      <div class="compare-cell compare-cell--alt"><span class="cmp-ico cmp-ico--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Actualizaciones sin costo extra</div>
+      <div class="compare-cell compare-cell--card"><span class="cmp-ico cmp-ico--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Actualizaciones sin costo extra</div>
+    </div>
+  </div>
+</section>
+
 <section class="pricing-section" id="precio">
   <div class="container">
     <div class="pricing-card reveal">
@@ -1345,6 +1486,33 @@ footer{display:flex;flex-direction:column;align-items:center;gap:9px;}
 
       <a href="https://www.skool.com/cardinal-6821/" target="_blank" rel="noopener" class="btn-primary btn-block">Entrar a Cardinal <span>→</span></a>
       <p class="price-fine">El precio sube a medida que entra más gente. Cupos limitados.</p>
+    </div>
+
+    <div class="trust-wrap reveal">
+      <div class="trust-card">
+        <div class="trust-row">
+          <span class="trust-ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 21 12 17.5 5.82 21 7 14.14 2 9.27l7.1-1.01L12 2z"/></svg></span>
+          <div class="trust-txt"><strong>4.9 / 5</strong><span>promedio de satisfacción</span></div>
+        </div>
+        <div class="trust-row">
+          <span class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg></span>
+          <div class="trust-txt"><strong>Pago seguro</strong><span>vía Skool · SSL encriptado</span></div>
+        </div>
+        <div class="trust-row">
+          <span class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg></span>
+          <div class="trust-txt"><strong>Sin contratos</strong><span>cancelás cuando quieras</span></div>
+        </div>
+      </div>
+
+      <div class="pay">
+        <span class="pay-label">Pago 100% seguro</span>
+        <div class="pay-methods">
+          <span class="pay-pill"><svg viewBox="0 0 48 16" fill="currentColor"><text x="0" y="13" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="800" font-style="italic" letter-spacing="1">VISA</text></svg></span>
+          <span class="pay-pill"><span class="mc"><i></i><i></i></span></span>
+          <span class="pay-pill"><svg viewBox="0 0 52 16" fill="currentColor"><text x="0" y="13" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="800" font-style="italic">PayPal</text></svg></span>
+          <span class="pay-pill"><svg viewBox="0 0 44 16" fill="currentColor"><text x="0" y="12.5" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="800" letter-spacing="1">AMEX</text></svg></span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
