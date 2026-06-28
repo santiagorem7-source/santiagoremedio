@@ -69,7 +69,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -232,20 +232,10 @@ nav {
   margin-bottom: 28px;
   opacity: 0;
   animation: fadeUp 0.8s ease 0.25s forwards;
-  background: linear-gradient(
-    105deg,
-    #999 0%,
-    #999 35%,
-    #fff 48%,
-    #fff 52%,
-    #999 65%,
-    #999 100%
-  );
-  background-size: 400% 100%;
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 52%, #b4b4b4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeUp 0.8s ease 0.25s forwards, shimmer-title 7s linear infinite;
 }
 
 .hero-title .neon-text {
@@ -826,10 +816,10 @@ footer {
 /* Prismatic text — the glass-dispersion signature, used sparingly */
 .iris{
   background:var(--iris);
-  background-size:220% auto;
+  background-size:130% auto;
+  background-position:center;
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent;
-  animation:irisShift 7s linear infinite;
 }
 @keyframes irisShift{to{background-position:220% center;}}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -874,9 +864,12 @@ footer {
 .g-card:hover::before{opacity:.55;}
 .g-card--more{grid-column:1 / -1;} /* la card "Y más" ocupa la fila completa: el bonus se lee intencional, no huérfano */
 .g-ico{
-  display:flex;align-items:center;justify-content:center;width:50px;height:50px;border-radius:14px;
-  margin-bottom:20px;background:rgba(255,255,255,.06);border:1px solid var(--glass-border);
-  font-size:22px;color:#fff;
+  display:flex;align-items:center;justify-content:center;width:50px;height:54px;border-radius:16px;
+  margin-bottom:20px;font-size:22px;color:#fff;
+  background:linear-gradient(155deg,#3a3a3a 0%,#101010 42%,#1d1d1d 60%,#cfcfcf 100%);
+  border:1px solid rgba(255,255,255,.20);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.40), inset 0 -8px 14px rgba(0,0,0,.55), 0 4px 14px rgba(0,0,0,.4);
+  text-shadow:0 1px 2px rgba(0,0,0,.5);
 }
 .g-card h3{font-family:'Inter',sans-serif;font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;color:#fff;}
 .g-card p{font-size:14px;line-height:1.65;color:var(--gray);}
@@ -889,9 +882,18 @@ footer {
   position:relative;overflow:hidden;max-width:620px;margin:0 auto;text-align:center;
   background:var(--glass);border:1px solid var(--glass-border);border-radius:26px;
   padding:54px 44px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 0 70px rgba(201,182,255,.12);
 }
-.pricing-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,#fff,transparent);opacity:.7;}
+/* Borde con degradé iris animado (inspirado en el input con glow) */
+.pricing-card::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.5px;
+  background:linear-gradient(115deg,#9fd8ff,#c9b6ff,#ffd6ec,#fff3c4,#bfe9ff,#9fd8ff);
+  background-size:300% 300%;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  animation:borderShift 7s linear infinite;pointer-events:none;z-index:2;opacity:.9;}
+/* Brillo holográfico en la esquina superior izquierda (inspirado en "Welcome back") */
+.pricing-card::after{content:'';position:absolute;top:0;left:0;width:60%;height:60%;pointer-events:none;z-index:0;
+  background:radial-gradient(120% 120% at 0 0, rgba(159,216,255,.20), rgba(201,182,255,.10) 38%, transparent 72%);}
 .pricing-halo{
   position:absolute;top:-42%;left:50%;transform:translateX(-50%);
   width:380px;height:380px;filter:blur(72px);opacity:.20;z-index:0;
@@ -1174,8 +1176,12 @@ footer{display:flex;flex-direction:column;align-items:center;gap:9px;}
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   display:flex;align-items:center;justify-content:center;cursor:pointer;
 }
-.vsl-frame::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,#fff,transparent);opacity:.6;z-index:3;}
+.vsl-frame::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.5px;
+  background:linear-gradient(115deg,#9fd8ff,#c9b6ff,#ffd6ec,#fff3c4,#bfe9ff,#9fd8ff);
+  background-size:300% 300%;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  animation:borderShift 7s linear infinite;pointer-events:none;z-index:5;opacity:.9;}
 /* Halo iris detrás del botón play */
 .vsl-frame::after{content:'';position:absolute;width:340px;height:340px;border-radius:50%;
   background:var(--iris);filter:blur(80px);opacity:.16;z-index:0;pointer-events:none;}
@@ -1233,6 +1239,20 @@ footer{display:flex;flex-direction:column;align-items:center;gap:9px;}
   .faq-item summary{font-size:15px;padding:18px 18px;}
   .faq-item .faq-a{font-size:14px;padding:0 18px 18px;}
 }
+
+/* ============================================================
+   PASS v21 — inspiración Pinterest (borde iris animado, serif itálica,
+   sheen holográfico). Paleta: se mantiene negro + blanco + iris.
+   ============================================================ */
+@keyframes borderShift{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+
+/* Serif itálica de acento (mix tipográfico tipo "Trust the process") */
+.ital{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;
+  letter-spacing:0;font-size:1.07em;line-height:.95;}
+
+/* Brillo holográfico en esquina del form (inspirado en "Welcome back") */
+.form-wrap::after{content:'';position:absolute;top:0;left:0;width:55%;height:55%;pointer-events:none;z-index:-1;
+  background:radial-gradient(120% 120% at 0 0, rgba(159,216,255,.16), rgba(201,182,255,.08) 38%, transparent 72%);}
 </style>
 <link rel="icon" type="image/png" href="data:image/png;base64,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tOi27fb73nP/sTO3My5KpfIXPve5bHYlSojba4BvCkC9amU+W9mzu3tiauX0vff3lF5+6XKld3Bg+vK01hqR3iQNaiAdgnpmIkJiCIZphqFSSrZ39i3Mzx46dPDU2++8+123rsytZHNZUlIRhFINDez54Aff/4mPPEAGuzqz9Fdf+utv/OPXWva6r2uXsmEFjLFCIR8omeDO1VW89dzx2efPl6G3oyM9M3M1qkU5Y0IILgzD4EIIwzAM0zQM0xDCMC3btmw7JgwzbtsawDT5hx9837GbTldD1ZnKoJbFUsAse3j36Lvvu+/k6dOOp+avTl+48OrXv/61hx/+5+Ygvf0uJW85odK4YIzl83nHKaO7slhN3373cW9lkbcPpxO251aDUDEhDGHYpm1almFapmka3DRM0zbtWDKZTmeSyUwqmero7ErF0idP3mCnOhjDw/sGgScWl/LHbrg58KuWabZ3tGsVFNZWn7nw4hOPf+fJn/yopV27kcJWtLnJGRbE5uCVSiQGRw7fdGTIKdZ4pr8jY9aqXn6t4HseaeCcCcPgjDOGnDPGORcGZ0xwpjSR1oYhTr/99DNPXzhx8sbjxw///Vf/oau7PwgrVcdNJJJ2zFxdXR0bG5ucnNy0DbE9xsdND3u0wJ+W1+x4orOjvS3THo/HLcvijEslZSjDMFRaSinDUCqllZJB4AdBQESe53POfL8WdS62ORoV9eK378rswMBG6qPGAQBovb41/6uOKK437x40n3ba6pzTNmzg9ha242ErImp+daPedxThdY4tT2z9aodAt+/Z/8/nX097b3NEdv0a+F+d/+s+m7khVzSnP3zzuB6Kr6d32zLnrePCb423xv/T8V8YOGgA1VPOtgAAAABJRU5ErkJggg==">
 </head>
@@ -1256,7 +1276,7 @@ footer{display:flex;flex-direction:column;align-items:center;gap:9px;}
       <div class="brand-lockup">Cardinal</div>
       <h1 class="hero-title">
         Dejá de ser el<br>
-        <span class="iris">cuello de botella</span><br>
+        <span class="iris ital">cuello de botella</span><br>
         de tu propio negocio
       </h1>
       <p class="hero-subtitle">
