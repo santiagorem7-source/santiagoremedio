@@ -1,11 +1,419 @@
 <!DOCTYPE html>
-  <html lang="es">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Masterclass - Santiago Remedio</title>
-  </head>
-  <body>
-      <h1>Masterclass</h1>
-  </body>
-  </html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masterclass gratuita — +35k/mes con ManyChat + Claude | Santiago Remedio</title>
+<meta name="description" content="Masterclass gratuita: cómo sumar +35k/mes extra combinando ManyChat + Claude. 30 minutos. Registrate y mirala ahora.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Cómo sumar +35k/mes con ManyChat + Claude — Masterclass gratuita">
+<meta property="og:description" content="30 minutos. El sistema exacto para captar, calificar y cerrar en automático. Registrate y mirala ahora.">
+<meta property="og:type" content="website">
+
+<!-- ============================================================= -->
+<!--  CONFIGURACIÓN  —  editá SOLO esto                            -->
+<!-- ============================================================= -->
+<script>
+const CONFIG = {
+  // 1) Tu video (ya está el de esta masterclass).
+  videoId: "xCo-lJA-bok",
+
+  // 2) CAPTURA DE LEADS — elegí UNA opción gratis y completala.
+  //    Si dejás las dos vacías, el video igual se desbloquea pero NO se guarda el contacto.
+
+  //    OPCIÓN A · Webhook genérico (Google Apps Script o Web3Forms).
+  //    Pegá acá la URL que te da cualquiera de los dos.
+  webhookUrl: "",
+
+  //    OPCIÓN B · Supabase (ya lo usás en SalesOS). Completá los 3 campos.
+  supabase: { url: "", anonKey: "", table: "leads" },
+
+  // 3) Código de país por defecto en el campo de teléfono.
+  defaultDialCode: "+598", // Uruguay
+};
+</script>
+<!-- ============================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#000000;
+    --panel-line:rgba(255,255,255,0.10);
+    --silver-2:#c9ccd2;
+    --silver-3:#8a8d95;
+    --text:#e9eaee;
+    --muted:#9498a1;
+    --muted-2:#6c707a;
+    --chrome-a:#f4f5f7;
+    --chrome-c:#7d808a;
+    --radius:20px;
+    --maxw:560px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--black);color:var(--text);
+    font-family:'Poppins',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;overflow-x:hidden;position:relative;
+  }
+
+  .bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+  .bg .grid{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);
+    background-size:54px 54px;
+    -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 32%,#000 0%,transparent 72%);
+            mask-image:radial-gradient(ellipse 80% 60% at 50% 32%,#000 0%,transparent 72%);
+  }
+  .bg .glow-1{
+    position:absolute;top:-18%;left:50%;transform:translateX(-50%);
+    width:760px;height:520px;border-radius:50%;
+    background:radial-gradient(circle,rgba(200,205,215,0.16),transparent 65%);
+    filter:blur(30px);
+  }
+  .bg .glow-2{
+    position:absolute;bottom:-12%;right:-8%;width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle,rgba(120,124,134,0.12),transparent 68%);
+    filter:blur(40px);
+  }
+  .bg .vignette{
+    position:absolute;inset:0;
+    background:radial-gradient(ellipse 120% 100% at 50% 0%,transparent 40%,rgba(0,0,0,0.7) 100%);
+  }
+
+  .wrap{
+    position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;
+    padding:clamp(28px,7vh,72px) 22px 64px;
+    display:flex;flex-direction:column;align-items:center;
+    text-align:center;min-height:100vh;
+  }
+
+  .brand{
+    font-family:'Poppins';font-weight:600;font-size:13px;letter-spacing:.04em;
+    color:var(--muted);display:inline-flex;align-items:center;gap:9px;
+    margin-bottom:clamp(30px,6vh,52px);
+  }
+  .brand .clogo{
+    width:24px;height:24px;border-radius:7px;display:block;object-fit:cover;
+    box-shadow:0 0 0 1px rgba(255,255,255,.10),0 2px 10px rgba(0,0,0,.6);
+  }
+  .brand b{color:var(--text);font-weight:600}
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:7px 15px 7px 11px;border-radius:999px;
+    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    border:1px solid var(--panel-line);
+    box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 6px 20px rgba(0,0,0,.4);
+    font-family:'Poppins';font-weight:500;font-size:12.5px;letter-spacing:.06em;
+    color:var(--silver-2);text-transform:uppercase;margin-bottom:24px;
+  }
+  .eyebrow .dot{
+    width:7px;height:7px;border-radius:50%;background:#cfd2d8;
+    box-shadow:0 0 10px 1px rgba(207,210,216,.7);animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+  h1{
+    font-family:'Inter';font-weight:800;
+    font-size:clamp(31px,8.5vw,46px);line-height:1.05;letter-spacing:-.02em;
+    margin-bottom:18px;
+    background:linear-gradient(180deg,#ffffff 0%,#cfd2d8 52%,#9a9da6 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+  }
+  h1 .shine{
+    background:linear-gradient(110deg,#8e9098 0%,#ffffff 28%,#ffffff 42%,#8e9098 70%);
+    background-size:220% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+    animation:shimmer 4.5s linear infinite;
+  }
+  @keyframes shimmer{to{background-position:-220% 0}}
+
+  .sub{
+    font-family:'Poppins';font-weight:400;font-size:clamp(15px,4vw,17px);line-height:1.55;
+    color:var(--muted);max-width:452px;margin-bottom:30px;
+  }
+
+  .card{
+    width:100%;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.018));
+    border:1px solid var(--panel-line);border-radius:var(--radius);
+    box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 30px 80px -30px rgba(0,0,0,.9);
+    padding:14px 14px 22px;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);text-align:left;
+  }
+
+  .frame{
+    position:relative;width:100%;aspect-ratio:16/9;border-radius:13px;overflow:hidden;
+    background:#0c0d0f;border:1px solid rgba(255,255,255,.08);
+  }
+  .frame .thumb{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    filter:brightness(.45) saturate(.6) blur(2px);transform:scale(1.04);
+  }
+  .frame .lockface{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:11px;
+    background:radial-gradient(ellipse at center,rgba(0,0,0,.25),rgba(0,0,0,.6));
+    transition:opacity .5s ease;
+  }
+  .lockface .lk{
+    width:46px;height:46px;border-radius:13px;display:grid;place-items:center;
+    background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.03));
+    border:1px solid rgba(255,255,255,.16);box-shadow:0 8px 24px rgba(0,0,0,.5);
+  }
+  .lockface .lk svg{width:20px;height:20px;stroke:#dfe1e6}
+  .lockface p{
+    font-family:'Poppins';font-weight:500;font-size:13px;letter-spacing:.04em;
+    color:var(--silver-2);text-transform:uppercase;
+  }
+  .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+  .form{margin-top:16px;display:flex;flex-direction:column;gap:11px}
+  .field{position:relative;display:flex;flex-direction:column;gap:7px}
+  .field label{
+    font-family:'Poppins';font-weight:500;font-size:12px;letter-spacing:.04em;
+    color:var(--muted-2);text-transform:uppercase;padding-left:2px;
+  }
+  .inputrow{display:flex;gap:9px}
+  input,select{
+    width:100%;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.11);
+    border-radius:12px;padding:14px 15px;color:var(--text);
+    font-family:'Poppins';font-weight:400;font-size:15px;
+    transition:border-color .2s,box-shadow .2s,background .2s;outline:none;
+  }
+  input::placeholder{color:#5d616b}
+  input:focus,select:focus{
+    border-color:rgba(220,223,229,.55);background:rgba(0,0,0,.5);
+    box-shadow:0 0 0 3px rgba(200,205,215,.12);
+  }
+  select{
+    flex:0 0 104px;width:104px;padding-left:13px;cursor:pointer;
+    color:var(--silver-2);font-weight:500;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a8d95' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 11px center;
+    -webkit-appearance:none;appearance:none;
+  }
+  .err{font-family:'Poppins';font-size:12.5px;color:#e7a4a4;padding-left:2px;display:none}
+  .err.show{display:block}
+
+  .cta{
+    margin-top:6px;width:100%;border:none;cursor:pointer;
+    padding:15px 20px;border-radius:13px;
+    font-family:'Inter';font-weight:700;font-size:15.5px;letter-spacing:-.01em;color:#0a0a0b;
+    background:linear-gradient(180deg,#fafbfc 0%,#cfd2d8 48%,#aeb1ba 100%);
+    box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 10px 30px -8px rgba(190,195,205,.45),0 4px 14px rgba(0,0,0,.5);
+    transition:transform .15s ease,box-shadow .2s,filter .2s;
+    display:flex;align-items:center;justify-content:center;gap:9px;
+  }
+  .cta:hover{transform:translateY(-1px);filter:brightness(1.05)}
+  .cta:active{transform:translateY(0)}
+  .cta:disabled{opacity:.6;cursor:wait;transform:none}
+  .cta .spin{
+    width:16px;height:16px;border-radius:50%;
+    border:2px solid rgba(10,10,11,.3);border-top-color:#0a0a0b;
+    animation:rot .7s linear infinite;display:none;
+  }
+  .cta.loading .spin{display:inline-block}
+  .cta.loading .label{opacity:.7}
+  @keyframes rot{to{transform:rotate(360deg)}}
+
+  .trust{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:18px}
+  .trust span{
+    font-family:'Poppins';font-weight:400;font-size:12px;color:var(--muted-2);
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .trust svg{width:13px;height:13px;stroke:var(--silver-3);flex:none}
+
+  .foot{
+    margin-top:auto;padding-top:40px;
+    font-family:'Poppins';font-size:12px;color:#52555d;letter-spacing:.02em;
+  }
+  .foot b{color:var(--muted)}
+
+  .unlocked .lockface{opacity:0;pointer-events:none}
+  .unlocked .form,.unlocked .trust{display:none}
+  .reveal-note{
+    display:none;text-align:center;margin-top:16px;
+    font-family:'Poppins';font-weight:500;font-size:13.5px;color:var(--silver-2);
+  }
+  .unlocked .reveal-note{display:block;animation:fadein .6s ease both}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  @media (max-width:420px){
+    .inputrow{flex-direction:column}
+    select{width:100%;flex:1}
+    .trust{gap:14px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto}
+    .cta:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="grid"></div><div class="glow-1"></div><div class="glow-2"></div><div class="vignette"></div>
+  </div>
+
+  <main class="wrap">
+    <div class="brand">
+      <img class="clogo" alt="Cardinal logo" src="data:image/jpeg;base64,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">
+      <b>Cardinal</b>
+    </div>
+
+    <span class="eyebrow"><span class="dot"></span> Masterclass gratuita · 30 min</span>
+
+    <h1>Cómo sumar <span class="shine">+35k/mes</span> con ManyChat&nbsp;+&nbsp;Claude</h1>
+
+    <p class="sub">En 30 minutos te muestro, sin vueltas, cómo conecto ManyChat con Claude para que los DMs califiquen y agenden solos — y cómo eso suma más de 35k al mes sin agrandar el equipo.</p>
+
+    <div class="card" id="card">
+      <div class="frame" id="frame">
+        <img class="thumb" id="thumb" alt="" src="">
+        <div class="lockface" id="lockface">
+          <div class="lk">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <p>Registrate para desbloquear</p>
+        </div>
+      </div>
+
+      <form class="form" id="form" novalidate>
+        <div class="field">
+          <label for="email">Tu mejor email</label>
+          <input type="email" id="email" name="email" placeholder="nombre@email.com" autocomplete="email" inputmode="email" required>
+        </div>
+        <div class="field">
+          <label for="phone">Tu WhatsApp</label>
+          <div class="inputrow">
+            <select id="dial" name="dial" aria-label="Código de país">
+              <option value="+598">🇺🇾 +598</option>
+              <option value="+54">🇦🇷 +54</option>
+              <option value="+56">🇨🇱 +56</option>
+              <option value="+57">🇨🇴 +57</option>
+              <option value="+52">🇲🇽 +52</option>
+              <option value="+51">🇵🇪 +51</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+1">🇺🇸 +1</option>
+            </select>
+            <input type="tel" id="phone" name="phone" placeholder="99 123 456" autocomplete="tel" inputmode="tel" required>
+          </div>
+        </div>
+        <p class="err" id="err"></p>
+        <button type="submit" class="cta" id="cta">
+          <span class="spin"></span>
+          <span class="label">Desbloquear la masterclass →</span>
+        </button>
+      </form>
+
+      <div class="trust">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Acceso inmediato</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Tus datos seguros</span>
+      </div>
+
+      <p class="reveal-note">Listo — ya estás adentro. Mirala completa 👆</p>
+    </div>
+
+    <p class="foot">© <span id="yr"></span> <b>Santiago Remedio</b> · Hecho para dueños de negocios digitales</p>
+  </main>
+
+<script>
+(function(){
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  var thumb = document.getElementById('thumb');
+  if(CONFIG.videoId && CONFIG.videoId !== "VIDEO_ID"){
+    thumb.src = "https://img.youtube.com/vi/"+CONFIG.videoId+"/maxresdefault.jpg";
+  }
+
+  var dial = document.getElementById('dial');
+  if(CONFIG.defaultDialCode){
+    for(var i=0;i<dial.options.length;i++){
+      if(dial.options[i].value===CONFIG.defaultDialCode){dial.selectedIndex=i;break;}
+    }
+  }
+
+  var form=document.getElementById('form'), cta=document.getElementById('cta'),
+      err=document.getElementById('err'), card=document.getElementById('card'),
+      frame=document.getElementById('frame');
+
+  function showErr(m){ err.textContent=m; err.classList.add('show'); }
+  function clearErr(){ err.classList.remove('show'); }
+
+  function unlock(){
+    card.classList.add('unlocked');
+    if(CONFIG.videoId && CONFIG.videoId !== "VIDEO_ID"){
+      var ifr=document.createElement('iframe');
+      ifr.src="https://www.youtube.com/embed/"+CONFIG.videoId+"?autoplay=1&rel=0&modestbranding=1";
+      ifr.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      ifr.setAttribute('allowfullscreen','');
+      ifr.title="Masterclass";
+      frame.appendChild(ifr);
+    }
+  }
+
+  // guarda el lead en la opción que tengas configurada (Supabase o webhook genérico)
+  function saveLead(payload){
+    var sb = CONFIG.supabase || {};
+    if(sb.url && sb.anonKey){
+      var base = sb.url.replace(/\/+$/,'');
+      return fetch(base+"/rest/v1/"+(sb.table||"leads"), {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'apikey':sb.anonKey,
+          'Authorization':'Bearer '+sb.anonKey,
+          'Prefer':'return=minimal'
+        },
+        body:JSON.stringify(payload)
+      });
+    }
+    if(CONFIG.webhookUrl){
+      return fetch(CONFIG.webhookUrl, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload)
+      });
+    }
+    return Promise.resolve(); // sin captura configurada
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    clearErr();
+
+    var email=document.getElementById('email').value.trim();
+    var phone=document.getElementById('phone').value.trim();
+    var code=dial.value;
+
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showErr('Poné un email válido para entrar.'); return; }
+    if(phone.replace(/\D/g,'').length < 6){ showErr('Poné un número de WhatsApp válido.'); return; }
+
+    cta.classList.add('loading'); cta.disabled=true;
+
+    var payload={
+      email:email,
+      phone:code+" "+phone,
+      source:"masterclass-manychat-claude",
+      url:location.href,
+      ts:new Date().toISOString()
+    };
+
+    function done(){ cta.classList.remove('loading'); cta.disabled=false; unlock(); }
+    // aunque falle el guardado, no castigamos al usuario: igual desbloquea
+    saveLead(payload).then(done).catch(done);
+  });
+})();
+</script>
+</body>
+</html>
