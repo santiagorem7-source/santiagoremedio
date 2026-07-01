@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>El Sistema Cardinal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#000000;
+    --panel:rgba(255,255,255,.030);
+    --panel-2:rgba(255,255,255,.055);
+    --line:rgba(255,255,255,.085);
+    --line-2:rgba(255,255,255,.14);
+    --txt:#EAECEF;
+    --txt-2:#9AA1AC;
+    --txt-3:#5F6771;
+    --chrome-a:#FFFFFF;
+    --chrome-b:#C2CAD4;
+    --chrome-c:#828B97;
+    --flow:#D7DEE7;
+    --flow-glow:rgba(197,212,229,.55);
+    --warn:#E8A33D;
+    --warn-glow:rgba(232,163,61,.55);
+    --crit:#E5484D;
+    --crit-glow:rgba(229,72,77,.55);
+    --ok:#8FD6B0;
+    --r:18px;
+    --ff-d:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --ff-b:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--void);color:var(--txt);font-family:var(--ff-b);
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{position:relative;overflow-x:hidden;min-height:100vh}
+
+  /* ---- ambient background: masked grid + radial glows (Cardinal signature) ---- */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:46px 46px;
+    -webkit-mask-image:radial-gradient(120% 90% at 50% 6%,#000 0%,transparent 72%);
+            mask-image:radial-gradient(120% 90% at 50% 6%,#000 0%,transparent 72%);
+    opacity:.5;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(700px 460px at 50% -8%,rgba(190,205,225,.10),transparent 60%),
+      radial-gradient(620px 620px at 88% 108%,rgba(150,170,200,.07),transparent 60%);
+  }
+
+  .wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(16px,4vw,40px) 90px}
+
+  /* ---------------- header ---------------- */
+  .eyebrow{display:inline-flex;align-items:center;gap:.6em;font-family:var(--ff-d);
+    font-weight:600;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--txt-2)}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--flow);
+    box-shadow:0 0 12px var(--flow-glow)}
+  h1{font-family:var(--ff-d);font-weight:900;letter-spacing:-.02em;line-height:.98;
+    font-size:clamp(40px,8.4vw,84px);margin:.32em 0 .28em}
+  .shimmer{
+    color:#E2E8F1;
+    text-shadow:
+      0 0 4px rgba(230,238,250,.45),
+      0 0 14px rgba(190,208,236,.26),
+      0 0 34px rgba(150,182,230,.15);
+  }
+  .lede{max-width:60ch;font-size:clamp(15px,1.7vw,18px);line-height:1.65;color:var(--txt-2);margin:0}
+  .lede b{color:var(--txt);font-weight:600}
+
+  /* ---------------- HUD ---------------- */
+  .hud{margin:clamp(28px,4vw,44px) 0 8px;border:1px solid var(--line-2);border-radius:var(--r);
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 24px 60px -30px rgba(0,0,0,.9);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    padding:clamp(16px,2.4vw,24px);display:grid;gap:18px;
+    grid-template-columns:1.25fr 1fr;align-items:end}
+  .hud .lbl{font-family:var(--ff-d);font-weight:600;font-size:10.5px;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--txt-3);margin-bottom:8px}
+  .flowNum{font-family:var(--ff-d);font-weight:900;line-height:.9;letter-spacing:-.03em;
+    font-size:clamp(46px,8vw,74px);font-variant-numeric:tabular-nums}
+  .flowNum small{font-size:.42em;font-weight:800;color:var(--txt-2);margin-left:.12em}
+  .money{font-size:13px;color:var(--txt-2);margin-top:6px}
+  .money b{color:var(--flow);font-weight:600}
+  .bar{height:8px;border-radius:99px;background:rgba(255,255,255,.06);
+    border:1px solid var(--line);overflow:hidden;margin-top:14px}
+  .bar > i{display:block;height:100%;width:100%;border-radius:99px;
+    background:linear-gradient(90deg,#8B93A0,#FFFFFF 60%,#C6CDD6);
+    box-shadow:0 0 18px var(--flow-glow);transition:width .6s cubic-bezier(.2,.8,.2,1),background .4s}
+
+  .prio{border-left:1px solid var(--line);padding-left:clamp(14px,2vw,22px)}
+  .chip{display:inline-flex;align-items:center;gap:.6em;max-width:100%;
+    font-family:var(--ff-d);font-weight:700;font-size:clamp(15px,2vw,19px);letter-spacing:-.01em;
+    padding:.5em .85em;border-radius:12px;border:1px solid var(--line-2);
+    background:rgba(255,255,255,.04);color:var(--txt)}
+  .chip .pin{width:9px;height:9px;border-radius:50%;flex:0 0 auto;background:var(--crit);
+    box-shadow:0 0 12px var(--crit-glow)}
+  .chip.clean{color:var(--ok)}
+  .chip.clean .pin{background:var(--ok);box-shadow:0 0 12px rgba(143,214,176,.5)}
+  .prio .hint{font-size:12.5px;color:var(--txt-3);margin-top:9px;line-height:1.5}
+
+  .console{grid-column:1/-1;font-family:var(--ff-d);font-weight:500;font-size:12.5px;
+    color:var(--txt-2);border-top:1px solid var(--line);padding-top:14px;min-height:1.2em;
+    display:flex;align-items:center;gap:.7em}
+  .console .caret{color:var(--flow)}
+
+  .controls{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+    justify-content:space-between}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  button.act{font-family:var(--ff-d);font-weight:600;font-size:13px;letter-spacing:.01em;color:var(--txt);
+    padding:.68em 1.15em;border-radius:12px;cursor:pointer;
+    border:1px solid var(--line-2);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.12);transition:transform .15s,border-color .2s,box-shadow .2s}
+  button.act:hover{border-color:rgba(255,255,255,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 0 22px rgba(190,205,225,.14)}
+  button.act:active{transform:translateY(1px)}
+  button.act:focus-visible{outline:2px solid var(--flow);outline-offset:2px}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:var(--txt-2)}
+  .legend span{display:inline-flex;align-items:center;gap:.5em}
+  .legend .k{width:9px;height:9px;border-radius:50%}
+  .k.optimo{background:var(--flow);box-shadow:0 0 10px var(--flow-glow)}
+  .k.cuello{background:var(--warn);box-shadow:0 0 10px var(--warn-glow)}
+  .k.fuga{background:var(--crit);box-shadow:0 0 10px var(--crit-glow)}
+
+  /* ---------------- the system ---------------- */
+  .stage-wrap{position:relative;margin-top:34px;padding-left:0}
+  .system-col{display:flex;flex-direction:column;align-items:stretch;gap:0}
+
+  /* source + vault shells */
+  .terminal{position:relative;border-radius:var(--r);border:1px solid var(--line-2);
+    background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.015));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 30px 70px -40px rgba(0,0,0,1);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    padding:clamp(18px,2.6vw,26px);display:flex;align-items:center;gap:18px}
+  .orb{flex:0 0 auto;width:66px;height:66px;border-radius:50%;position:relative;
+    background:radial-gradient(circle at 38% 34%,#FFFFFF,#C6CDD6 34%,#5A626D 78%,#2A2E34 100%);
+    box-shadow:0 0 34px rgba(197,212,229,.4),inset 0 2px 6px rgba(255,255,255,.6),inset 0 -6px 14px rgba(0,0,0,.5);
+    animation:pulse 3.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 26px rgba(197,212,229,.32),inset 0 2px 6px rgba(255,255,255,.6),inset 0 -6px 14px rgba(0,0,0,.5)}
+    50%{box-shadow:0 0 46px rgba(197,212,229,.55),inset 0 2px 6px rgba(255,255,255,.7),inset 0 -6px 14px rgba(0,0,0,.5)}}
+  .terminal .tt{font-family:var(--ff-d);font-weight:800;font-size:11px;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--txt-3)}
+  .terminal .th{font-family:var(--ff-d);font-weight:800;font-size:clamp(18px,2.6vw,24px);letter-spacing:-.01em;margin-top:3px}
+  .terminal .ts{font-size:12.5px;color:var(--txt-2);margin-top:3px;line-height:1.5}
+
+  /* vault */
+  .vault{align-items:stretch}
+  .vault .vbody{flex:0 0 auto;width:120px;height:96px;border-radius:14px;position:relative;overflow:hidden;
+    border:1px solid var(--line-2);background:rgba(0,0,0,.5);
+    box-shadow:inset 0 2px 8px rgba(0,0,0,.7)}
+  .vault .fill{position:absolute;left:0;right:0;bottom:0;height:12%;
+    background:linear-gradient(180deg,#FFFFFF,#C6CDD6 40%,#8B93A0);
+    box-shadow:0 0 26px var(--flow-glow),0 -1px 0 rgba(255,255,255,.9);
+    transition:height .7s cubic-bezier(.2,.85,.2,1),background .4s}
+  .vault .fill::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:rgba(255,255,255,.9)}
+  .vault .vmeta{display:flex;flex-direction:column;justify-content:center}
+  .vault .vpct{font-family:var(--ff-d);font-weight:900;font-size:clamp(22px,3.4vw,30px);
+    letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:4px}
+
+  /* connectors */
+  .conn{height:54px;position:relative}
+  /* faint static rail — always visible, brightens with flow */
+  .conn .wire{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);border-radius:2px;
+    background:linear-gradient(180deg,rgba(215,222,231,.03),rgba(215,222,231,.17) 50%,rgba(215,222,231,.03));
+    opacity:calc(.4 + var(--lvl,1) * .6)}
+  /* current: a periodic dashed gradient scrolled by exactly one tile → seamless loop */
+  .conn .flow{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);border-radius:2px;
+    background:repeating-linear-gradient(180deg,
+      rgba(234,241,255,0) 0px,
+      rgba(234,241,255,0) 8px,
+      #EAF1FF 12px,
+      rgba(234,241,255,0) 16px,
+      rgba(234,241,255,0) 24px);
+    background-size:100% 24px;
+    filter:drop-shadow(0 0 5px var(--flow-glow));
+    opacity:var(--lvl,1);
+    will-change:background-position;
+    animation:flow 1.4s linear infinite}
+  @keyframes flow{from{background-position:0 0}to{background-position:0 24px}}
+
+  /* phase card */
+  .phase{position:relative;border-radius:var(--r);border:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(255,255,255,.032),rgba(255,255,255,.008));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+    padding:clamp(16px,2.3vw,22px)}
+  .phead{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+  .pnum{font-family:var(--ff-d);font-weight:800;font-size:12px;letter-spacing:.04em;color:var(--txt);
+    padding:.42em .72em;border-radius:99px;border:1px solid var(--line-2);
+    background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.02));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.16);flex:0 0 auto}
+  .pname{font-family:var(--ff-d);font-weight:800;font-size:clamp(17px,2.4vw,21px);letter-spacing:-.01em}
+  .pmetric{font-family:var(--ff-d);font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--txt-2);padding:.36em .7em;border-radius:8px;border:1px solid var(--line);
+    background:rgba(255,255,255,.03);margin-left:auto}
+  .pdesc{width:100%;font-size:12.5px;color:var(--txt-3);margin-top:-6px;line-height:1.5}
+
+  .rail{display:flex;flex-wrap:wrap;gap:10px}
+
+  /* node = chrome glass capsule */
+  .node{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;
+    text-align:left;cursor:pointer;border-radius:14px;padding:.62em .9em .6em;
+    border:1px solid var(--line-2);
+    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 8px 20px -12px rgba(0,0,0,.9);
+    -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+    color:var(--txt);font-family:var(--ff-b);transition:transform .16s,border-color .25s,box-shadow .25s,background .25s;
+    -webkit-tap-highlight-color:transparent}
+  .node:hover{transform:translateY(-2px)}
+  .node:focus-visible{outline:2px solid var(--flow);outline-offset:2px}
+  .node .nname{font-family:var(--ff-d);font-weight:700;font-size:13.5px;letter-spacing:-.01em;
+    display:flex;align-items:center;gap:.5em}
+  .node .nstat{width:8px;height:8px;border-radius:50%;flex:0 0 auto;background:var(--flow);
+    box-shadow:0 0 9px var(--flow-glow);transition:background .25s,box-shadow .25s}
+  .node .nsub{font-size:10.5px;color:var(--txt-3);letter-spacing:.01em}
+
+  .node[data-state="cuello"]{border-color:rgba(232,163,61,.6);
+    background:linear-gradient(180deg,rgba(232,163,61,.14),rgba(232,163,61,.03));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 24px var(--warn-glow)}
+  .node[data-state="cuello"] .nstat{background:var(--warn);box-shadow:0 0 11px var(--warn-glow)}
+  .node[data-state="cuello"] .nsub{color:#E8A33D}
+  .node[data-state="fuga"]{border-color:rgba(229,72,77,.65);
+    background:linear-gradient(180deg,rgba(229,72,77,.15),rgba(229,72,77,.03));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 26px var(--crit-glow)}
+  .node[data-state="fuga"] .nstat{background:var(--crit);box-shadow:0 0 12px var(--crit-glow)}
+  .node[data-state="fuga"] .nsub{color:#E5484D}
+
+  /* the single binding constraint: steady outline + seamless expanding halo */
+  .node.binding{border-color:rgba(229,72,77,.85);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 0 1.5px rgba(229,72,77,.85),0 0 30px var(--crit-glow)}
+  .node.binding::after{content:"";position:absolute;inset:0;border-radius:14px;pointer-events:none;
+    box-shadow:0 0 0 0 rgba(229,72,77,.45);
+    animation:ring 1.8s ease-out infinite}
+  @keyframes ring{from{box-shadow:0 0 0 0 rgba(229,72,77,.45)}
+    to{box-shadow:0 0 0 16px rgba(229,72,77,0)}}
+
+  /* reinversión return line (desktop) — rises from the vault back up to the source */
+  .loop{position:absolute;left:10px;top:16px;bottom:100px;width:38px;pointer-events:none;
+    border-left:1.5px solid rgba(255,255,255,.20);
+    border-bottom:1.5px solid rgba(255,255,255,.20);
+    border-bottom-left-radius:22px;
+    box-shadow:inset 1px 0 0 rgba(255,255,255,.08),-16px 0 44px -24px rgba(190,205,225,.3)}
+  /* arrowhead caps the top of the line, pointing up — flow returns to the source */
+  .loop .up{position:absolute;left:-4px;top:-7px;width:0;height:0;
+    border-left:5px solid transparent;border-right:5px solid transparent;
+    border-bottom:8px solid rgba(215,222,231,.85);
+    filter:drop-shadow(0 0 4px var(--flow-glow))}
+  .loop .spark{position:absolute;left:-3px;width:7px;height:7px;border-radius:50%;
+    background:var(--flow);box-shadow:0 0 12px var(--flow-glow);bottom:0;
+    animation:rise 3.2s ease-in-out infinite}
+  @keyframes rise{0%{bottom:0;opacity:0}12%{opacity:1}84%{opacity:1}100%{bottom:calc(100% - 7px);opacity:0}}
+  .loop .rl{position:absolute;left:12px;top:50%;transform:translateY(-50%) rotate(180deg);
+    writing-mode:vertical-rl;font-family:var(--ff-d);font-weight:700;font-size:10px;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--txt-3);white-space:nowrap}
+
+  .reloop-mobile{display:none}
+
+  /* concept card */
+  .concept{margin-top:30px;border:1px solid var(--line);border-radius:var(--r);
+    background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,.006));
+    padding:clamp(18px,2.6vw,26px)}
+  .concept h3{font-family:var(--ff-d);font-weight:800;font-size:15px;letter-spacing:.02em;margin:0 0 10px}
+  .concept p{font-size:14px;line-height:1.7;color:var(--txt-2);margin:0 0 16px;max-width:74ch}
+  .concept p b{color:var(--txt);font-weight:600}
+  .gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+  .gloss dt{font-family:var(--ff-d);font-weight:700;font-size:12.5px;color:var(--txt);margin-bottom:2px}
+  .gloss dd{margin:0;font-size:12px;color:var(--txt-3);line-height:1.55}
+  .src{margin-top:18px;font-size:11px;color:var(--txt-3);letter-spacing:.02em}
+
+  /* responsive */
+  @media (min-width:760px){
+    .stage-wrap{padding-left:74px}
+  }
+  @media (max-width:759px){
+    .hud{grid-template-columns:1fr}
+    .prio{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:16px}
+    .controls{flex-direction:column;align-items:stretch}
+    .legend{justify-content:flex-start}
+    .loop{display:none}
+    .reloop-mobile{display:flex;align-items:center;gap:.6em;justify-content:center;
+      margin-top:14px;font-family:var(--ff-d);font-weight:600;font-size:12px;color:var(--txt-2);
+      border:1px dashed var(--line-2);border-radius:12px;padding:.7em 1em}
+    .reloop-mobile b{color:var(--flow)}
+    .terminal{flex-direction:column;text-align:center;gap:14px}
+    .terminal .pdesc,.terminal .ts{text-align:center}
+    .vault .vbody{width:100%;height:64px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="eyebrow"><span class="dot"></span>Cardinal · Modelo de negocio</span>
+    <h1><span class="shimmer">El Sistema</span></h1>
+    <p class="lede">Tu negocio no es una cañería. Es un <b>sistema de energía</b>: el valor entra por La Fuente como corriente y solo llega a La Bóveda si el flujo no se estrangula en el camino. Cada etapa que convierte mal es una <b>fuga</b> — y las fugas se multiplican hacia abajo. No escalás metiendo más entrada; primero encontrás y tapás la fuga más cara.</p>
+  </header>
+
+  <!-- HUD -->
+  <section class="hud" aria-label="Estado del sistema">
+    <div>
+      <div class="lbl">Flujo a La Bóveda</div>
+      <div class="flowNum"><span id="flowNum">100</span><small>%</small></div>
+      <div class="money">De cada $100 de potencial, llegan <b id="moneyOut">$100</b> a La Bóveda.</div>
+      <div class="bar"><i id="flowBar"></i></div>
+    </div>
+    <div class="prio">
+      <div class="lbl">Prioridad · qué tapar primero</div>
+      <div class="chip clean" id="prioChip"><span class="pin"></span><span id="prioTxt">Sistema limpio — escalá la entrada</span></div>
+      <div class="hint" id="prioHint">Ninguna fuga activa. Con el flujo al 100%, la palanca es subir el volumen que entra por La Fuente.</div>
+    </div>
+    <div class="console"><span class="caret">›</span><span id="consoleMsg">Tocá cualquier etapa para simular un cuello de botella o una fuga y ver cómo cae tu flujo.</span></div>
+    <div class="controls">
+      <div class="legend">
+        <span><i class="k optimo"></i>Óptimo · 100%</span>
+        <span><i class="k cuello"></i>Cuello · 65%</span>
+        <span><i class="k fuga"></i>Fuga · 40%</span>
+      </div>
+      <div class="btns">
+        <button class="act" id="btnBreak">Simular fugas</button>
+        <button class="act" id="btnReset">Reiniciar sistema</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYSTEM -->
+  <div class="stage-wrap">
+    <div class="loop" aria-hidden="true">
+      <span class="up"></span>
+      <span class="spark"></span>
+      <span class="rl">Reinversión</span>
+    </div>
+
+    <div class="system-col" id="systemCol">
+      <!-- LA FUENTE -->
+      <div class="terminal">
+        <div class="orb" aria-hidden="true"></div>
+        <div>
+          <div class="tt">La Fuente</div>
+          <div class="th">Mercado · valor bruto</div>
+          <div class="ts">Todo el dinero que existe para tu oferta. La corriente arranca acá — pero nada de esto es tuyo hasta que llega abajo.</div>
+        </div>
+      </div>
+
+      <div class="conn" data-conn="0" style="--lvl:1"><span class="wire"></span><span class="flow"></span></div>
+      <!-- phases injected here -->
+      <div id="phaseHost"></div>
+
+      <!-- LA BÓVEDA -->
+      <div class="terminal vault">
+        <div class="vbody" aria-hidden="true"><div class="fill" id="vaultFill"></div></div>
+        <div class="vmeta">
+          <div class="tt">La Bóveda</div>
+          <div class="th">Profit</div>
+          <div class="vpct"><span id="vaultPct">100</span><small style="font-size:.5em;color:var(--txt-2);font-weight:800">% del potencial</small></div>
+        </div>
+      </div>
+
+      <div class="reloop-mobile">↺&nbsp; <b>Reinversión</b>&nbsp;— el profit vuelve arriba a comprar más entrada.</div>
+    </div>
+  </div>
+
+  <!-- CONCEPT -->
+  <section class="concept">
+    <h3>Cómo leer el sistema</h3>
+    <p>El flujo que llega a La Bóveda es el <b>producto</b> de la eficiencia de cada etapa, no la suma. Por eso una sola fuga te estrangula todo: podés tener veinte etapas perfectas, pero si una convierte al 40%, tu negocio entero opera al 40%. <b>Basura entra, basura sale.</b> Escalar no es empujar más gente por un sistema que gotea — es taparle la fuga más cara y recién ahí abrir la canilla de arriba.</p>
+    <dl class="gloss">
+      <div><dt>La Fuente</dt><dd>El mercado y su valor bruto. La entrada de corriente.</dd></div>
+      <div><dt>Cuello de botella</dt><dd>Una etapa que convierte peor de lo que debería. Achica el caudal que pasa por todo el sistema.</dd></div>
+      <div><dt>Fuga</dt><dd>Valor que se escapa: no-shows, objeciones sin resolver, churn, upsell no activado.</dd></div>
+      <div><dt>La Bóveda</dt><dd>Lo que efectivamente cae en profit. Se llena a la altura de tu flujo real.</dd></div>
+      <div><dt>Reinversión</dt><dd>El profit que vuelve arriba a subir el volumen de entrada — el loop que hace escalar.</dd></div>
+    </dl>
+    <div class="src">Concepto de tubería / cuellos de botella de SYK, reinterpretado para Cardinal.</div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var STATES = {
+    optimo:{ef:1.00, label:"Óptimo"},
+    cuello:{ef:0.65, label:"Cuello"},
+    fuga:  {ef:0.40, label:"Fuga"}
+  };
+  var CYCLE = ["optimo","cuello","fuga"];
+
+  // Cardinal reframe of the SYK pipeline — 4 phases, source → vault
+  var PHASES = [
+    { num:"01", name:"Captación", metric:"Estrella polar · ABR",
+      desc:"Convertís atención en llamadas agendadas que aparecen.",
+      nodes:[
+        {name:"Contenido", sub:"orgánico + ads", leak:"contenido que no genera conversación"},
+        {name:"Prospección", sub:"ManyChat / DM", leak:"poco volumen (<100/día)"},
+        {name:"Nueva conversación", sub:"primer contacto", leak:"no seguís al que no responde"},
+        {name:"Calificación", sub:"¿es tu ICO?", leak:"metés basura al calendario"},
+        {name:"Agenda", sub:"Calendly", leak:"demasiada fricción para reservar"},
+        {name:"Show", sub:"que aparezca", leak:"no-show sin recordatorio"}
+      ]},
+    { num:"02", name:"Cierre", metric:"SCR · cash collected",
+      desc:"La llamada: convertís interés en dinero cobrado.",
+      nodes:[
+        {name:"Marco", sub:"tomás control", leak:"llamada sin marco ni permiso"},
+        {name:"Descubrimiento", sub:"amplificás dolor", leak:"descubrimiento pobre, no calificás"},
+        {name:"Presentación", sub:"puente al vehículo", leak:"vendés servicio, no resultado"},
+        {name:"Objeciones", sub:"resolvés dudas", leak:"objeciones sin resolver"},
+        {name:"Transición a pago", sub:"pedís la venta", leak:"no cerrás con alternativa doble"},
+        {name:"Pago", sub:"cash collected", leak:"cuota impaga, cobro flojo"}
+      ]},
+    { num:"03", name:"Entrega", metric:"Casos de éxito · churn",
+      desc:"Producís el resultado prometido. Sin esto no hay reventa.",
+      nodes:[
+        {name:"Onboarding", sub:"primeras 48h", leak:"arranque lento, se enfría"},
+        {name:"Accesos", sub:"carpetas + docs", leak:"cliente perdido sin acceso"},
+        {name:"Ejecución", sub:"hacés el trabajo", leak:"entrega mediocre"},
+        {name:"Llamada 1 a 1", sub:"seguimiento", leak:"lo dejás solo"},
+        {name:"Resultado", sub:"caso de éxito", leak:"sin resultado no hay caso"}
+      ]},
+    { num:"04", name:"Escala", metric:"Recompra · IEN < 1",
+      desc:"Convertís resultados en crecimiento y en más entrada.",
+      nodes:[
+        {name:"Métricas", sub:"medís todo", leak:"decidís por emoción, no por dato"},
+        {name:"Testear", sub:"iterás", leak:"no probás variantes"},
+        {name:"Ganadores", sub:"detectás lo que gana", leak:"no leés qué funciona"},
+        {name:"Escalar", sub:"invertís en win", leak:"escalás lo que no gana"},
+        {name:"Upsell / Resell", sub:"exprimís el LTV", leak:"garantía / upsell no activada"}
+      ]}
+  ];
+
+  // flatten
+  var NODES = [];
+  PHASES.forEach(function(ph, pi){
+    ph.nodes.forEach(function(nd, ni){
+      NODES.push({ phase:ph.name, phaseNum:ph.num, name:nd.name, sub:nd.sub, leak:nd.leak,
+        state:"optimo", pi:pi, ni:ni, el:null });
+    });
+  });
+
+  // ---- build DOM ----
+  var host = document.getElementById("phaseHost");
+  PHASES.forEach(function(ph, pi){
+    var card = document.createElement("div");
+    card.className = "phase";
+    var head = document.createElement("div");
+    head.className = "phead";
+    head.innerHTML =
+      '<span class="pnum">'+ph.num+'</span>'+
+      '<span class="pname">'+ph.name+'</span>'+
+      '<span class="pmetric">'+ph.metric+'</span>'+
+      '<span class="pdesc">'+ph.desc+'</span>';
+    card.appendChild(head);
+    var rail = document.createElement("div");
+    rail.className = "rail";
+    NODES.filter(function(n){return n.pi===pi;}).forEach(function(n){
+      var b = document.createElement("button");
+      b.className = "node";
+      b.type = "button";
+      b.setAttribute("data-state","optimo");
+      b.setAttribute("aria-label", n.phase+" · "+n.name+", estado óptimo. Tocá para cambiar.");
+      b.innerHTML =
+        '<span class="nname"><span class="nstat"></span>'+n.name+'</span>'+
+        '<span class="nsub">'+n.sub+'</span>';
+      b.addEventListener("click", function(){ cycle(n); });
+      n.el = b;
+      rail.appendChild(b);
+    });
+    card.appendChild(rail);
+    host.appendChild(card);
+
+    // connector after this phase
+    var conn = document.createElement("div");
+    conn.className = "conn";
+    conn.setAttribute("data-conn", String(pi+1));
+    conn.style.setProperty("--lvl","1");
+    conn.innerHTML = '<span class="wire"></span><span class="flow"></span>';
+    host.appendChild(conn);
+  });
+
+  // ---- refs ----
+  var flowNum = document.getElementById("flowNum");
+  var flowBar = document.getElementById("flowBar");
+  var moneyOut = document.getElementById("moneyOut");
+  var vaultFill = document.getElementById("vaultFill");
+  var vaultPct = document.getElementById("vaultPct");
+  var prioChip = document.getElementById("prioChip");
+  var prioTxt = document.getElementById("prioTxt");
+  var prioHint = document.getElementById("prioHint");
+  var consoleMsg = document.getElementById("consoleMsg");
+
+  function cycle(n){
+    var i = CYCLE.indexOf(n.state);
+    n.state = CYCLE[(i+1)%CYCLE.length];
+    n.el.setAttribute("data-state", n.state);
+    var st = STATES[n.state];
+    n.el.setAttribute("aria-label", n.phase+" · "+n.name+", estado "+st.label+". Tocá para cambiar.");
+    if(n.state==="optimo"){
+      consoleMsg.textContent = n.phase+" · "+n.name+" → reparada. Flujo restaurado en esa etapa.";
+    } else if(n.state==="cuello"){
+      consoleMsg.textContent = n.phase+" · "+n.name+" → CUELLO. Ahí se te achica el caudal: "+n.leak+".";
+    } else {
+      consoleMsg.textContent = n.phase+" · "+n.name+" → FUGA. Se te escapa valor: "+n.leak+".";
+    }
+    recompute();
+  }
+
+  function recompute(){
+    // cumulative product after each phase
+    var cum = 1;
+    var cumAfterPhase = [];
+    for(var p=0;p<PHASES.length;p++){
+      var phaseProd = 1;
+      NODES.forEach(function(n){ if(n.pi===p){ phaseProd *= STATES[n.state].ef; } });
+      cum *= phaseProd;
+      cumAfterPhase[p] = cum;
+    }
+    var total = cum; // 0..1
+
+    // paint connectors: conn 0 = 1 (source→f1), conn k = cumAfterPhase[k-1]
+    var conns = document.querySelectorAll(".conn");
+    conns.forEach(function(c){
+      var idx = parseInt(c.getAttribute("data-conn"),10);
+      var lvl = idx===0 ? 1 : cumAfterPhase[idx-1];
+      var shown = Math.max(0.10, lvl);
+      c.style.setProperty("--lvl", shown.toFixed(3));
+    });
+
+    // numbers
+    var pct = Math.round(total*100);
+    var shownPct = (total>0 && pct===0) ? "<1" : String(pct);
+    flowNum.textContent = shownPct;
+    vaultPct.textContent = shownPct;
+    moneyOut.textContent = "$"+pct;
+    flowBar.style.width = Math.max(2, total*100).toFixed(1)+"%";
+    vaultFill.style.height = Math.max(6, total*100).toFixed(1)+"%";
+
+    // color the flow bar + fill by health
+    var barGrad, fillGrad;
+    if(total>=0.85){ barGrad="linear-gradient(90deg,#8B93A0,#FFFFFF 60%,#C6CDD6)"; }
+    else if(total>=0.55){ barGrad="linear-gradient(90deg,#B98530,#E8A33D 60%,#F3C579)"; }
+    else { barGrad="linear-gradient(90deg,#B23B3F,#E5484D 60%,#F08A8D)"; }
+    flowBar.style.background = barGrad;
+    vaultFill.style.background = (total>=0.85)
+      ? "linear-gradient(180deg,#FFFFFF,#C6CDD6 40%,#8B93A0)"
+      : (total>=0.55)
+        ? "linear-gradient(180deg,#F3C579,#E8A33D 45%,#B98530)"
+        : "linear-gradient(180deg,#F08A8D,#E5484D 45%,#B23B3F)";
+
+    // binding constraint = the single worst node
+    NODES.forEach(function(n){ n.el.classList.remove("binding"); });
+    var broken = NODES.filter(function(n){ return n.state!=="optimo"; });
+    if(broken.length===0){
+      prioChip.className = "chip clean";
+      prioTxt.textContent = "Sistema limpio — escalá la entrada";
+      prioHint.textContent = "Ninguna fuga activa. Con el flujo al 100%, la palanca es subir el volumen que entra por La Fuente.";
+    } else {
+      // lowest ef; tie-break by earliest in the pipeline
+      broken.sort(function(a,b){
+        var d = STATES[a.state].ef - STATES[b.state].ef;
+        if(d!==0) return d;
+        return (a.pi-b.pi) || (a.ni-b.ni);
+      });
+      var worst = broken[0];
+      worst.el.classList.add("binding");
+      prioChip.className = "chip";
+      prioTxt.textContent = worst.phase+" · "+worst.name;
+      var lost = Math.round((1-total)*100);
+      prioHint.textContent = "Tu fuga más cara. Tapala primero: recuperás flujo antes de tocar cualquier otra cosa. Hoy perdés "+lost+"% del potencial.";
+    }
+  }
+
+  document.getElementById("btnReset").addEventListener("click", function(){
+    NODES.forEach(function(n){ n.state="optimo"; n.el.setAttribute("data-state","optimo"); });
+    consoleMsg.textContent = "Sistema reiniciado. Todas las etapas al 100%.";
+    recompute();
+  });
+
+  document.getElementById("btnBreak").addEventListener("click", function(){
+    // reset then break 2-3 random nodes to demo compounding
+    NODES.forEach(function(n){ n.state="optimo"; n.el.setAttribute("data-state","optimo"); });
+    var idxs = NODES.map(function(_,i){return i;});
+    for(var s=idxs.length-1;s>0;s--){ var j=Math.floor(Math.random()*(s+1)); var t=idxs[s]; idxs[s]=idxs[j]; idxs[j]=t; }
+    var k = 2 + Math.floor(Math.random()*2); // 2 or 3
+    for(var q=0;q<k;q++){
+      var n = NODES[idxs[q]];
+      n.state = Math.random()<0.5 ? "cuello" : "fuga";
+      n.el.setAttribute("data-state", n.state);
+    }
+    consoleMsg.textContent = "Simulación: "+k+" etapas con problemas. Mirá cómo se multiplican hacia abajo.";
+    recompute();
+  });
+
+  recompute();
+})();
+</script>
+</body>
+</html>
