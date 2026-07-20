@@ -3,292 +3,354 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bolsa de Trabajo — Cardinal</title>
-<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<title>Bolsa de Trabajo — Prime Cardinal</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAFl0lEQVR4nO2aP0wUTxTH38wsGOIFw2EOEik4cs0ZQ0GCCZWFQIMJBBpI1EBFZWNpoYkmFmhtjKV0FhZYWZBgRwFcvCgQiELUePI/5oC7g935/gqd8dY7fsfd7jGXeN9kC46dnfc+7+3umzfLiAj0D4ubNsC0qgBMG2BaVQCmDTCtKgDTBphWFYBpA0yrCsC0Aab1zwOwznpCxhgxxojzk9kDcB1ltYfOYDXIGCMhBEkpSUpZ1FjOOXHOSUpZFiBlBaAi7TiO/u3ChQsUiUQoEolQS0sLBYNBqqurIykl7e/v09bWFn39+pU+ffpE6+vrdHBw4LqmZVklgTzRRioTACGEdjwYDFJ/fz8NDAzQ1atXqbm5ueB4x3EokUhQPB6nd+/e0fT0NMViMd8czxb8PoQQICLU19fjwYMH+P79O7Jl27br74ODA2xtbWFnZwdHR0c4SfF4HI8ePUJ7ezs452CM+WGvv85blgUiQk9PD1ZWVlxO27aN4+NjAEAikcDExASuX7+O1tZWNDY2IhQK4fLlyxgeHsarV680qEwm4wLhOA5u3Ljhgl0RAJTzd+7c0cYeHx9DSumK/OTkJEKhUMHrdXV14ePHj3qs4zhIp9MAgJs3b7rmNA5AGXL37l0dJcdxctL++fPnrjFCCJ3OjDFwziGE0Ne7ePEiPnz4oK9p2zaklBgeHq4cACoN+/v7c6KunJdSIhaLQQihnS503ZqaGhARotEoDg8P4TiOvoVGRkYqAwDnHJxzNDU1YXt7G1JKV+RV5ACgt7e3aKMVhKdPnwIAUqlUZQFQ0X/x4oWOfj7n4/G4TvFiATPG0NrailQqpbPLLwCe1gKqyAmHw3T79m2SUpIQwnWOem+/fv2aAPxvCZxPUkpijNH6+jrNzs6SZVkFS+mifPA0+LcRt27donPnzmlj850zMzNDRFRSKcs5J8YYvXnzhvb29mhvb4/S6bQX010qOX3Uk3tubg5SypwCRz0Ik8kkmpqa9JhS56upqUFDQwMaGhpQW1vr9d739gxQ93JLS4t+N2c/+bPv/+XlZX2+T9Wbb0fJt4BK9Wg0emL6q3T/8eMHSSmJc+55NaeW037JM4C2tjYioryLFOXs7u6ua4wXweclsedHaSgUKnhOMpkkIn8A+C3PAM6fP1/wnKOjI6/TlE3/fE/QM4C/Ozb5VFtb63WasskzgM3NzYLnBAIBIiqtCCq3SgagnFlbW/t1oTylqXroNTY2usZUkjwDWFpaokwmk/cdrwA0Nzfrzq6XN4HqEKvDL3kuhefn5wuWwqoDVGmVoKeNESEE2bZNU1NT1NHRkTcDpJQUCAQoGo3S5uZmTpv8tOKcUyQS0ZnGGKMvX77Q4eGhFxeIyEsd/bu+D4fDSKfTcBwnZz2g+gP379//RbzI9bsQAowxdHZ2ulpi+/v7uHTpksuOEg9vKXTahsj79+9LaogoYBMTEwCgF15v3771w3nvAIppiXV3dxeVBQpYIBBAIpGAlFLvGwwODpaUUb4DyM6CQk3RhYUF3fU9TeTUmv/x48cA/uwPxONxWJblR/T9AZAdiUJt8WfPnrnG5GuLq9+JCH19fXpDRUX/2rVrLvAVASAbQqGNkZcvX55qY2R0dBSpVAq2bWvn792756fz/gLIhnCarbEnT56gu7sb4XBYb41duXIFY2NjmJ6edkEDgIcPH7rmqEgA2dEpZXP07/8BwOrqKoaGhvyOfPkA/G1oMBjE2NgYpqamkEgkchzMp58/f2JmZgbj4+MIBALlch4V9YFEMpmkjY0N+vz5My0uLtK3b9/0uOzvDXy1kcoIQE9S4icyapzjOGVbSZ4JANeERXwkVY6vQXLsoTMGUGmq9gRNG2BaVQCmDTCtKgDTBphWFYBpA0yrCsC0AaZVBWDaANP6D/lBuiWGCzWzAAAAAElFTkSuQmCC">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Inter:wght@400;600;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Inter:wght@400;600;800;900&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --black:#000000;
-    --silver-hi:#f5f5f5;
-    --silver-mid:#b8b8b8;
-    --silver-lo:#6e6e6e;
-    --glass:rgba(255,255,255,0.04);
-    --glass-border:rgba(255,255,255,0.10);
-    --glass-border-hi:rgba(255,255,255,0.22);
-  }
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  input,textarea,button,.check{touch-action:manipulation;}
-  html{scroll-behavior:smooth;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+
   body{
-    background:var(--black);
-    color:var(--silver-hi);
+    background:#000;
+    color:#fff;
     font-family:'Poppins',sans-serif;
     min-height:100vh;
     overflow-x:hidden;
     position:relative;
   }
-  /* ---- fondo: grid enmascarado + glows radiales ---- */
-  .bg-grid{
-    position:fixed;inset:0;pointer-events:none;z-index:0;
+
+  /* Grid enmascarado */
+  body::before{
+    content:'';
+    position:fixed;inset:0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
     background-size:56px 56px;
-    -webkit-mask-image:radial-gradient(ellipse 70% 55% at 50% 12%, black 30%, transparent 75%);
-            mask-image:radial-gradient(ellipse 70% 55% at 50% 12%, black 30%, transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse 80% 55% at 50% 0%, #000 30%, transparent 75%);
+    mask-image:radial-gradient(ellipse 80% 55% at 50% 0%, #000 30%, transparent 75%);
+    pointer-events:none;
+    z-index:0;
   }
-  .glow{position:fixed;pointer-events:none;z-index:0;border-radius:50%;filter:blur(90px);will-change:transform;}
-  .glow-1{width:620px;height:620px;top:-260px;left:50%;background:radial-gradient(circle, rgba(255,255,255,0.10), transparent 65%);animation:drift1 18s ease-in-out infinite alternate;}
-  .glow-2{width:460px;height:460px;bottom:-200px;right:-140px;background:radial-gradient(circle, rgba(255,255,255,0.05), transparent 65%);animation:drift2 22s ease-in-out infinite alternate;}
-  .glow-3{width:380px;height:380px;top:38%;left:-180px;background:radial-gradient(circle, rgba(255,255,255,0.045), transparent 65%);animation:drift3 26s ease-in-out infinite alternate;}
-  @keyframes drift1{from{transform:translateX(-58%) translateY(0);}to{transform:translateX(-42%) translateY(46px);}}
-  @keyframes drift2{from{transform:translate(0,0) scale(1);}to{transform:translate(-60px,-50px) scale(1.12);}}
-  @keyframes drift3{from{transform:translate(0,0);}to{transform:translate(70px,-60px);}}
 
-  /* particulas chrome flotando */
-  .spark{position:fixed;z-index:0;pointer-events:none;width:4px;height:4px;border-radius:50%;
-    background:linear-gradient(135deg,#fff,#9a9a9a);opacity:.35;
-    animation:float var(--t,14s) ease-in-out infinite alternate;}
-  @keyframes float{from{transform:translateY(0);}to{transform:translateY(-46px);}}
+  /* Glow radial superior */
+  body::after{
+    content:'';
+    position:fixed;
+    top:-220px;left:50%;
+    transform:translateX(-50%);
+    width:900px;height:520px;
+    background:radial-gradient(ellipse at center, rgba(255,255,255,.09) 0%, transparent 65%);
+    pointer-events:none;
+    z-index:0;
+  }
 
-  .wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:64px 20px 96px;}
+  .wrap{
+    position:relative;z-index:1;
+    max-width:640px;
+    margin:0 auto;
+    padding:56px 22px 80px;
+  }
 
-  /* ---- wordmark Prime Cardinal ---- */
+  /* ---------- Header ---------- */
   .wordmark{
-    font-family:'EB Garamond',serif;font-weight:500;
-    font-size:22px;letter-spacing:0.04em;
-    color:var(--silver-hi);
+    font-family:'EB Garamond',serif;
+    font-weight:600;
+    font-size:1.35rem;
+    letter-spacing:.02em;
+    color:#fff;
+    text-align:center;
+    margin-bottom:34px;
   }
-
-  header{text-align:center;margin-bottom:44px;}
-  header .wordmark{display:block;margin-bottom:26px;}
 
   h1{
-    font-family:'EB Garamond',serif;font-weight:600;
-    font-size:clamp(44px,8vw,66px);
-    line-height:1.05;letter-spacing:0.01em;
-    color:#ffffff;
-    margin-bottom:22px;
+    font-family:'EB Garamond',serif;
+    font-weight:600;
+    font-size:clamp(2.5rem, 8vw, 3.4rem);
+    line-height:1.08;
+    color:#fff;
+    text-align:center;
+    margin-bottom:16px;
   }
 
   .intro{
-    color:var(--silver-mid);font-size:15px;line-height:1.75;font-weight:300;
-    max-width:560px;margin:0 auto 18px;
+    text-align:center;
+    font-weight:300;
+    font-size:.95rem;
+    line-height:1.65;
+    color:rgba(255,255,255,.6);
+    max-width:480px;
+    margin:0 auto 52px;
   }
-  .intro strong{color:var(--silver-hi);font-weight:600;}
-  .reqs{
-    text-align:left;max-width:440px;margin:20px auto 0;
-    background:var(--glass);border-radius:16px;
-    padding:20px 26px;
-    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+
+  /* ---------- Títulos de sección ---------- */
+  .section-title{
+    font-family:'EB Garamond',serif;
+    font-weight:600;
+    font-size:clamp(1.5rem, 5vw, 1.9rem);
+    color:#fff;
+    text-align:center;
+    margin-bottom:22px;
+  }
+
+  /* ---------- Video ---------- */
+  .video-section{margin-bottom:56px;}
+
+  .video-frame{
     position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.03);
+    box-shadow:0 20px 60px rgba(0,0,0,.6);
   }
-  .reqs::before{
-    content:'';position:absolute;inset:0;border-radius:16px;padding:1px;
-    background:conic-gradient(from var(--a,0deg), rgba(255,255,255,0.55), rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.06) 75%, rgba(255,255,255,0.55));
-    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-            mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite:xor;mask-composite:exclude;
-    animation:spin 7s linear infinite;
-    pointer-events:none;
+  .video-frame iframe{
+    position:absolute;top:0;left:0;
+    width:100%;height:100%;
+    border:0;
   }
-  @property --a{syntax:'<angle>';initial-value:0deg;inherits:false;}
-  @keyframes spin{to{--a:360deg;}}
-  @media (prefers-reduced-motion: reduce){
-    .glow-1,.glow-2,.glow-3,.spark,.reqs::before{animation:none;}
-  }
-  .reqs p{font-family:'Inter',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--silver-hi);margin-bottom:12px;}
-  .reqs ul{list-style:none;}
-  .reqs li{color:var(--silver-mid);font-size:14px;line-height:1.6;padding-left:22px;position:relative;margin-bottom:6px;font-weight:300;}
-  .reqs li::before{content:'';position:absolute;left:2px;top:9px;width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,#fff,#777);}
 
-  /* ---- form card ---- */
-  form{
-    background:var(--glass);
-    border:1px solid var(--glass-border);
-    border-radius:24px;
-    padding:40px 34px;
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 80px rgba(0,0,0,0.7);
+  /* ---------- Cards glass ---------- */
+  .card{
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:20px;
+    padding:30px 26px;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    margin-bottom:36px;
   }
-  .field{margin-bottom:26px;}
+
+  .card p{
+    font-weight:300;
+    font-size:.9rem;
+    line-height:1.7;
+    color:rgba(255,255,255,.65);
+  }
+  .card p + p{margin-top:12px;}
+  .card p strong{color:#fff;font-weight:500;}
+
+  /* ---------- Formulario ---------- */
   label{
-    display:block;font-family:'Inter',sans-serif;font-weight:600;font-size:12px;
-    letter-spacing:0.14em;text-transform:uppercase;color:var(--silver-mid);
-    margin-bottom:10px;
+    display:block;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:.8rem;
+    letter-spacing:.02em;
+    color:rgba(255,255,255,.85);
+    margin-bottom:8px;
   }
-  label .req{color:#fff;}
-  input[type=text],input[type=tel],input[type=url],textarea{
-    width:100%;
-    background:rgba(255,255,255,0.03);
-    border:1px solid var(--glass-border);
-    border-radius:12px;
-    padding:14px 16px;
-    color:var(--silver-hi);
-    font-family:'Poppins',sans-serif;font-size:16px;font-weight:300;
-    outline:none;
-    transition:border-color .2s, background .2s, box-shadow .2s;
-  }
-  input::placeholder,textarea::placeholder{color:var(--silver-lo);}
-  input:focus,textarea:focus{
-    border-color:var(--glass-border-hi);
-    background:rgba(255,255,255,0.06);
-    box-shadow:0 0 0 3px rgba(255,255,255,0.06);
-  }
-  textarea{resize:vertical;min-height:110px;}
 
-  .checks{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .field{margin-bottom:22px;}
+
+  input[type="text"], input[type="url"], textarea{
+    width:100%;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:12px;
+    padding:13px 15px;
+    font-family:'Poppins',sans-serif;
+    font-weight:300;
+    font-size:.9rem;
+    color:#fff;
+    outline:none;
+    transition:border-color .2s, background .2s;
+  }
+  input::placeholder, textarea::placeholder{color:rgba(255,255,255,.3);}
+  input:focus, textarea:focus{
+    border-color:rgba(255,255,255,.45);
+    background:rgba(255,255,255,.06);
+  }
+  textarea{resize:vertical;min-height:84px;}
+
+  /* Checkboxes talento */
+  .checks{display:flex;flex-wrap:wrap;gap:10px;}
   .check{
     position:relative;
-    display:flex;align-items:center;gap:10px;
-    background:rgba(255,255,255,0.03);
-    border:1px solid var(--glass-border);
-    border-radius:12px;padding:13px 15px;cursor:pointer;
-    transition:border-color .2s, background .2s;
-    font-size:14px;color:var(--silver-mid);font-weight:400;
+  }
+  .check input{
+    position:absolute;opacity:0;inset:0;cursor:pointer;
+  }
+  .check span{
+    display:inline-block;
+    padding:9px 18px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.03);
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:.8rem;
+    color:rgba(255,255,255,.7);
+    transition:all .2s;
     user-select:none;
   }
-  @media(hover:hover){ .check:hover{border-color:var(--glass-border-hi);} }
-  .check:active{background:rgba(255,255,255,0.09);transform:scale(0.98);}
-  .check input{position:absolute;opacity:0;pointer-events:none;}
-  .check .box{
-    width:18px;height:18px;flex:0 0 18px;border-radius:5px;
-    border:1px solid var(--glass-border-hi);
-    background:rgba(255,255,255,0.04);
-    display:grid;place-items:center;
-    transition:background .2s;
-  }
-  .check .box svg{opacity:0;transition:opacity .15s;}
-  .check input:checked ~ .box{background:linear-gradient(135deg,#fff,#a8a8a8);border-color:#fff;}
-  .check input:checked ~ .box svg{opacity:1;}
-  .check input:checked ~ span.txt{color:var(--silver-hi);}
-  .check input:focus-visible ~ .box{box-shadow:0 0 0 3px rgba(255,255,255,0.25);}
-
-  .btn{
-    width:100%;margin-top:8px;
-    padding:17px 24px;border-radius:999px;border:none;cursor:pointer;
-    font-family:'Inter',sans-serif;font-weight:800;font-size:15px;letter-spacing:0.06em;text-transform:uppercase;
+  .check input:checked + span{
+    background:#fff;
     color:#000;
-    background:linear-gradient(135deg,#ffffff 0%,#d8d8d8 45%,#f5f5f5 55%,#b9b9b9 100%);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 12px 40px rgba(255,255,255,0.12);
-    transition:transform .15s, box-shadow .2s, opacity .2s;
+    border-color:#fff;
   }
-  @media(hover:hover){ .btn:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 16px 50px rgba(255,255,255,0.20);} }
-  .btn:active{transform:translateY(0);}
-  .btn:disabled{opacity:.5;cursor:wait;transform:none;}
-
-  .hint{margin-top:18px;text-align:center;color:var(--silver-lo);font-size:12.5px;font-weight:300;line-height:1.6;}
-  .hint b{color:var(--silver-mid);font-weight:500;}
-
-  footer{margin-top:52px;text-align:center;}
-  footer .mark{
-    font-family:'Inter',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.35em;text-transform:uppercase;
-    color:var(--silver-lo);
+  .check input:focus-visible + span{
+    outline:2px solid rgba(255,255,255,.6);
+    outline-offset:2px;
   }
-  .error-msg{display:none;margin-top:14px;text-align:center;color:#e8b4b4;font-size:13px;}
-  @media(max-width:520px){
-    form{padding:30px 20px;backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,0.05);}
-    .reqs{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,0.05);}
-    .checks{grid-template-columns:1fr;}
-    .check{padding:15px 16px;transition:none;}
-    .check .box, .check .box svg, .check .txt{transition:none;}
-    .glow{filter:blur(60px);}
-    .glow-3,.spark{display:none;}
-    .reqs::before{animation:none;background:conic-gradient(from 30deg, rgba(255,255,255,0.4), rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, rgba(255,255,255,0.4));}
+
+  /* Botón */
+  button{
+    width:100%;
+    background:#fff;
+    color:#000;
+    border:none;
+    border-radius:999px;
+    padding:16px;
+    font-family:'Inter',sans-serif;
+    font-weight:800;
+    font-size:.95rem;
+    letter-spacing:.01em;
+    cursor:pointer;
+    margin-top:8px;
+    transition:transform .15s, box-shadow .2s;
+  }
+  button:hover{
+    transform:translateY(-1px);
+    box-shadow:0 8px 30px rgba(255,255,255,.18);
+  }
+  button:disabled{
+    opacity:.6;cursor:default;transform:none;box-shadow:none;
+  }
+
+  #errorMsg{
+    display:none;
+    margin-top:14px;
+    text-align:center;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:.8rem;
+    color:#ff8f8f;
+  }
+
+  .form-note{
+    margin-top:16px;
+    text-align:center;
+    font-weight:300;
+    font-size:.78rem;
+    color:rgba(255,255,255,.4);
+    line-height:1.6;
+  }
+
+  footer{
+    text-align:center;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:.7rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.25);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    button{transition:none;}
+    button:hover{transform:none;}
   }
 </style>
 </head>
 <body>
-<div class="bg-grid"></div>
-<div class="glow glow-1"></div>
-<div class="glow glow-2"></div>
-<div class="glow glow-3"></div>
-<span class="spark" style="top:22%;left:12%;--t:12s;"></span>
-<span class="spark" style="top:34%;left:86%;--t:17s;opacity:.25;"></span>
-<span class="spark" style="top:64%;left:8%;--t:15s;opacity:.2;"></span>
-<span class="spark" style="top:78%;left:78%;--t:19s;opacity:.3;"></span>
-<span class="spark" style="top:12%;left:68%;--t:13s;opacity:.2;width:3px;height:3px;"></span>
-
 <div class="wrap">
-  <header>
-    <span class="wordmark">Prime Cardinal</span>
-    <h1>Bolsa de Trabajo</h1>
-    <p class="intro">Completá el siguiente formulario <strong>🚨 prestando atención 🚨</strong>. Al terminar, te redirigimos al grupo privado de <strong>Prime Cardinal</strong> en WhatsApp.</p>
-    <div class="reqs">
-      <p>Tenés que cumplir uno de estos requisitos</p>
-      <ul>
-        <li>Ser Setter</li>
-        <li>Ser Closer de Ventas</li>
-        <li>Ser Editor / Content</li>
-        <li>Ser dueño de negocio que busca contratar alguno de estos talentos</li>
-      </ul>
-    </div>
-  </header>
 
-  <form id="jobForm" novalidate>
-    <div class="field">
-      <label for="nombre">Nombre completo <span class="req">*</span></label>
-      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellido" required>
-    </div>
+  <div class="wordmark">Prime Cardinal</div>
 
-    <div class="field">
-      <label for="negocio">Nombre de tu negocio <span class="req">*</span></label>
-      <input type="text" id="negocio" name="negocio" placeholder="¿Cómo se llama tu negocio?" required>
-    </div>
+  <h1>Bolsa de Trabajo</h1>
+  <p class="intro">Encontrá setters, closers y editores para tu negocio high&nbsp;ticket. Completá el formulario y te enviamos al grupo privado de Prime&nbsp;Cardinal, donde publicamos las búsquedas.</p>
 
-    <div class="field">
-      <label for="telefono">Teléfono <span class="req">*</span></label>
-      <input type="tel" id="telefono" name="telefono" placeholder="+598 99 123 456" required>
+  <!-- ============ VIDEO ============ -->
+  <section class="video-section">
+    <h2 class="section-title">Cómo contratar el mejor talento</h2>
+    <div class="video-frame">
+      <iframe
+        src="https://www.youtube.com/embed/UY-N9K8bykk?start=34"
+        referrerpolicy="strict-origin-when-cross-origin"
+        title="Cómo contratar el mejor talento"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
     </div>
+  </section>
 
-    <div class="field">
-      <label>¿Qué talento buscás? <span class="req">*</span></label>
-      <div class="checks" id="talentos">
-        <label class="check"><input type="checkbox" name="talento" value="Setter"><span class="box"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Setter</span></label>
-        <label class="check"><input type="checkbox" name="talento" value="Closer de Ventas"><span class="box"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Closer de Ventas</span></label>
-        <label class="check"><input type="checkbox" name="talento" value="Editor / Content"><span class="box"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Editor / Content</span></label>
-        <label class="check"><input type="checkbox" name="talento" value="Otro"><span class="box"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Otro</span></label>
+  <!-- ============ REQUISITOS ============ -->
+  <div class="card">
+    <p><strong>¿Para quién es este formulario?</strong> Para dueños de negocio que buscan contratar talento: setters, closers y editores de video con experiencia en el mundo high ticket.</p>
+    <p>Contanos qué buscás y publicamos tu búsqueda en el grupo. Si sos talento y querés acceder a las ofertas, entrá directo al grupo desde el link que compartimos en redes.</p>
+  </div>
+
+  <!-- ============ FORMULARIO ============ -->
+  <div class="card">
+    <form id="jobForm" novalidate>
+
+      <div class="field">
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellido">
       </div>
-    </div>
 
-    <div class="field">
-      <label for="instagram">Instagram o dónde trabaja tu negocio <span class="req">*</span></label>
-      <input type="text" id="instagram" name="instagram" placeholder="@tunegocio o link" required>
-    </div>
+      <div class="field">
+        <label for="negocio">Nombre de tu negocio</label>
+        <input type="text" id="negocio" name="negocio" placeholder="Marca o empresa">
+      </div>
 
-    <div class="field">
-      <label for="oferta">Contá un poco de tu oferta <span class="req">*</span></label>
-      <textarea id="oferta" name="oferta" placeholder="¿Qué vendés, a quién y cómo lo entregás?" required></textarea>
-    </div>
+      <div class="field">
+        <label for="telefono">WhatsApp</label>
+        <input type="text" id="telefono" name="telefono" placeholder="+598 99 123 456">
+      </div>
 
-    <div class="field">
-      <label for="ticket">Ticket promedio de tu negocio <span class="req">*</span></label>
-      <input type="text" id="ticket" name="ticket" placeholder="Ej: $1.500 USD" required>
-    </div>
+      <div class="field">
+        <label>¿Qué talento estás buscando?</label>
+        <div class="checks">
+          <label class="check"><input type="checkbox" name="talento" value="Setter"><span>Setter</span></label>
+          <label class="check"><input type="checkbox" name="talento" value="Closer"><span>Closer</span></label>
+          <label class="check"><input type="checkbox" name="talento" value="Editor de video"><span>Editor de video</span></label>
+          <label class="check"><input type="checkbox" name="talento" value="Otro"><span>Otro</span></label>
+        </div>
+      </div>
 
-    <div class="field">
-      <label for="facturacion">Facturación promedio mensual en USD <span class="req">*</span></label>
-      <input type="text" id="facturacion" name="facturacion" placeholder="Ej: $20.000 USD / mes" required>
-    </div>
+      <div class="field">
+        <label for="instagram">Instagram de tu negocio</label>
+        <input type="text" id="instagram" name="instagram" placeholder="@tunegocio">
+      </div>
 
-    <div class="field">
-      <label for="postulacion">Formulario donde querés que se postulen (o número de teléfono) <span class="req">*</span></label>
-      <input type="text" id="postulacion" name="postulacion" placeholder="Link del formulario o teléfono de contacto" required>
-    </div>
+      <div class="field">
+        <label for="oferta">¿Qué vendés?</label>
+        <input type="text" id="oferta" name="oferta" placeholder="Tu oferta en una línea">
+      </div>
 
-    <button type="submit" class="btn" id="submitBtn">Enviar y unirme al grupo</button>
-    <p class="error-msg" id="errorMsg">Revisá que todos los campos estén completos y hayas marcado al menos un talento.</p>
-    <p class="hint">Al enviar, te redirigimos automáticamente al <b>grupo privado de WhatsApp</b>.</p>
-  </form>
+      <div class="field">
+        <label for="ticket">Ticket promedio (USD)</label>
+        <input type="text" id="ticket" name="ticket" placeholder="Ej: 1.500">
+      </div>
 
-  <footer><span class="mark">Cardinal</span></footer>
+      <div class="field">
+        <label for="facturacion">Facturación mensual aproximada (USD)</label>
+        <input type="text" id="facturacion" name="facturacion" placeholder="Ej: 20.000">
+      </div>
+
+      <div class="field">
+        <label for="postulacion">Link de la postulación</label>
+        <input type="url" id="postulacion" name="postulacion" placeholder="Doc con la descripción del puesto">
+      </div>
+
+      <button type="submit" id="submitBtn">Enviar y entrar al grupo</button>
+      <div id="errorMsg">Completá todos los campos y elegí al menos un talento.</div>
+      <p class="form-note">Al enviar, te redirigimos al grupo privado de Prime Cardinal.</p>
+
+    </form>
+  </div>
+
+  <footer>Prime Cardinal · Bolsa de Trabajo</footer>
+
 </div>
 
 <script>
-  // === CONFIG ===
-  // Pegá acá la URL de tu Web App de Google Apps Script para guardar las respuestas en Sheets.
+  // Webhook de Google Apps Script — guarda cada envío en la Sheet "Bolsa de Trabajo Cardinal — Respuestas".
   // Si queda vacío, el formulario igual redirige al grupo (pero no guarda datos).
   const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxuq6dHMa0v_j1CUErSV6LhcY2dcb0UNFaUuWf1VEzR-YX6D94zkkmPer701qEkgkbo/exec";
 
