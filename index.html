@@ -375,6 +375,36 @@ body {
 
 .stats-section { padding: 100px 0 40px; }
 
+/* --- Bloque de problema --- */
+.problem-section{padding:96px 0 8px;}
+.problem-inner{max-width:760px;margin:0 auto;text-align:center;}
+.problem-title{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-size:clamp(30px,4.2vw,46px);font-weight:800;line-height:1.12;
+  letter-spacing:-0.03em;margin-bottom:34px;
+  background:linear-gradient(180deg,#ffffff 60%,#999999 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.problem-list{text-align:left;display:flex;flex-direction:column;gap:18px;}
+.problem-list p{font-size:17px;line-height:1.7;color:var(--gray);margin:0;}
+.problem-verdict{
+  margin-top:34px;padding:26px 28px;text-align:left;
+  background:var(--glass);border:1px solid var(--border);border-radius:16px;
+  position:relative;overflow:hidden;
+}
+.problem-verdict::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,rgba(232,176,75,.85),rgba(232,176,75,0));
+}
+.problem-verdict p{font-size:17px;line-height:1.7;color:var(--gray);margin:0;}
+.problem-verdict strong{color:#fff;font-weight:600;}
+.problem-verdict-close{margin-top:12px !important;color:#fff !important;}
+@media (max-width:640px){
+  .problem-section{padding:64px 0 4px;}
+  .problem-list p,.problem-verdict p{font-size:15.5px;}
+  .problem-verdict{padding:20px 20px;}
+}
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1475,6 +1505,27 @@ html.lenis,html.lenis body{height:auto;}
 
 <!-- VSL: el slot del video ahora vive dentro del hero (.hero-vsl). -->
 
+<!-- Bloque de problema: engancha a quien llega por cualquier parte del sistema (leads, contenido, ads, setting, embudo) y aterriza en el mismo diagnóstico. -->
+<section class="problem-section" id="problema">
+  <div class="container">
+    <div class="problem-inner reveal">
+      <div class="section-eyebrow">Dónde estás hoy</div>
+      <h2 class="problem-title">Probaste todo. <span class="iris">Y todo sigue pasando por vos.</span></h2>
+
+      <div class="problem-list">
+        <p>Contrataste closers. Grabaste contenido. Pusiste plata en ads. Armaste embudos, flujos de ManyChat, automatizaciones. Cada pieza funcionó un poco.</p>
+        <p>Pero la llamada que define la venta la seguís tomando vos. El setter agenda gente que no califica y lo corregís vos. El closer nuevo no levanta hasta que vos le escuchás las llamadas. Los leads entran, y el cuello se forma justo antes del cierre.</p>
+        <p>No podés agarrarte una semana sin que la facturación se resienta. Tu techo de ingresos es tu propia agenda, y ya la tenés llena.</p>
+      </div>
+
+      <div class="problem-verdict">
+        <p>El problema no está en la parte que estuviste arreglando. <strong>Está en que todo el sistema termina apoyado en una sola persona.</strong></p>
+        <p class="problem-verdict-close">Eso no se arregla con más leads ni con otra herramienta. Se arregla montando el sistema para que corra sin vos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="stats-section">
   <div class="container">
     <div class="stats-grid">
@@ -1504,7 +1555,7 @@ html.lenis,html.lenis body{height:auto;}
     <div class="section-header reveal">
       <div class="section-eyebrow">Lo que montamos juntos</div>
       <h2 class="section-title">De vos cerrando todo <span class="iris">a un sistema que cierra por vos.</span></h2>
-      <p class="section-desc">Cardinal no es un curso para mirar: es el camino que recorremos juntos. Entrás siendo el único que cierra. Salís con cada una de estas piezas montada y funcionando en tu negocio. El core es ventas; todo lo demás sostiene ese motor.</p>
+      <p class="section-desc">Cardinal no es un curso para mirar: es el camino que recorremos juntos. Entrás siendo el único que cierra. Salís con cada una de estas piezas montada y funcionando — prospección, setting, cierre, equipo, automatizaciones y demanda. El core es ventas; todo lo demás sostiene ese motor.</p>
     </div>
 
     <div class="modules">
@@ -1535,8 +1586,8 @@ html.lenis,html.lenis body{height:auto;}
       </article>
       <article class="g-card reveal">
         <span class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.7"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
-        <h3>Tu demanda <span style="font-size:.62em;font-weight:600;letter-spacing:.04em;text-transform:uppercase;opacity:.55;vertical-align:middle">· el plus</span></h3>
-        <p>Salís con un sistema para atraer leads calificados que alimente el pipeline con constancia — no por suerte. No es el centro, pero suma.</p>
+        <h3>Tu generación de demanda <span style="font-size:.62em;font-weight:600;letter-spacing:.04em;text-transform:uppercase;opacity:.55;vertical-align:middle">· el plus</span></h3>
+        <p>Salís con contenido, ads y embudo alimentando el pipeline de forma constante — no por suerte. Es soporte del motor, no el centro. Pero sin esto, tu equipo no tiene con quién hablar.</p>
       </article>
       <article class="g-card g-card--more reveal">
         <span class="g-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"/></svg></span>
