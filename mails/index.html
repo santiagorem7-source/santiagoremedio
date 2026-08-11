@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mails de Cardinal — Santiago Remedio</title>
+<meta name="description" content="Todo lo que aprendí generando +$1,3M en ventas, descargado en mails. Sistemas de oferta, adquisición y cierre para dueños de negocios digitales. Gratis.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#000000">
+<link rel="canonical" href="https://santiagoremedio.com/mails">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_LA">
+<meta property="og:site_name" content="Cardinal">
+<meta property="og:url" content="https://santiagoremedio.com/mails">
+<meta property="og:title" content="+$1,3M en ventas, descargado en mails">
+<meta property="og:description" content="Sistemas de oferta, adquisición y cierre que podés aplicar el mismo día. Directo al grano, sin humo. Gratis.">
+<!-- EDITAR: cuando tengas una imagen OG propia para esta página, poné la URL absoluta acá -->
+<meta property="og:image" content="https://santiagoremedio.com/og-cardinal.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="+$1,3M en ventas, descargado en mails">
+<meta name="twitter:description" content="Sistemas de oferta, adquisición y cierre, directo a tu inbox. Gratis.">
+
+<!-- ============================================================
+     META PIXEL / GA4 (opcional) — pegá tu snippet acá y descomentá.
+     El evento Lead ya está cableado al submit y se dispara solo
+     cuando el Pixel exista.
+<script>
+  fbq('init','TU_PIXEL_ID'); fbq('track','PageView');
+</script>
+============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { overflow-x:hidden; }
+:where(a,button,input,[tabindex]):focus-visible{
+  outline:2px solid #9fd8ff; outline-offset:3px; border-radius:8px;
+}
+:root{
+  --bg:#000000;
+  --surface:rgba(255,255,255,0.035);
+  --surface2:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.09);
+  --border-bright:rgba(255,255,255,0.16);
+  --white:#FFFFFF;
+  --gray:#A6A6A6;
+  --gray-dim:#8A8A8A;
+  --glass:rgba(255,255,255,0.045);
+  --glass-border:rgba(255,255,255,0.12);
+}
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:'Poppins',sans-serif;
+  font-weight:400;
+  line-height:1.5;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ── Fondo: grilla + glow, igual que la landing ── */
+.grid-bg{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse at center top, black 30%, transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse at center top, black 30%, transparent 80%);
+}
+.glow-ambient{
+  position:fixed; z-index:0; pointer-events:none;
+  width:800px; height:800px; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 60%);
+  top:-320px; left:50%; transform:translateX(-50%);
+}
+
+/* ── Layout ── */
+.wrap{
+  position:relative; z-index:1;
+  flex:1;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center;
+  padding:48px 24px 40px;
+  max-width:760px; margin:0 auto; width:100%;
+}
+
+.wordmark{
+  font-family:'Poppins',sans-serif;
+  font-size:13px; font-weight:600;
+  letter-spacing:.42em; text-transform:uppercase;
+  color:rgba(255,255,255,.85);
+  margin-bottom:40px;
+  user-select:none;
+}
+
+/* Píldora credencial con contador (misma pieza que la landing) */
+.pill{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 16px;
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  border-radius:999px;
+  font-size:13px; letter-spacing:.02em;
+  color:var(--gray);
+  margin-bottom:28px;
+}
+.pill b{ color:var(--white); font-weight:600; font-variant-numeric:tabular-nums; }
+.pill .pill-ico{
+  width:13px; height:13px; flex-shrink:0;
+  color:var(--white);
+  animation:twinkle 2.4s ease-in-out infinite;
+}
+@keyframes twinkle{
+  0%,100%{opacity:.95; transform:scale(1) rotate(0deg);}
+  50%{opacity:.45; transform:scale(.8) rotate(18deg);}
+}
+
+h1{
+  font-family:'Poppins',sans-serif;
+  font-weight:500;
+  font-size:clamp(30px, 5.4vw, 52px);
+  line-height:1.14;
+  letter-spacing:-0.015em;
+  color:var(--white);
+  margin-bottom:20px;
+  text-wrap:balance;
+}
+.ital{
+  font-family:'Instrument Serif',Georgia,serif;
+  font-style:italic; font-weight:400;
+}
+.sub{
+  font-size:clamp(15px, 2vw, 17px);
+  color:var(--gray);
+  max-width:520px;
+  margin:0 auto 36px;
+  text-wrap:balance;
+}
+
+/* ── Formulario ── */
+.capture{ width:100%; max-width:480px; margin:0 auto; }
+.row{
+  display:flex; gap:10px;
+  background:var(--surface);
+  border:1px solid var(--border-bright);
+  border-radius:16px;
+  padding:8px;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.row:focus-within{
+  border-color:rgba(255,255,255,.4);
+  box-shadow:0 0 34px rgba(255,255,255,.10);
+}
+.row input{
+  flex:1; min-width:0;
+  background:transparent; border:none; outline:none;
+  color:var(--white);
+  font-family:'Poppins',sans-serif;
+  font-size:16px; /* 16px: evita el auto-zoom de iOS al enfocar */
+  padding:12px 14px;
+}
+.row input::placeholder{ color:var(--gray-dim); }
+.btn{
+  flex-shrink:0;
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  background:var(--white); color:#000;
+  font-family:'Poppins',sans-serif;
+  font-size:15px; font-weight:600; letter-spacing:.01em;
+  border:none; border-radius:11px;
+  padding:12px 22px;
+  cursor:pointer;
+  position:relative; overflow:hidden;
+  transition:transform .15s ease, box-shadow .2s ease, opacity .2s ease;
+}
+.btn::before{
+  content:''; position:absolute; top:0; left:-100%;
+  width:60%; height:100%;
+  background:linear-gradient(105deg, transparent, rgba(0,0,0,.10), transparent);
+  transition:left .5s ease;
+}
+@media(hover:hover){
+  .btn:hover{ box-shadow:0 0 40px rgba(255,255,255,.28); }
+  .btn:hover::before{ left:100%; }
+}
+.btn:active{ transform:scale(.98); }
+.btn[disabled]{ opacity:.6; cursor:default; }
+
+.fine{
+  font-size:12.5px; color:var(--gray-dim);
+  margin-top:14px; letter-spacing:.02em;
+}
+.err{
+  display:none;
+  font-size:13px; color:#ffb4b4;
+  margin-top:12px;
+}
+.err.show{ display:block; }
+
+/* ── Estado de éxito ── */
+.success{ display:none; width:100%; max-width:480px; margin:0 auto; }
+.success.show{ display:block; }
+.success-card{
+  background:var(--surface);
+  border:1px solid var(--border-bright);
+  border-radius:20px;
+  padding:36px 28px;
+}
+.success-icon{
+  width:52px; height:52px; margin:0 auto 18px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  background:var(--surface2);
+  border:1px solid var(--border-bright);
+  font-size:22px; color:var(--white);
+}
+.success-card h2{
+  font-family:'Poppins',sans-serif;
+  font-weight:500; font-size:24px; letter-spacing:-.01em;
+  margin-bottom:10px;
+}
+.success-card p{ font-size:15px; color:var(--gray); }
+
+footer{
+  position:relative; z-index:1;
+  text-align:center;
+  padding:22px 24px 30px;
+  font-size:12.5px; color:var(--gray-dim); letter-spacing:.03em;
+}
+footer a{ color:var(--gray); text-decoration:none; }
+footer a:hover{ color:var(--white); }
+
+/* ── Mobile ── */
+@media(max-width:560px){
+  .wrap{ padding:40px 20px 32px; }
+  .wordmark{ margin-bottom:32px; }
+  .row{ flex-direction:column; padding:10px; }
+  .btn{ width:100%; padding:14px 22px; }
+  .glow-ambient{ width:520px; height:520px; top:-220px; }
+}
+@media(prefers-reduced-motion:reduce){
+  *{ animation:none !important; transition:none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="grid-bg" aria-hidden="true"></div>
+<div class="glow-ambient" aria-hidden="true"></div>
+
+<main class="wrap">
+  <div class="wordmark">Cardinal</div>
+
+  <div class="pill" aria-label="Ventas generadas">
+    <svg class="pill-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C12.7 7.1 16.9 11.3 22 12c-5.1.7-9.3 4.9-10 10-.7-5.1-4.9-9.3-10-10 5.1-.7 9.3-4.9 10-10z"/></svg>
+    <span><b>+$<span id="pillCount" data-to="1300000">1.300.000</span></b>&nbsp;en ventas generadas</span>
+  </div>
+
+  <h1>Todo lo que aprendí generando +$1,3M en ventas, <span class="ital">descargado en mails.</span></h1>
+
+  <p class="sub">Sistemas de oferta, adquisición y cierre que podés aplicar el mismo día en tu negocio. Directo al grano, sin humo. Gratis.</p>
+
+  <form class="capture" id="captureForm" novalidate>
+    <div class="row">
+      <input type="email" id="email" name="email" placeholder="tu@email.com" autocomplete="email" inputmode="email" required aria-label="Tu email">
+      <!-- Honeypot anti-spam: si viene lleno, no se envía -->
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;">
+      <button type="submit" class="btn" id="submitBtn">Quiero los mails <span aria-hidden="true">→</span></button>
+    </div>
+    <p class="err" id="errMsg">Ese email no parece válido. Revisalo e intentá de nuevo.</p>
+    <p class="fine">Cero spam. Un click y estás afuera.</p>
+  </form>
+
+  <div class="success" id="successBox" role="status">
+    <div class="success-card">
+      <div class="success-icon" aria-hidden="true">✓</div>
+      <h2>Estás adentro.</h2>
+      <p>El primer mail sale en breve. Revisá tu bandeja de entrada — y la pestaña de promociones, por las dudas.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <a href="https://santiagoremedio.com/" rel="noopener">santiagoremedio.com</a>
+</footer>
+
+<script>
+(function(){
+  var CONFIG = {
+    // Mismo Apps Script que la planilla "Leads Masterclass":
+    // columnas Fecha / Email / WhatsApp / Origen / URL
+    webhookUrl: "https://script.google.com/macros/s/AKfycbyPwpSiizF6S37QYn69LuG-luGTpX9TYDhQ5G8bQ75AI5T3jzoCZYGyv_cu3tI7IaS4/exec",
+    source: "pagina-mails"
+  };
+
+  var form = document.getElementById('captureForm');
+  var emailInput = document.getElementById('email');
+  var btn = document.getElementById('submitBtn');
+  var err = document.getElementById('errMsg');
+  var success = document.getElementById('successBox');
+
+  function validEmail(v){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    err.classList.remove('show');
+
+    // Honeypot: bots que llenan el campo oculto no pasan
+    if (form.querySelector('[name="_gotcha"]').value) return;
+
+    var email = emailInput.value.trim();
+    if (!validEmail(email)){
+      err.classList.add('show');
+      emailInput.focus();
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    var payload = {
+      email: email,
+      phone: "",
+      source: CONFIG.source,
+      url: location.href
+    };
+
+    // text/plain evita el preflight CORS -> compatible con Google Apps Script
+    fetch(CONFIG.webhookUrl, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify(payload)
+    }).then(function(){
+      form.style.display = 'none';
+      success.classList.add('show');
+      if (window.fbq) fbq('track','Lead');
+      if (window.gtag) gtag('event','generate_lead');
+    }).catch(function(){
+      btn.disabled = false;
+      btn.textContent = 'Error. Intentá de nuevo →';
+    });
+  });
+
+  // Contador de la píldora: 0 -> 1.300.000 al cargar (respeta reduced motion)
+  var el = document.getElementById('pillCount');
+  if (el && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+    var to = +el.dataset.to, dur = 1800, t0 = null;
+    var fmt = function(v){ return Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.'); };
+    var tick = function(t){
+      if (!t0) t0 = t;
+      var p = Math.min((t - t0)/dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(to * eased);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    el.textContent = '0';
+    requestAnimationFrame(tick);
+  }
+})();
+</script>
+</body>
+</html>
