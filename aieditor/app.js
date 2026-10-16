@@ -135,6 +135,7 @@
     if (prev === "ok") return;
     if (prev && Date.now() - Number(prev) < DIAS * 864e5) return;
 
+    var lastFocus = null;
     var t0 = Date.now(), shown = false, pending = false, precioVisible = false;
     var precio = document.getElementById("precio");
     if (precio && "IntersectionObserver" in window) {
@@ -152,12 +153,21 @@
       shown = true;
       window.removeEventListener("scroll", onScroll);
       document.removeEventListener("mouseout", onExit);
+      lastFocus = document.activeElement;
       lead.hidden = false;
-      requestAnimationFrame(function () { requestAnimationFrame(function () { lead.classList.add("on"); }); });
+      document.documentElement.style.overflow = "hidden"; // la página no se mueve mientras está abierto
+      requestAnimationFrame(function () { requestAnimationFrame(function () {
+        lead.classList.add("on");
+        // en compu el cursor va directo al mail; en celular no, para no abrir el teclado de golpe
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) input.focus({ preventScroll: true });
+        else lead.querySelector(".lead-x").focus({ preventScroll: true });
+      }); });
     }
     function hide() {
       lead.classList.remove("on");
-      setTimeout(function () { lead.hidden = true; }, 520);
+      document.documentElement.style.overflow = "";
+      setTimeout(function () { lead.hidden = true; }, 420);
+      if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
       document.removeEventListener("keydown", onKey);
     }
     function onScroll() {
@@ -173,7 +183,18 @@
     if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) document.addEventListener("mouseout", onExit);
     document.addEventListener("keydown", onKey);
 
-    lead.querySelector(".lead-x").addEventListener("click", function () { guardar(String(Date.now())); hide(); });
+    function cerrar() { guardar(String(Date.now())); hide(); }
+    lead.querySelector(".lead-x").addEventListener("click", cerrar);
+    lead.querySelector(".lead-bg").addEventListener("click", cerrar);
+    // el foco con Tab queda dentro del box mientras está abierto
+    lead.addEventListener("keydown", function (e) {
+      if (e.key !== "Tab") return;
+      var f = Array.prototype.filter.call(lead.querySelectorAll("button, input:not(.lead-hp)"), function (el) { return el.offsetParent !== null && !el.disabled; });
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
 
     var form = lead.querySelector(".lead-f");
     var input = form.querySelector('input[type="email"]');
