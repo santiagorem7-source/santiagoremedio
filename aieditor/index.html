@@ -150,7 +150,7 @@
   <div class="wrap">
     <a class="logo" href="#top" aria-label="AI EDITOR by Santiago Remedio"><b>AI EDITOR</b><span>by Santiago Remedio</span></a>
     <div class="links"><a href="#estilos">Estilos</a><a href="#como">Cómo funciona</a><a href="#precio">Precio</a><a href="#faq">Preguntas</a></div>
-    <a class="btn" href="#precio"><span>Comprar · $<span class="js-price">20</span></span></a>
+    <a class="btn js-buy-main" href="#precio"><span>Comprar · $<span class="js-price">20</span></span></a>
   </div>
 </nav>
 <div class="rule" aria-hidden="true"></div>
@@ -161,7 +161,7 @@
       <h1 class="d1 reveal">Tu editor<br>de video<br><span class="it">con IA</span></h1>
       <p class="lines reveal">Aprende tu estilo.<br>Te pregunta antes de editar.<br>Corta, subtitula y anima.<br>Dentro de Claude Code.</p>
       <div class="reveal" style="display:flex;gap:10px;flex-wrap:wrap">
-        <a class="btn" href="#precio">Empezar a editar</a>
+        <a class="btn js-buy-main" href="#precio">Empezar a editar</a>
         <a class="btn btn-line" href="#estilos">Ver estilos</a>
       </div>
       <a class="by reveal" href="https://instagram.com/santiremedio" target="_blank" rel="noopener">
@@ -358,7 +358,7 @@
   <div class="gridbg">
     <div class="wrap">
       <h2 class="d1 reveal" style="font-size:clamp(48px,6.4vw,96px)">Tu próximo reel,<br><span class="it">editado por IA.</span></h2>
-      <a class="btn reveal" href="#precio"><span>Quiero AI EDITOR · $<span class="js-price">20</span></span> <span class="arrow">→</span></a>
+      <a class="btn reveal js-buy-main" href="#precio"><span>Quiero AI EDITOR · $<span class="js-price">20</span></span> <span class="arrow">→</span></a>
     </div>
   </div>
 </div>
@@ -369,6 +369,22 @@
     <span>No afiliado a Anthropic ni a HeyGen. Los resultados dependen de tu material.</span>
   </div>
 </footer>
+
+<aside class="lead" id="lead" role="dialog" aria-labelledby="lead-t" aria-describedby="lead-d" hidden>
+  <button class="lead-x" type="button" aria-label="Cerrar">×</button>
+  <span class="tag">Gratis · 1 mail por semana</span>
+  <h2 class="lead-t" id="lead-t">Tips de marketing<br><span class="it">con IA</span></h2>
+  <p class="lead-d" id="lead-d">Lo que pruebo con Claude para crear contenido y vender, directo a tu correo. Sin relleno.</p>
+  <form class="lead-f" novalidate>
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="lead-hp">
+    <label class="lead-sr" for="lead-email">Tu email</label>
+    <input id="lead-email" type="email" name="email" placeholder="tu@email.com" autocomplete="email" inputmode="email" required>
+    <button class="btn" type="submit">Quiero los tips <span class="arrow">→</span></button>
+  </form>
+  <p class="lead-err" role="alert" hidden>Revisa el email, parece que falta algo.</p>
+  <p class="lead-ok" role="status" hidden>Listo, ya estás en la lista. El próximo mail te llega a tu bandeja.</p>
+  <p class="lead-fine">Te das de baja cuando quieras.</p>
+</aside>
 
 <script src="/aieditor/app.js"></script>
 </body>

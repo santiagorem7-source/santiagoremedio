@@ -125,4 +125,89 @@
       if (b) b.click();
     });
   });
+  // Box de mails: aparece al pasar la mitad de la página (o al ir a cerrar la pestaña en compu)
+  var lead = document.getElementById("lead");
+  if (lead && !vacio(C.mails)) (function () {
+    var KEY = "aie_lead", DIAS = 7, MIN_MS = 6000;
+    function leer() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function guardar(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    var prev = leer();
+    if (prev === "ok") return;
+    if (prev && Date.now() - Number(prev) < DIAS * 864e5) return;
+
+    var t0 = Date.now(), shown = false, pending = false, precioVisible = false;
+    var precio = document.getElementById("precio");
+    if (precio && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        precioVisible = es[0].isIntersecting;
+        if (!precioVisible && pending) show();
+      }, { threshold: 0.25 }).observe(precio);
+    }
+
+    function show() {
+      if (shown) return;
+      var falta = MIN_MS - (Date.now() - t0);
+      if (falta > 0) { pending = true; setTimeout(show, falta); return; }
+      if (precioVisible) { pending = true; return; } // no interrumpir a quien está mirando el precio
+      shown = true;
+      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("mouseout", onExit);
+      lead.hidden = false;
+      requestAnimationFrame(function () { requestAnimationFrame(function () { lead.classList.add("on"); }); });
+    }
+    function hide() {
+      lead.classList.remove("on");
+      setTimeout(function () { lead.hidden = true; }, 520);
+      document.removeEventListener("keydown", onKey);
+    }
+    function onScroll() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      if (max > 0 && window.scrollY / max >= 0.5) show();
+    }
+    function onExit(e) {
+      if (!e.relatedTarget && e.clientY <= 0) show();
+    }
+    function onKey(e) { if (e.key === "Escape" && shown) { guardar(String(Date.now())); hide(); } }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) document.addEventListener("mouseout", onExit);
+    document.addEventListener("keydown", onKey);
+
+    lead.querySelector(".lead-x").addEventListener("click", function () { guardar(String(Date.now())); hide(); });
+
+    var form = lead.querySelector(".lead-f");
+    var input = form.querySelector('input[type="email"]');
+    var btn = form.querySelector("button");
+    var err = lead.querySelector(".lead-err");
+    var ok = lead.querySelector(".lead-ok");
+    var btnHTML = btn.innerHTML;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      err.hidden = true;
+      if (form.querySelector('[name="_gotcha"]').value) return;
+      var email = input.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { err.hidden = false; input.focus(); return; }
+      btn.disabled = true;
+      btn.textContent = "Enviando...";
+      // text/plain evita el preflight CORS (compatible con Google Apps Script)
+      fetch(C.mails, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ email: email, phone: "", source: "aieditor-popup", url: location.href })
+      }).then(function () {
+        guardar("ok");
+        form.hidden = true;
+        lead.querySelector(".lead-fine").hidden = true;
+        ok.hidden = false;
+        if (window.fbq) fbq("track", "Lead");
+        if (window.gtag) gtag("event", "generate_lead");
+        setTimeout(hide, 4000);
+      }).catch(function () {
+        btn.disabled = false;
+        btn.innerHTML = btnHTML;
+        err.textContent = "No se pudo enviar. Prueba de nuevo.";
+        err.hidden = false;
+      });
+    });
+  })();
 })();

@@ -142,3 +142,42 @@ section { padding: 120px 0; }
 .foot { border-top: 1px solid var(--line); padding: 36px 0 52px; color: var(--dim); }
 .foot .wrap { display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; font: 400 12px/1.5 var(--mono); text-transform: uppercase; letter-spacing: 0.04em; }
 .foot a { color: var(--muted); }
+
+/* box de mails (tips de marketing con IA) */
+.lead {
+  position: fixed; right: 24px; bottom: 24px; z-index: 120;
+  width: min(380px, calc(100vw - 32px)); padding: 26px 24px 20px;
+  background: var(--panel); border-radius: var(--r);
+  box-shadow: 0 0 0 1px var(--line-2) inset, 0 -3px 0 0 var(--lilac) inset, 0 40px 80px -24px rgba(0,0,0,.85), 0 0 0 1px rgba(0,0,0,.4);
+  opacity: 0; transform: translateY(24px) scale(.98); pointer-events: none;
+  transition: opacity 420ms var(--ease-out), transform 520ms var(--ease-out);
+}
+.lead[hidden] { display: none; }
+.lead.on { opacity: 1; transform: none; pointer-events: auto; }
+.lead .tag { color: var(--mint); }
+.lead-t { font-family: var(--display); font-weight: 600; text-transform: uppercase; font-size: 40px; line-height: .92; letter-spacing: -0.01em; margin: 16px 0 0; }
+.lead-d { color: var(--muted); font-size: 15px; margin: 12px 0 18px; }
+.lead-f { display: grid; gap: 10px; }
+.lead-f input[type="email"] {
+  height: 50px; padding: 0 14px; border: 0; border-radius: 9px; width: 100%;
+  background: var(--bg); color: var(--text); font: 400 16px/1 var(--sans);
+  box-shadow: 0 0 0 1px var(--line-2) inset; transition: box-shadow 200ms;
+}
+.lead-f input[type="email"]::placeholder { color: var(--dim); }
+.lead-f input[type="email"]:focus { outline: 0; box-shadow: 0 0 0 1px var(--lilac) inset, 0 0 0 3px rgba(155,146,212,.25); }
+.lead-f .btn { width: 100%; }
+.lead-f .btn[disabled] { opacity: .6; cursor: default; }
+.lead-hp, .lead-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.lead-err { margin: 10px 0 0; color: #e8a9a1; font-size: 13px; }
+.lead-ok { margin: 4px 0 6px; color: var(--mint); font-size: 15px; }
+.lead-fine { margin: 12px 0 0; color: var(--dim); font: 400 11px/1.3 var(--mono); text-transform: uppercase; letter-spacing: .04em; }
+.lead-x {
+  position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border: 0; border-radius: 8px; cursor: pointer;
+  background: transparent; color: var(--muted); font: 400 22px/1 var(--sans); transition: background 200ms, color 200ms;
+}
+@media (hover: hover) and (pointer: fine) { .lead-x:hover { background: rgba(235,231,218,.06); color: var(--text); } }
+@media (max-width: 560px) {
+  .lead { right: 12px; left: 12px; bottom: 12px; width: auto; padding: 22px 18px 16px; }
+  .lead-t { font-size: 34px; }
+}
+@media (prefers-reduced-motion: reduce) { .lead { transition: opacity 200ms linear; transform: none; } }

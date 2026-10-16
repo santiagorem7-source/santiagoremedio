@@ -13,6 +13,9 @@ window.AIE = {
   // Opcional: tu comunidad / mentoría (Skool, WhatsApp, formulario). Si lo dejas vacío, esa sección no aparece.
   comunidad: "",
 
+  // Planilla donde caen los mails del box de tips (la misma de /mails). Vacío = el box no aparece.
+  mails: "https://script.google.com/macros/s/AKfycbyPwpSiizF6S37QYn69LuG-luGTpX9TYDhQ5G8bQ75AI5T3jzoCZYGyv_cu3tI7IaS4/exec",
+
   // Precio que se muestra en la página
   precio: "20",
   precioAntes: "", // ej: "39" para mostrarlo tachado. Vacío = no se muestra.
