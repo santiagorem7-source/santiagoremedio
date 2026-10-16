@@ -4,14 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI EDITOR by Santiago Remedio</title>
-<meta name="description" content="Tu editor de video con IA dentro de Claude Code. Te conoce, te pregunta y edita tus reels con cortes, subtítulos y motion graphics. Por Santiago Remedio (@santiremedio).">
-<meta property="og:title" content="AI EDITOR by Santiago Remedio">
-<meta property="og:description" content="Tu editor de video con IA, a tu estilo. Pago único.">
-<meta property="og:image" content="https://santiagoremedio.com/aieditor/img/demo.jpg">
+<meta name="description" content="Editá tus reels como edito los míos. AI EDITOR es mi editor de video con IA adentro de Claude Code: aprende tu estilo, te pregunta antes de editar y corta, subtitula y anima solo. Pago único de $20.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_LA">
+<meta property="og:site_name" content="AI EDITOR by Santiago Remedio">
+<meta property="og:title" content="AI EDITOR · Editá tus reels como edito los míos">
+<meta property="og:description" content="Mi editor de video con IA, adentro de Claude Code. Aprende tu estilo y edita solo. $20, pago único.">
+<meta property="og:image" content="https://santiagoremedio.com/aieditor/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:url" content="https://santiagoremedio.com/aieditor">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI EDITOR · Editá tus reels como edito los míos">
+<meta name="twitter:description" content="Mi editor de video con IA, adentro de Claude Code. $20, pago único.">
+<meta name="twitter:image" content="https://santiagoremedio.com/aieditor/img/og.jpg">
 <link rel="canonical" href="https://santiagoremedio.com/aieditor">
-<meta name="theme-color" content="#12110d">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312110d'/%3E%3Cpath d='M24 18l24 14-24 14z' fill='%239b92d4'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000000'/%3E%3Cpath d='M24 18l24 14-24 14z' fill='%239b92d4'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Fragment+Mono&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,24 +28,32 @@
 <script src="/aieditor/config.js"></script>
 <style>
   /* hero */
-  .hero .wrap { display: grid; grid-template-columns: minmax(300px, 0.8fr) 2fr; gap: 48px; align-items: center; padding-top: 40px; padding-bottom: 40px; }
-  .hero .lines { margin: 30px 0 34px; color: var(--muted); font-size: 18px; line-height: 1.55; }
-  .hero .by { display: flex; align-items: center; gap: 10px; margin-top: 28px; text-decoration: none; }
-  .hero .by img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
-  .hero .by span { font: 400 12px/1.3 var(--mono); text-transform: uppercase; letter-spacing: .04em; color: var(--dim); }
+  .hero .wrap { display: grid; grid-template-columns: minmax(320px, 1fr) 1.25fr; gap: 56px; align-items: center; padding-top: 48px; padding-bottom: 48px; }
+  .hero .lines { margin: 26px 0 30px; color: var(--muted); font-size: 18px; line-height: 1.6; max-width: 520px; }
+  .hero .lines b { color: var(--text); font-weight: 600; }
+  .hero .ctas { display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero .fine { margin: 18px 0 0; color: var(--dim); font-size: 13px; }
+  .hero .fine i { font-style: normal; color: var(--line-2); margin: 0 8px; }
+  .hero .by { display: flex; align-items: center; gap: 12px; margin-top: 30px; text-decoration: none; width: fit-content; }
+  .hero .by img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+  .hero .by span { font: 400 11px/1.45 var(--mono); text-transform: uppercase; letter-spacing: .04em; color: var(--dim); }
   .hero .by b { color: var(--text); font-weight: 400; }
   .stage {
     position: relative; border-radius: var(--r); overflow: hidden; background: var(--bg-2);
-    aspect-ratio: 16 / 9.2; display: grid; place-items: center; box-shadow: 0 0 0 1px var(--line) inset;
+    aspect-ratio: 16 / 9.6; display: grid; place-items: center; box-shadow: 0 0 0 1px var(--line) inset;
   }
   .stage > .gridbg { position: absolute; inset: 0; opacity: .55; mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); }
   .trio { position: relative; display: flex; align-items: center; gap: 22px; height: 86%; }
   .trio .media { height: 100%; box-shadow: 0 30px 60px -20px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.08); }
   .trio .side { height: 78%; opacity: .8; }
   .stage > .label { position: absolute; left: 18px; bottom: 16px; }
-  .stage > .label b { color: var(--mint); font-weight: 400; }
+  .stage > .label b { color: var(--lilac-text); font-weight: 400; }
   @media (max-width: 980px) {
-    .hero .wrap { grid-template-columns: 1fr; gap: 36px; }
+    .hero .wrap { grid-template-columns: 1fr; gap: 36px; padding-top: 36px; }
+    .hero .ctas { flex-direction: column; }
+    .hero .ctas .btn { width: 100%; }
+    .hero .fine i { display: block; height: 0; margin: 0; overflow: hidden; }
+    .hero .fine { line-height: 1.7; }
     .stage { aspect-ratio: auto; padding: 28px 0 56px; }
     .trio { height: auto; }
     .trio .media:not(.side) { height: auto; width: min(250px, 66vw); }
@@ -46,29 +63,17 @@
   /* banda grilla */
   .band { border-bottom: 1px solid var(--line); }
   .band .gridbg { padding: 90px 0; }
-  .band .d2 { color: var(--mint); text-align: center; }
-
-  /* pasos */
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-top: 64px; }
-  .step { padding: 34px 32px 40px; border-right: 1px solid var(--line); }
-  .step:last-child { border-right: 0; }
-  .step .tag { margin-bottom: 26px; }
-  .step p, .step li { color: var(--muted); font-size: 16px; }
-  .step p { margin: 14px 0 0; }
-  .step ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
-  .step li { padding-left: 18px; position: relative; }
-  .step li::before { content: ""; position: absolute; left: 0; top: 12px; width: 8px; height: 1px; background: var(--mint); }
-  @media (max-width: 860px) { .steps { grid-template-columns: 1fr; } .step { border-right: 0; border-bottom: 1px solid var(--line); padding: 30px 4px; } .step:last-child { border-bottom: 0; } }
+  .band .d2 { color: var(--lilac-text); text-align: center; }
 
   /* estilos con pestañas */
-  .tabs { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 4px; padding: 4px; margin-top: 34px; box-shadow: 0 0 0 1px var(--line-2) inset; border-radius: 8px; }
+  .tabs { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 4px; padding: 4px; margin-top: 34px; box-shadow: 0 0 0 1px var(--line-2) inset; border-radius: 100px; }
   .tabs button {
-    height: 34px; padding: 0 12px; border: 0; border-radius: 5px; cursor: pointer; background: transparent; color: #cfcbbf;
+    height: 34px; padding: 0 14px; border: 0; border-radius: 100px; cursor: pointer; background: transparent; color: var(--muted);
     font: 500 12px/1 var(--sans); letter-spacing: .04em; text-transform: uppercase;
     transition: background 200ms, color 200ms;
   }
-  .tabs button[aria-selected="true"] { background: var(--mint); color: var(--ink); }
-  @media (hover: hover) and (pointer: fine) { .tabs button:not([aria-selected="true"]):hover { background: rgba(235,231,218,.06); color: var(--text); } }
+  .tabs button[aria-selected="true"] { background: var(--lilac); color: var(--ink); }
+  @media (hover: hover) and (pointer: fine) { .tabs button:not([aria-selected="true"]):hover { background: rgba(255,255,255,.06); color: var(--text); } }
   .showcase { display: grid; grid-template-columns: 1fr minmax(260px, 340px) 1fr; gap: 48px; align-items: center; margin-top: 56px; }
   .showcase .media { width: 100%; }
   .showcase video { transition: opacity 220ms var(--ease-out); }
@@ -79,6 +84,18 @@
   .sc-list li { display: flex; justify-content: space-between; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); font: 400 12px/1.3 var(--mono); text-transform: uppercase; letter-spacing: .04em; color: var(--dim); }
   .sc-list li b { color: var(--text); font-weight: 400; text-align: right; }
   @media (max-width: 980px) { .showcase { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; gap: 28px; } .sc-list { display: none; } }
+
+  /* pasos */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-top: 64px; }
+  .step { padding: 34px 32px 40px; border-right: 1px solid var(--line); }
+  .step:last-child { border-right: 0; }
+  .step .tag { margin-bottom: 26px; }
+  .step p, .step li { color: var(--muted); font-size: 16px; }
+  .step p { margin: 14px 0 0; }
+  .step ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .step li { padding-left: 18px; position: relative; }
+  .step li::before { content: ""; position: absolute; left: 0; top: 12px; width: 8px; height: 1px; background: var(--lilac-text); }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr; } .step { border-right: 0; border-bottom: 1px solid var(--line); padding: 30px 4px; } .step:last-child { border-bottom: 0; } }
 
   /* filas de features */
   .rows { border-top: 1px solid var(--line); }
@@ -91,24 +108,24 @@
   @media (max-width: 860px) { .frow { grid-template-columns: 1fr; gap: 26px; } .frow:nth-child(even) .fmedia { order: 0; } .fmedia { aspect-ratio: 4 / 4.4; } }
 
   .chat { width: min(420px, 88%); display: grid; gap: 10px; position: relative; }
-  .bubble { padding: 12px 14px; border-radius: 10px; font-size: 14px; background: #24221c; box-shadow: 0 0 0 1px var(--line) inset; }
-  .bubble .who { display: block; font: 400 11px/1 var(--mono); text-transform: uppercase; color: var(--mint); margin-bottom: 8px; letter-spacing: .04em; }
+  .bubble { padding: 12px 14px; border-radius: 12px; font-size: 14px; background: #161616; box-shadow: 0 0 0 1px var(--line) inset; }
+  .bubble .who { display: block; font: 400 11px/1 var(--mono); text-transform: uppercase; color: var(--lilac-text); margin-bottom: 8px; letter-spacing: .04em; }
   .bubble .opt { display: block; color: var(--muted); }
   .bubble .opt.rec { color: var(--text); }
-  .bubble .opt.rec::after { content: "recomendado"; margin-left: 8px; font: 400 10px/1 var(--mono); text-transform: uppercase; color: var(--ink); background: var(--mint); padding: 2px 5px; border-radius: 3px; vertical-align: 1px; }
+  .bubble .opt.rec::after { content: "recomendado"; margin-left: 8px; font: 400 10px/1 var(--mono); text-transform: uppercase; color: var(--ink); background: var(--lilac); padding: 2px 5px; border-radius: 3px; vertical-align: 1px; }
   .bubble.me { justify-self: end; background: var(--lilac); color: var(--ink); font-weight: 500; box-shadow: none; }
 
   /* grilla de features */
   .fgrid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); margin-top: 72px; }
   .fcell { padding: 30px 28px 34px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .fcell .label { color: var(--mint); }
+  .fcell .label { color: var(--lilac-text); }
   .fcell h3 { font-family: var(--display); font-weight: 600; text-transform: uppercase; font-size: 26px; line-height: 1; margin: 18px 0 10px; }
   .fcell p { color: var(--muted); margin: 0; font-size: 15px; }
   @media (max-width: 860px) { .fgrid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 560px) { .fgrid { grid-template-columns: 1fr; } }
 
   /* precio */
-  .pricing { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin-top: 56px; }
+  .pricing { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; margin-top: 56px; }
   .pricing > div { padding: 44px 40px; }
   .pricing .left { border-right: 1px solid var(--line); background: var(--bg-2); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; gap: 30px; }
   .pricing .left > .gridbg { position: absolute; inset: 0; opacity: .5; mask-image: linear-gradient(180deg, #000, transparent 85%); -webkit-mask-image: linear-gradient(180deg, #000, transparent 85%); }
@@ -117,10 +134,11 @@
   .amount b { font-family: var(--display); font-weight: 500; font-size: 140px; line-height: .8; letter-spacing: -0.02em; }
   .amount s { color: var(--dim); font-family: var(--display); font-size: 44px; }
   .incl { list-style: none; margin: 0 0 30px; padding: 0; border-top: 1px solid var(--line); }
-  .incl li { padding: 14px 0; border-bottom: 1px solid var(--line); display: flex; gap: 14px; color: #d8d4c7; font-size: 15px; }
-  .incl li::before { content: "+"; font-family: var(--mono); color: var(--mint); }
+  .incl li { padding: 14px 0; border-bottom: 1px solid var(--line); display: flex; gap: 14px; color: #d8d8d8; font-size: 15px; }
+  .incl li::before { content: "+"; font-family: var(--mono); color: var(--lilac-text); }
   .pricing .btn { width: 100%; }
-  .req { margin: 16px 0 0; color: var(--dim); font-size: 13px; }
+  .req { margin: 16px 0 0; color: var(--dim); font-size: 13px; line-height: 1.6; }
+  .req b { color: var(--muted); font-weight: 500; }
   @media (max-width: 860px) { .pricing { grid-template-columns: 1fr; } .pricing .left { border-right: 0; border-bottom: 1px solid var(--line); } .pricing > div { padding: 32px 22px; } .amount b { font-size: 104px; } }
 
   /* faq */
@@ -128,27 +146,34 @@
   .faq details { border-bottom: 1px solid var(--line); }
   .faq summary { cursor: pointer; list-style: none; padding: 24px 48px 24px 0; position: relative; font-family: var(--display); font-weight: 600; text-transform: uppercase; font-size: 24px; line-height: 1.05; }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after { content: "+"; position: absolute; right: 4px; top: 50%; translate: 0 -50%; font-family: var(--mono); font-size: 20px; color: var(--mint); transition: rotate 220ms var(--ease-out); }
+  .faq summary::after { content: "+"; position: absolute; right: 4px; top: 50%; translate: 0 -50%; font-family: var(--mono); font-size: 20px; color: var(--lilac-text); transition: rotate 220ms var(--ease-out); }
   .faq details[open] summary::after { rotate: 45deg; }
   .faq details p { margin: 0; padding: 0 0 26px; color: var(--muted); max-width: 700px; }
+  .faq details p a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
 
-  /* sobre mí */
-  .about { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: center; }
-  .about .media { aspect-ratio: 1; max-width: 420px; }
-  .about p { color: var(--muted); font-size: 17px; margin: 18px 0 0; max-width: 520px; }
+  /* quién está detrás */
+  .about { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 620px); justify-content: center; gap: 64px; align-items: center; }
+  .about .media { aspect-ratio: 1; }
+  .about p { color: var(--muted); font-size: 17px; margin: 18px 0 0; max-width: 560px; }
+  .about p b { color: var(--text); font-weight: 600; }
   .about .btn { margin-top: 28px; }
-  @media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: 30px; } .about .media { max-width: 280px; } }
+  @media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: 30px; justify-items: center; } .about .media { max-width: 280px; width: 100%; } }
 
   .final { border-top: 1px solid var(--line); }
   .final .gridbg { padding: 120px 0; }
   .final .btn { margin-top: 36px; }
+
+  .guias-section { padding: 0 0 100px; }
 </style>
 </head>
 <body>
 
 <nav class="nav">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="AI EDITOR by Santiago Remedio"><b>AI EDITOR</b><span>by Santiago Remedio</span></a>
+    <div class="brand">
+      <a class="logo" href="#top" aria-label="AI EDITOR">AI EDITOR</a>
+      <a class="by-link" href="https://santiagoremedio.com/">por Santiago Remedio</a>
+    </div>
     <div class="links"><a href="#estilos">Estilos</a><a href="#como">Cómo funciona</a><a href="#precio">Precio</a><a href="#faq">Preguntas</a></div>
     <a class="btn js-buy-main" href="#precio"><span>Comprar · $<span class="js-price">20</span></span></a>
   </div>
@@ -158,15 +183,16 @@
 <header class="hero" id="top">
   <div class="wrap">
     <div>
-      <h1 class="d1 reveal">Tu editor<br>de video<br><span class="it">con IA</span></h1>
-      <p class="lines reveal">Aprende tu estilo.<br>Te pregunta antes de editar.<br>Corta, subtitula y anima.<br>Dentro de Claude Code.</p>
-      <div class="reveal" style="display:flex;gap:10px;flex-wrap:wrap">
-        <a class="btn js-buy-main" href="#precio">Empezar a editar</a>
-        <a class="btn btn-line" href="#estilos">Ver estilos</a>
+      <h1 class="d1 reveal">Editá tus reels<br>como edito<br><span class="it">los míos.</span></h1>
+      <p class="lines reveal">AI EDITOR es el editor de video con IA que uso para mis reels, adentro de Claude Code. <b>Aprende tu estilo, te pregunta antes de tocar el video, y corta, subtitula y anima solo.</b></p>
+      <div class="ctas reveal">
+        <a class="btn js-buy-main" href="#precio"><span>Comprar por $<span class="js-price">20</span></span> <span class="arrow">→</span></a>
+        <a class="btn btn-line" href="#estilos">Ver los estilos</a>
       </div>
-      <a class="by reveal" href="https://instagram.com/santiremedio" target="_blank" rel="noopener">
-        <img src="/aieditor/img/santi.jpg" alt="Santiago Remedio" width="30" height="30">
-        <span>por <b>Santiago Remedio</b><br>@santiremedio</span>
+      <p class="fine reveal">Pago único<i>·</i>Mac o Windows<i>·</i>Funciona con tu plan pago de Claude</p>
+      <a class="by reveal" href="https://santiagoremedio.com/">
+        <img src="/aieditor/img/santi.jpg" alt="Santiago Remedio" width="34" height="34">
+        <span>por <b>Santiago Remedio</b><br>creador de contenido · IA</span>
       </a>
     </div>
     <div class="stage reveal">
@@ -180,7 +206,7 @@
         </div>
         <div class="media vert side"><video class="js-vid" src="/aieditor/videos/papel.mp4" poster="/aieditor/img/papel.jpg" muted loop playsinline preload="none" aria-hidden="true"></video></div>
       </div>
-      <span class="label">Hecho con <b>AI EDITOR</b> · reels reales</span>
+      <span class="label">Hecho con <b>AI EDITOR</b> · reels reales de @santiremedio</span>
     </div>
   </div>
 </header>
@@ -192,32 +218,18 @@
   </div>
 </div>
 
-<section id="como">
-  <div class="wrap">
-    <div class="center">
-      <h2 class="d2 reveal">Hecho para reels.<br>Afinado en cada video.</h2>
-      <p class="body reveal">La mayoría de las herramientas editan a ciegas. AI EDITOR hace lo que haría un buen editor: pregunta antes de tocar tu video.</p>
-    </div>
-    <div class="steps">
-      <div class="step reveal"><span class="tag">01 · Instalación</span><h3 class="d3">Se instala solo</h3><p>Abres la carpeta en Claude Code y escribes "hola". Detecta si tienes Mac o Windows e instala todo.</p></div>
-      <div class="step reveal"><span class="tag">02 · Onboarding</span><h3 class="d3">Aprende tu estilo</h3><ul><li>¿Tu marca o tus clientes?</li><li>Le pasas mínimo 3 diseños que te gusten</li><li>Responde 20-30 preguntas, una sola vez</li></ul></div>
-      <div class="step reveal"><span class="tag">03 · Edición</span><h3 class="d3">Edita cada video</h3><ul><li>Pones tu crudo + una referencia</li><li>Mira el crudo y te hace 10-30 preguntas</li><li>O escribes "omitir" y decide por ti</li></ul></div>
-    </div>
-  </div>
-</section>
-
-<section id="estilos" style="padding-top:0">
+<section id="estilos">
   <div class="wrap center">
     <span class="tag reveal">Estilos</span>
-    <h2 class="d2 reveal" style="margin-top:18px">Elige el estilo.<br><span class="it">Él lo edita.</span></h2>
-    <p class="body reveal">Estos reels los edité con Claude usando el mismo método que trae AI EDITOR. Toca un estilo para verlo.</p>
+    <h2 class="d2 reveal" style="margin-top:18px">Elegí el estilo.<br><span class="it">Él lo edita.</span></h2>
+    <p class="body reveal">Estos reels los edité con Claude usando el mismo método que trae AI EDITOR. Tocá un estilo para verlo.</p>
     <div class="tabs reveal" role="tablist" aria-label="Estilos de edición">
       <button role="tab" aria-selected="true" data-src="/aieditor/videos/dopaminico.mp4" data-poster="/aieditor/img/dopaminico.jpg" data-title="Hiper-dopamínico" data-desc="Gancho grande arriba de tu cabeza, subtítulos palabra por palabra con brillo y un efecto en cada elemento que aparece." data-ritmo="Muy rápido" data-texto="Palabra por palabra">Dopamínico</button>
       <button role="tab" aria-selected="false" data-src="/aieditor/videos/papel.mp4" data-poster="/aieditor/img/papel.jpg" data-title="Papel" data-desc="Tu toma se alterna con escenas claras tipo papel: algo visual nuevo cada dos segundos. Ideal para explicar un estudio o una idea." data-ritmo="Rápido" data-texto="Línea + palabra grande">Papel</button>
-      <button role="tab" aria-selected="false" data-src="/aieditor/videos/ranking.mp4" data-poster="/aieditor/img/ranking.jpg" data-title="Ranking" data-desc="Logos reales que aparecen, se califican y se ordenan mientras hablas. Perfecto para comparar herramientas." data-ritmo="Medio" data-texto="Subtítulos grandes">Ranking</button>
-      <button role="tab" aria-selected="false" data-src="/aieditor/videos/niveles.mp4" data-poster="/aieditor/img/niveles.jpg" data-title="Profundidad" data-desc="Gráficos que viven detrás de tu cabeza: tu figura recortada queda por delante y da sensación de 3D." data-ritmo="Rápido" data-texto="Títulos con emoji">Profundidad</button>
+      <button role="tab" aria-selected="false" data-src="/aieditor/videos/ranking.mp4" data-poster="/aieditor/img/ranking.jpg" data-title="Ranking" data-desc="Logos reales que aparecen, se califican y se ordenan mientras hablás. Perfecto para comparar herramientas." data-ritmo="Medio" data-texto="Subtítulos grandes">Ranking</button>
+      <button role="tab" aria-selected="false" data-src="/aieditor/videos/niveles.mp4" data-poster="/aieditor/img/niveles.jpg" data-title="Profundidad" data-desc="Gráficos que viven detrás de tu cabeza: tu figura recortada queda adelante y da sensación de 3D." data-ritmo="Rápido" data-texto="Títulos con emoji">Profundidad</button>
       <button role="tab" aria-selected="false" data-src="/aieditor/videos/motion.mp4" data-poster="/aieditor/img/motion.jpg" data-title="Motion graphics" data-desc="Apps, buscadores y pantallas recreadas y animadas, con tu cara en una burbuja cuando el gráfico manda." data-ritmo="Medio" data-texto="Palabra clave en itálica">Motion</button>
-      <button role="tab" aria-selected="false" data-src="/aieditor/videos/split.mp4" data-poster="/aieditor/img/split.jpg" data-title="Pantalla dividida" data-desc="Arriba lo que explicas (una terminal, una web, un gráfico); abajo tú. Sin perder nunca tu cara." data-ritmo="Medio" data-texto="Mayúsculas abajo">Split</button>
+      <button role="tab" aria-selected="false" data-src="/aieditor/videos/split.mp4" data-poster="/aieditor/img/split.jpg" data-title="Pantalla dividida" data-desc="Arriba lo que explicás (una terminal, una web, un gráfico); abajo vos. Sin perder nunca tu cara." data-ritmo="Medio" data-texto="Mayúsculas abajo">Split</button>
     </div>
     <div class="showcase">
       <div class="sc-text reveal" style="text-align:left">
@@ -239,6 +251,21 @@
   </div>
 </section>
 
+<section id="como" style="padding-top:0">
+  <div class="wrap">
+    <div class="center">
+      <span class="tag reveal">Cómo funciona</span>
+      <h2 class="d2 reveal" style="margin-top:18px">Hecho para reels.<br>Afinado en cada video.</h2>
+      <p class="body reveal">La mayoría de las herramientas editan a ciegas. AI EDITOR hace lo que haría un buen editor: pregunta antes de tocar tu video.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><span class="tag">01 · Instalación</span><h3 class="d3">Se instala solo</h3><p>Abrís la carpeta en Claude Code y escribís "hola". Detecta si tenés Mac o Windows e instala todo.</p></div>
+      <div class="step reveal"><span class="tag">02 · Onboarding</span><h3 class="d3">Aprende tu estilo</h3><ul><li>Tu marca o tus clientes?</li><li>Le pasás mínimo 3 diseños que te gusten</li><li>Respondés 20 a 30 preguntas, una sola vez</li></ul></div>
+      <div class="step reveal"><span class="tag">03 · Edición</span><h3 class="d3">Edita cada video</h3><ul><li>Ponés tu crudo y una referencia</li><li>Mira el crudo y te hace 10 a 30 preguntas</li><li>O escribís "omitir" y decide por vos</li></ul></div>
+    </div>
+  </div>
+</section>
+
 <section style="padding-top:0">
   <div class="wrap">
     <div class="rows">
@@ -248,14 +275,14 @@
           <div class="chat" aria-label="Ejemplo de preguntas">
             <div class="bubble"><span class="who">AI EDITOR by Santiago Remedio</span>Vi tu crudo: 2:41 min, 4 tomas repetidas (me quedo con la última). Antes de editar:</div>
             <div class="bubble"><b>1. Gancho</b><span class="opt rec">a) "Esto cambió cómo edito"</span><span class="opt">b) "Nadie te cuenta esto"</span></div>
-            <div class="bubble"><b>2. ¿Radial blur?</b><span class="opt rec">a) Suave + fuerte en los golpes</span><span class="opt">b) No</span></div>
+            <div class="bubble"><b>2. Radial blur?</b><span class="opt rec">a) Suave, y fuerte en los golpes</span><span class="opt">b) No</span></div>
             <div class="bubble me">1a 2a, y el resto lo que recomiendes</div>
           </div>
         </div>
         <div class="reveal">
           <span class="tag">Preguntas</span>
           <h3 class="d2" style="margin-top:18px">Muchas preguntas antes. <span class="it">Pocas correcciones después.</span></h3>
-          <p>Cada pregunta viene con opciones y una recomendación. Respondes "1a 2c 3a" y listo. Lo que corriges queda guardado para el próximo video.</p>
+          <p>Cada pregunta viene con opciones y una recomendación. Respondés "1a 2c 3a" y listo. Lo que corregís queda guardado para el próximo video.</p>
         </div>
       </div>
       <div class="frow">
@@ -294,7 +321,7 @@
       <div class="fcell reveal"><span class="label">[ 03 ]</span><h3>Marca o clientes</h3><p>Un perfil para cada cliente, con sus colores, letras y gustos.</p></div>
       <div class="fcell reveal"><span class="label">[ 04 ]</span><h3>Sonido premium</h3><p>Pocos efectos, en los momentos justos. Nada de sonidos de meme.</p></div>
       <div class="fcell reveal"><span class="label">[ 05 ]</span><h3>Radial blur</h3><p>Bordes desenfocados y cara nítida, suave o fuerte. Siempre te pregunta.</p></div>
-      <div class="fcell reveal"><span class="label">[ 06 ]</span><h3>Aprende de ti</h3><p>Cada corrección se guarda en tu perfil. El video 10 sale mejor que el 1.</p></div>
+      <div class="fcell reveal"><span class="label">[ 06 ]</span><h3>Aprende de vos</h3><p>Cada corrección se guarda en tu perfil. El video 10 sale mejor que el 1.</p></div>
     </div>
   </div>
 </section>
@@ -321,7 +348,7 @@
           <li>Reglas de oficio para que todo se vea premium</li>
         </ul>
         <a class="btn js-buy-main" href="#precio">Comprar ahora <span class="arrow">→</span></a>
-        <p class="req">Necesitas una Mac o PC con Windows 10/11 y un plan pago de Claude que incluya Claude Code.</p>
+        <p class="req">Necesitás una Mac o una PC con Windows 10/11 y un plan pago de Claude que incluya Claude Code. <b>Si no te anda, me escribís por Instagram y lo resolvemos.</b></p>
       </div>
     </div>
   </div>
@@ -331,13 +358,14 @@
   <div class="wrap">
     <div class="center"><span class="tag reveal">Preguntas</span><h2 class="d2 reveal" style="margin-top:18px">Antes de comprar</h2></div>
     <div class="faq">
-      <details class="reveal"><summary>¿Qué es exactamente lo que compro?</summary><p>Una carpeta que se abre en Claude Code (la app de Claude para trabajar con archivos). Trae el instalador, mi método de edición, las preguntas y los estilos. Claude la lee y pasa a trabajar como tu editor.</p></details>
-      <details class="reveal"><summary>¿Necesito saber programar?</summary><p>No. Abres la carpeta, escribes "hola" y sigues lo que te dice. Si hay que instalar algo que necesita tu permiso, te explica qué tocar paso a paso.</p></details>
-      <details class="reveal"><summary>¿Qué necesito para usarlo?</summary><p>Una Mac o una PC con Windows 10/11, y un plan pago de Claude que incluya Claude Code. El resto (programas y herramientas) se instala solo.</p></details>
-      <details class="reveal"><summary>¿Sirve para editar videos de clientes?</summary><p>Sí. En el onboarding eliges "varios clientes" y cada uno tiene su propio perfil con su estilo.</p></details>
-      <details class="reveal"><summary>¿Y si no quiero responder tantas preguntas?</summary><p>Siempre te las muestra, pero puedes escribir "omitir" y usa sus recomendaciones.</p></details>
-      <details class="reveal"><summary>¿Es un producto oficial de Claude?</summary><p>No. AI EDITOR es un método creado por Santiago Remedio que funciona dentro de Claude Code, sobre herramientas de código abierto (HyperFrames). No está afiliado a Anthropic ni a HeyGen.</p></details>
-      <details class="reveal"><summary>¿Cómo lo recibo?</summary><p>Apenas pagas, te lleva a una página con el link de descarga y los pasos para instalarlo.</p></details>
+      <details class="reveal"><summary>Qué es exactamente lo que compro?</summary><p>Una carpeta que se abre en Claude Code (la app de Claude para trabajar con archivos). Trae el instalador, mi método de edición, las preguntas y los estilos. Claude la lee y pasa a trabajar como tu editor.</p></details>
+      <details class="reveal"><summary>Necesito saber programar?</summary><p>No. Abrís la carpeta, escribís "hola" y seguís lo que te dice. Si hay que instalar algo que necesita tu permiso, te explica qué tocar paso a paso.</p></details>
+      <details class="reveal"><summary>Qué necesito para usarlo?</summary><p>Una Mac o una PC con Windows 10/11, y un plan pago de Claude que incluya Claude Code. El resto (programas y herramientas) se instala solo.</p></details>
+      <details class="reveal"><summary>Sirve para editar videos de clientes?</summary><p>Sí. En el onboarding elegís "varios clientes" y cada uno tiene su propio perfil con su estilo.</p></details>
+      <details class="reveal"><summary>Y si no quiero responder tantas preguntas?</summary><p>Siempre te las muestra, pero podés escribir "omitir" y usa sus recomendaciones.</p></details>
+      <details class="reveal"><summary>Es un producto oficial de Claude?</summary><p>No. AI EDITOR es un método creado por Santiago Remedio que funciona adentro de Claude Code, sobre herramientas de código abierto (HyperFrames). No está afiliado a Anthropic ni a HeyGen.</p></details>
+      <details class="reveal"><summary>Cómo lo recibo?</summary><p>Apenas pagás, te lleva a una página con el link de descarga y los pasos para instalarlo.</p></details>
+      <details class="reveal"><summary>Qué diferencia hay con Cardinal?</summary><p>AI EDITOR es la herramienta: edita tus reels como edito los míos. Cardinal es el sistema completo de marketing con IA que instalo yo en tu marca, de las ideas a la captación. Hoy está a puertas cerradas, pero podés <a href="https://santiagoremedio.com/#lista">anotarte en la lista de espera</a>.</p></details>
     </div>
   </div>
 </section>
@@ -348,8 +376,8 @@
     <div class="reveal">
       <span class="tag">Quién está detrás</span>
       <h2 class="d2" style="margin-top:18px">Hola, soy <span class="it">Santiago.</span></h2>
-      <p>Hago contenido sobre inteligencia artificial y edito mis reels con Claude. AI EDITOR es exactamente cómo trabajo yo: las preguntas, los estilos y las reglas que fui puliendo video a video.</p>
-      <a class="btn btn-dark" href="https://instagram.com/santiremedio" target="_blank" rel="noopener">Seguir a @santiremedio</a>
+      <p>Hago contenido todos los días y estudio por qué la gente compra. <b>AI EDITOR es exactamente como edito mis reels:</b> las preguntas, los estilos y las reglas que fui puliendo video a video. Lo que ves en mi cuenta sale de acá.</p>
+      <a class="btn btn-dark" href="https://www.instagram.com/santiremedio/" target="_blank" rel="noopener">Seguir a @santiremedio</a>
     </div>
   </div>
 </section>
@@ -363,29 +391,58 @@
   </div>
 </div>
 
-<footer class="foot">
+<section class="guias-section" id="guias">
   <div class="wrap">
-    <span>© <span class="js-year">2026</span> AI EDITOR by Santiago Remedio · <a href="https://instagram.com/santiremedio" target="_blank" rel="noopener">@santiremedio</a></span>
-    <span>No afiliado a Anthropic ni a HeyGen. Los resultados dependen de tu material.</span>
+    <div class="capture reveal js-capture">
+      <span class="tag">Gratis</span>
+      <h3 class="d3" style="margin-top:18px">No es tu momento? <span class="it">Llevate las 3 guías.</span></h3>
+      <p class="body">Los 5 plugins de Claude Code que uso todos los días, 5 Claude Skills que tenés que instalar y cómo hacer que Claude maneje tu Instagram.</p>
+      <form class="capture-f js-guide-form" data-source="aieditor-guias" novalidate>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="lead-hp">
+        <label class="lead-sr" for="guias-email">Tu email</label>
+        <input id="guias-email" type="email" name="email" placeholder="tu@email.com" autocomplete="email" inputmode="email" required>
+        <button class="btn" type="submit">Quiero las guías <span class="arrow">→</span></button>
+      </form>
+      <p class="capture-err js-guide-err" role="alert" hidden>Revisá el email, parece que falta algo.</p>
+      <div class="js-guide-ok" role="status" hidden>
+        <p class="body" style="margin-bottom:0">Listo. Acá tenés las tres:</p>
+        <div class="guide-links js-guide-links"></div>
+      </div>
+      <p class="capture-fine js-guide-fine">Te escribo yo, no un bot. Sin spam.</p>
+    </div>
   </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-mark">AI EDITOR<span>.</span></div>
+  <nav class="foot-links" aria-label="Más de Santiago Remedio">
+    <a href="https://santiagoremedio.com/">Santiago Remedio</a>
+    <a href="https://santiagoremedio.com/#lista">Lista de espera de Cardinal</a>
+    <a href="https://www.instagram.com/santiremedio/" target="_blank" rel="noopener">Instagram</a>
+  </nav>
+  <div class="foot-copy">© <span class="js-year">2026</span> AI EDITOR · por Santiago Remedio. Todos los derechos reservados.</div>
+  <div class="foot-copy">No afiliado a Anthropic ni a HeyGen. Los resultados dependen de tu material.</div>
 </footer>
 
 <div class="lead-ov" id="lead" hidden>
 <div class="lead-bg" aria-hidden="true"></div>
 <aside class="lead" role="dialog" aria-modal="true" aria-labelledby="lead-t" aria-describedby="lead-d">
   <button class="lead-x" type="button" aria-label="Cerrar">×</button>
-  <span class="tag">Gratis · 1 mail por semana</span>
-  <h2 class="lead-t" id="lead-t">Tips de marketing<br><span class="it">con IA</span></h2>
-  <p class="lead-d" id="lead-d">Lo que pruebo con Claude para crear contenido y vender, directo a tu correo. Sin relleno.</p>
-  <form class="lead-f" novalidate>
+  <span class="tag">Gratis · sin spam</span>
+  <h2 class="lead-t" id="lead-t">Antes de irte:<br><span class="it">3 guías gratis</span></h2>
+  <p class="lead-d" id="lead-d">Los 5 plugins de Claude Code que uso todos los días, 5 Claude Skills que tenés que instalar y cómo hacer que Claude maneje tu Instagram.</p>
+  <form class="lead-f js-guide-form" data-source="aieditor-popup" novalidate>
     <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="lead-hp">
     <label class="lead-sr" for="lead-email">Tu email</label>
     <input id="lead-email" type="email" name="email" placeholder="tu@email.com" autocomplete="email" inputmode="email" required>
-    <button class="btn" type="submit">Quiero los tips <span class="arrow">→</span></button>
+    <button class="btn" type="submit">Quiero las guías <span class="arrow">→</span></button>
   </form>
-  <p class="lead-err" role="alert" hidden>Revisa el email, parece que falta algo.</p>
-  <p class="lead-ok" role="status" hidden>Listo, ya estás en la lista. El próximo mail te llega a tu bandeja.</p>
-  <p class="lead-fine">Te das de baja cuando quieras.</p>
+  <p class="lead-err js-guide-err" role="alert" hidden>Revisá el email, parece que falta algo.</p>
+  <div class="js-guide-ok" role="status" hidden>
+    <p class="lead-ok">Listo. Acá tenés las tres:</p>
+    <div class="guide-links js-guide-links"></div>
+  </div>
+  <p class="lead-fine js-guide-fine">Te escribo yo, no un bot.</p>
 </aside>
 </div>
 

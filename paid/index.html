@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gracias · AI EDITOR by Santiago Remedio</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#12110d">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312110d'/%3E%3Cpath d='M24 18l24 14-24 14z' fill='%239b92d4'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000000'/%3E%3Cpath d='M24 18l24 14-24 14z' fill='%239b92d4'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Fragment+Mono&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,8 +17,8 @@
   .thanks .gridbg { padding: 96px 0 88px; }
   .thanks .wrap { max-width: 900px; text-align: center; }
   .check {
-    width: 64px; height: 64px; margin: 0 auto 28px; border-radius: 14px; display: grid; place-items: center;
-    background: var(--mint); color: var(--ink);
+    width: 64px; height: 64px; margin: 0 auto 28px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--lilac); color: var(--ink);
     animation: pop 600ms var(--ease-out) backwards;
   }
   .check svg { stroke-dasharray: 30; stroke-dashoffset: 0; animation: draw 500ms 250ms var(--ease-out) backwards; }
@@ -27,15 +27,16 @@
   @media (prefers-reduced-motion: reduce) { .check, .check svg { animation: none; } }
   .thanks .body { margin: 24px auto 0; max-width: 560px; }
   .dl { margin-top: 36px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
-  .dl .btn { height: 60px; padding: 0 30px; font-size: 16px; }
+  .dl .btn { height: 60px; padding: 0 34px; font-size: 16px; }
 
   .head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
   .steps4 { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
   .s4 { padding: 30px 26px 36px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .s4 .label { color: var(--mint); }
+  .s4 .label { color: var(--lilac-text); }
   .s4 h3 { font-family: var(--display); font-weight: 600; text-transform: uppercase; font-size: 28px; line-height: 1; margin: 18px 0 10px; }
   .s4 p { color: var(--muted); margin: 0; font-size: 15px; }
-  .s4 code { font-family: var(--mono); font-size: 13px; color: var(--text); background: rgba(235,231,218,0.08); padding: 2px 6px; border-radius: 4px; }
+  .s4 b { color: var(--text); font-weight: 500; }
+  .s4 code { font-family: var(--mono); font-size: 13px; color: var(--text); background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 4px; }
   .s4 .os { margin-top: 14px; }
   .s4 .os .tag { height: auto; padding: 6px 8px; line-height: 1.35; }
   @media (max-width: 980px) { .steps4 { grid-template-columns: 1fr 1fr; } }
@@ -45,22 +46,28 @@
   .help li { display: grid; grid-template-columns: 140px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 15px; }
   .help ul { list-style: none; margin: 0; padding: 0; }
   .help li .label { color: var(--text); padding-top: 3px; }
-  .help a { color: var(--mint); }
+  .help a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 560px) { .help li { grid-template-columns: 1fr; gap: 6px; } }
 
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-  .cardx { border-radius: var(--r); padding: 34px 32px; background: var(--bg-2); box-shadow: 0 0 0 1px var(--line) inset; position: relative; overflow: hidden; }
+  .cardx { border-radius: 22px; padding: 34px 32px; background: var(--bg-2); box-shadow: 0 0 0 1px var(--line) inset; position: relative; overflow: hidden; }
   .cardx > .gridbg { position: absolute; inset: 0; opacity: .4; mask-image: linear-gradient(90deg, transparent, #000); -webkit-mask-image: linear-gradient(90deg, transparent, #000); }
   .cardx > *:not(.gridbg) { position: relative; }
   .cardx p { color: var(--muted); margin: 12px 0 24px; max-width: 460px; }
+  .cardx .guide-links { margin: 0; max-width: none; }
+  .cardx--bridge { box-shadow: 0 0 0 1px rgba(201,182,255,.35) inset; }
+  .cardx--bridge .tag { color: var(--lilac-text); }
 </style>
 </head>
 <body>
 
 <nav class="nav">
   <div class="wrap">
-    <a class="logo" href="/aieditor" aria-label="AI EDITOR by Santiago Remedio"><b>AI EDITOR</b><span>by Santiago Remedio</span></a>
-    <a class="btn btn-dark" href="https://instagram.com/santiremedio" target="_blank" rel="noopener">@santiremedio</a>
+    <div class="brand">
+      <a class="logo" href="/aieditor" aria-label="AI EDITOR">AI EDITOR</a>
+      <a class="by-link" href="https://santiagoremedio.com/">por Santiago Remedio</a>
+    </div>
+    <a class="btn btn-dark" href="https://www.instagram.com/santiremedio/" target="_blank" rel="noopener" style="margin-left:auto;height:40px;padding:0 18px;font-size:13px">@santiremedio</a>
   </div>
 </nav>
 <div class="rule" aria-hidden="true"></div>
@@ -71,10 +78,10 @@
       <div class="check" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
       <span class="tag">Compra confirmada</span>
       <h1 class="d1" style="margin-top:20px">Gracias.<br><span class="it">Ya es tuyo.</span></h1>
-      <p class="body">Descarga AI EDITOR by Santiago Remedio y sigue los 4 pasos de abajo. En 15 minutos estás editando tu primer video.</p>
+      <p class="body">Descargá AI EDITOR y seguí los 4 pasos de abajo. En 15 minutos estás editando tu primer video.</p>
       <div class="dl">
         <a class="btn js-download" href="#">Descargar AI EDITOR (.zip) <span class="arrow">↓</span></a>
-        <span class="label">Guarda esta página por si necesitas descargarlo de nuevo</span>
+        <span class="label">Guardá esta página por si necesitás descargarlo de nuevo</span>
       </div>
     </div>
   </div>
@@ -84,18 +91,18 @@
   <div class="wrap">
     <div class="head"><div><span class="tag">Instalación</span><h2 class="d2" style="margin-top:18px">4 pasos y <span class="it">listo.</span></h2></div></div>
     <div class="steps4">
-      <div class="s4"><span class="label">[ 01 ]</span><h3>Descomprime</h3><p>Haz doble clic en el .zip. Te queda la carpeta <code>AI EDITOR by Santiago Remedio</code>.</p><p class="os"><span class="tag">Windows: clic derecho → Extraer todo</span></p></div>
-      <div class="s4"><span class="label">[ 02 ]</span><h3>Muévela</h3><p>Ponla en un lugar fijo, por ejemplo <b style="color:var(--text);font-weight:500">Documentos</b>. No la borres: ahí se guardan tu perfil y tus videos.</p></div>
-      <div class="s4"><span class="label">[ 03 ]</span><h3>Ábrela en Claude</h3><p>App de <b style="color:var(--text);font-weight:500">Claude</b> → pestaña <b style="color:var(--text);font-weight:500">Code</b> → elige esa carpeta como carpeta de trabajo.</p></div>
-      <div class="s4"><span class="label">[ 04 ]</span><h3>Escribe <code style="font-size:18px;vertical-align:3px">hola</code></h3><p>Detecta tu computadora, instala todo y te hace las preguntas. Ten a mano <b style="color:var(--text);font-weight:500">mínimo 3 videos o diseños</b> que te gusten.</p></div>
+      <div class="s4"><span class="label">[ 01 ]</span><h3>Descomprimí</h3><p>Hacé doble clic en el .zip. Te queda la carpeta <code>AI EDITOR by Santiago Remedio</code>.</p><p class="os"><span class="tag">Windows: clic derecho → Extraer todo</span></p></div>
+      <div class="s4"><span class="label">[ 02 ]</span><h3>Movela</h3><p>Ponela en un lugar fijo, por ejemplo <b>Documentos</b>. No la borres: ahí se guardan tu perfil y tus videos.</p></div>
+      <div class="s4"><span class="label">[ 03 ]</span><h3>Abrila en Claude</h3><p>App de <b>Claude</b> → pestaña <b>Code</b> → elegí esa carpeta como carpeta de trabajo.</p></div>
+      <div class="s4"><span class="label">[ 04 ]</span><h3>Escribí <code style="font-size:18px;vertical-align:3px">hola</code></h3><p>Detecta tu computadora, instala todo y te hace las preguntas. Tené a mano <b>mínimo 3 videos o diseños</b> que te gusten.</p></div>
     </div>
 
     <div class="help">
       <ul>
-        <li><span class="label">Windows</span><span>Si Claude Code te pide instalar Git, instálalo desde git-scm.com. Si Windows pregunta "¿Permitir que esta app haga cambios?", acepta.</span></li>
-        <li><span class="label">Mac</span><span>Si te pide la contraseña de tu computadora para instalar algo, escríbela tú en la ventana que aparece.</span></li>
-        <li><span class="label">No encuentra algo</span><span>Si después de instalar dice que no encuentra algo, cierra Claude por completo, ábrelo de nuevo y escribe "hola".</span></li>
-        <li><span class="label">¿Sigue sin andar?</span><span>Escríbeme por Instagram a <a href="https://instagram.com/santiremedio" target="_blank" rel="noopener">@santiremedio</a> con una captura.</span></li>
+        <li><span class="label">Windows</span><span>Si Claude Code te pide instalar Git, instalalo desde git-scm.com. Si Windows pregunta si permitís que la app haga cambios, aceptá.</span></li>
+        <li><span class="label">Mac</span><span>Si te pide la contraseña de tu computadora para instalar algo, escribila vos en la ventana que aparece.</span></li>
+        <li><span class="label">No encuentra algo</span><span>Si después de instalar dice que no encuentra algo, cerrá Claude por completo, abrilo de nuevo y escribí "hola".</span></li>
+        <li><span class="label">Sigue sin andar?</span><span>Escribime por Instagram a <a href="https://www.instagram.com/santiremedio/" target="_blank" rel="noopener">@santiremedio</a> con una captura y lo resolvemos.</span></li>
       </ul>
     </div>
   </div>
@@ -103,28 +110,39 @@
 
 <section style="padding-top:0">
   <div class="wrap cards">
+    <div class="cardx cardx--bridge js-community">
+      <div class="gridbg" aria-hidden="true"></div>
+      <span class="tag">Cardinal · cupos llenos</span>
+      <h3 class="d3" style="margin-top:18px">Querés que esto lo instale yo, <span class="it">con todo el sistema?</span></h3>
+      <p>Lo que AI EDITOR hace con un reel, Cardinal lo hace con todo tu marketing: ideas, producción en volumen, captación y medición, instalado en tu marca. Hoy está lleno, pero hay lista de espera y le escribo primero a la lista.</p>
+      <a class="btn" href="#">Sumarme a la lista de espera <span class="arrow">→</span></a>
+    </div>
     <div class="cardx">
       <div class="gridbg" aria-hidden="true"></div>
-      <span class="tag">Comparte</span>
-      <h3 class="d3" style="margin-top:18px">Muéstrame lo que <span class="it">editas</span></h3>
-      <p>Sube tu video y etiqueta a @santiremedio. Comparto los mejores en mis historias.</p>
-      <a class="btn" href="https://instagram.com/santiremedio" target="_blank" rel="noopener">Seguir a @santiremedio →</a>
+      <span class="tag">Bonus</span>
+      <h3 class="d3" style="margin-top:18px">3 guías para sacarle <span class="it">más jugo a Claude</span></h3>
+      <p>Las mismas que uso yo. Abrilas cuando termines de instalar.</p>
+      <div class="guide-links js-guide-links-static"></div>
     </div>
-    <div class="cardx js-community">
+    <div class="cardx">
       <div class="gridbg" aria-hidden="true"></div>
-      <span class="tag">Comunidad</span>
-      <h3 class="d3" style="margin-top:18px">¿Quieres <span class="it">más?</span></h3>
-      <p>Estilos nuevos, ayuda y novedades de AI EDITOR en la comunidad.</p>
-      <a class="btn btn-line" href="#" target="_blank" rel="noopener">Entrar a la comunidad →</a>
+      <span class="tag">Compartí</span>
+      <h3 class="d3" style="margin-top:18px">Mostrame lo que <span class="it">editás</span></h3>
+      <p>Subí tu video y etiquetá a @santiremedio. Comparto los mejores en mis historias.</p>
+      <a class="btn btn-dark" href="https://www.instagram.com/santiremedio/" target="_blank" rel="noopener">Seguir a @santiremedio</a>
     </div>
   </div>
 </section>
 
 <footer class="foot">
-  <div class="wrap">
-    <span>© <span class="js-year">2026</span> AI EDITOR by Santiago Remedio · <a href="https://instagram.com/santiremedio" target="_blank" rel="noopener">@santiremedio</a></span>
-    <span>No afiliado a Anthropic ni a HeyGen.</span>
-  </div>
+  <div class="foot-mark">AI EDITOR<span>.</span></div>
+  <nav class="foot-links" aria-label="Más de Santiago Remedio">
+    <a href="https://santiagoremedio.com/">Santiago Remedio</a>
+    <a href="https://santiagoremedio.com/#lista">Lista de espera de Cardinal</a>
+    <a href="https://www.instagram.com/santiremedio/" target="_blank" rel="noopener">Instagram</a>
+  </nav>
+  <div class="foot-copy">© <span class="js-year">2026</span> AI EDITOR · por Santiago Remedio. Todos los derechos reservados.</div>
+  <div class="foot-copy">No afiliado a Anthropic ni a HeyGen.</div>
 </footer>
 
 <script src="/aieditor/app.js"></script>
