@@ -125,10 +125,11 @@
       if (b) b.click();
     });
   });
-  // Box de mails: aparece al pasar la mitad de la página (o al ir a cerrar la pestaña en compu)
+  // Box de mails: aparece cuando la persona ya entendió el producto (terminó "Cómo funciona" y llega a Estilos),
+  // o a los 20 s si está leyendo (ya bajó algo). Nunca antes de 8 s. En compu también al ir a cerrar la pestaña.
   var lead = document.getElementById("lead");
   if (lead && !vacio(C.mails)) (function () {
-    var KEY = "aie_lead", DIAS = 7, MIN_MS = 6000;
+    var KEY = "aie_lead", DIAS = 7, MIN_MS = 8000, LECTURA_MS = 20000;
     function leer() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
     function guardar(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
     var prev = leer();
@@ -170,10 +171,13 @@
       if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
       document.removeEventListener("keydown", onKey);
     }
+    var estilos = document.getElementById("estilos");
     function onScroll() {
+      if (estilos) { if (estilos.getBoundingClientRect().top <= window.innerHeight * 0.5) show(); return; }
       var max = document.documentElement.scrollHeight - window.innerHeight;
-      if (max > 0 && window.scrollY / max >= 0.5) show();
+      if (max > 0 && window.scrollY / max >= 0.3) show();
     }
+    setTimeout(function () { if (window.scrollY > 200) show(); }, LECTURA_MS);
     function onExit(e) {
       if (!e.relatedTarget && e.clientY <= 0) show();
     }
