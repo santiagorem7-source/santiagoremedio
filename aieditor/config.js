@@ -24,6 +24,6 @@ window.AIE = {
   ],
 
   // Precio que se muestra en la página
-  precio: "20",
+  precio: "49",
   precioAntes: "", // ej: "39" para mostrarlo tachado. Vacío = no se muestra.
 };

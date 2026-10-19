@@ -3,7 +3,7 @@
   var vacio = function (v) { return !v || /PEGA|^\s*$/.test(v); };
 
   // Precio
-  document.querySelectorAll(".js-price").forEach(function (el) { el.textContent = C.precio || "20"; });
+  document.querySelectorAll(".js-price").forEach(function (el) { el.textContent = C.precio || "49"; });
   var antes = document.querySelector(".js-before");
   if (antes && !vacio(C.precioAntes)) { antes.textContent = "$" + C.precioAntes; antes.hidden = false; }
   document.querySelectorAll(".js-year").forEach(function (el) { el.textContent = new Date().getFullYear(); });
@@ -12,7 +12,7 @@
   document.querySelectorAll(".js-buy-main").forEach(function (a) {
     if (!vacio(C.stripe)) { a.href = C.stripe; a.rel = "noopener"; }
     a.addEventListener("click", function () {
-      if (window.fbq) fbq("track", "InitiateCheckout", { value: Number(C.precio || 20), currency: "USD" });
+      if (window.fbq) fbq("track", "InitiateCheckout", { value: Number(C.precio || 49), currency: "USD" });
       if (window.gtag) gtag("event", "begin_checkout");
     });
   });
