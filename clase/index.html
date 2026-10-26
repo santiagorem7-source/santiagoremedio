@@ -36,7 +36,7 @@ var CONFIG = {
   // ID del video de YouTube: lo que va después de "v=" en la URL.
   // Ej: https://www.youtube.com/watch?v=xCo-lJA-bok  ->  videoId: "xCo-lJA-bok"
   // Mientras esté vacío, al desbloquear se ve un aviso en lugar del video.
-  videoId: "",
+  videoId: "dnDEPCX1n4M",
 
   // Mismo Apps Script que la planilla "Leads Masterclass"
   // (columnas Fecha / Email / WhatsApp / Origen / URL).
@@ -51,7 +51,7 @@ var CONFIG = {
 
   // Opcional: fotograma del video que se ve detrás del desenfoque, antes de desbloquear.
   // Poné el archivo en esta misma carpeta y escribí su nombre (ej: "poster.jpg").
-  posterUrl: "",
+  posterUrl: "https://i.ytimg.com/vi/dnDEPCX1n4M/maxresdefault.jpg",
 
   // Opcional: duración de la clase, aparece junto al candado (ej: "15 min").
   duration: "",
@@ -242,7 +242,7 @@ main { flex: 1; }
   position: absolute; inset: 0; overflow: hidden; transition: opacity .5s ease;
   background: linear-gradient(180deg, #0c0c0e 0%, #050505 100%);
 }
-.frame .blurfield.has-poster { background-size: cover; background-position: center; }
+.frame .blurfield.has-poster { background-size: cover; background-position: center; filter: saturate(.5) brightness(.42); }
 .frame .blurfield.has-poster::before, .frame .blurfield.has-poster::after { opacity: .3; }
 .frame .blurfield::before,
 .frame .blurfield::after {
@@ -259,8 +259,8 @@ main { flex: 1; }
 .frame .lockface {
   position: absolute; inset: 0; display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 12px;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,.25), rgba(0,0,0,.6));
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  background: radial-gradient(ellipse at center, rgba(0,0,0,.28), rgba(0,0,0,.68));
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   transition: opacity .5s ease;
 }
 .lockface .lk {
