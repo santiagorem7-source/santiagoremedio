@@ -141,6 +141,48 @@
   .req b { color: var(--muted); font-weight: 500; }
   @media (max-width: 860px) { .pricing { grid-template-columns: 1fr; } .pricing .left { border-right: 0; border-bottom: 1px solid var(--line); } .pricing > div { padding: 32px 22px; } .amount b { font-size: 104px; } }
 
+  /* campaña: barra de arriba */
+  .promo {
+    display: flex; align-items: center; justify-content: center; gap: 18px; height: 38px; padding: 0 16px;
+    background: var(--lilac); color: var(--ink); text-decoration: none;
+    font: 400 12px/1 var(--mono); text-transform: uppercase; letter-spacing: .05em; white-space: nowrap;
+  }
+  .promo[hidden] { display: none; }
+  .promo-t b { font-weight: 400; }
+  .promo-t i { font-style: normal; margin: 0 10px; opacity: .5; }
+  .promo-c { font-variant-numeric: tabular-nums; padding: 5px 9px; border-radius: 4px; background: var(--ink); color: var(--lilac-text); }
+  .promo-c b { font-weight: 400; color: var(--text); }
+  @media (hover: hover) and (pointer: fine) { .promo:hover { background: var(--lilac-hi); } }
+  @media (max-width: 560px) { .promo { gap: 10px; font-size: 11px; letter-spacing: .03em; } .promo-t i, .promo-after { display: none; } }
+  html.con-campana section[id], html.con-campana [id="guias"] { scroll-margin-top: 128px; }
+
+  /* campaña: cuenta en el precio */
+  .deal { display: grid; gap: 14px; }
+  .deal .label b { color: var(--lilac-text); font-weight: 400; }
+  .clock { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 360px; }
+  .clock div { display: grid; justify-items: center; gap: 8px; padding: 14px 0 12px; border-radius: 10px; background: rgba(155,146,212,.08); box-shadow: 0 0 0 1px rgba(155,146,212,.28) inset; }
+  .clock b { font: 500 40px/.9 var(--display); font-variant-numeric: tabular-nums; color: var(--text); }
+  .clock span { font: 400 10px/1 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--dim); }
+  @media (max-width: 860px) { .clock b { font-size: 34px; } }
+
+  /* tabla editor vs AI EDITOR */
+  .vs-wrap { max-width: 920px; margin: 56px auto 0; }
+  .vs { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; }
+  .vs th, .vs td { padding: 18px 24px; text-align: left; border-bottom: 1px solid var(--line); font-size: 16px; vertical-align: middle; }
+  .vs tbody tr:last-child th, .vs tbody tr:last-child td { border-bottom: 0; }
+  .vs thead th { font: 600 22px/1 var(--display); text-transform: uppercase; color: var(--muted); padding-top: 24px; padding-bottom: 20px; }
+  .vs thead th.me { color: var(--lilac-text); }
+  .vs tbody th { width: 30%; font: 400 12px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--dim); }
+  .vs td { color: var(--muted); }
+  .vs td s { color: var(--muted); text-decoration-color: rgba(255,255,255,.45); }
+  .vs .me { background: rgba(155,146,212,.07); color: var(--text); font-weight: 500; box-shadow: 1px 0 0 rgba(155,146,212,.22) inset; }
+  .vs-note { margin: 14px 4px 0; color: var(--dim); font-size: 13px; line-height: 1.6; }
+  @media (max-width: 640px) {
+    .vs th, .vs td { padding: 14px 12px; font-size: 14px; }
+    .vs thead th { font-size: 17px; }
+    .vs tbody th { width: 32%; font-size: 10.5px; letter-spacing: .03em; }
+  }
+
   /* faq */
   .faq { max-width: 880px; margin: 56px auto 0; border-top: 1px solid var(--line); }
   .faq details { border-bottom: 1px solid var(--line); }
@@ -169,6 +211,10 @@
 <body>
 
 <nav class="nav">
+  <a class="promo js-campaign" href="#precio" hidden>
+    <span class="promo-t"><b>$<span class="js-price">49</span></b> hasta el <span class="js-hasta">30 de noviembre</span><i aria-hidden="true">·</i><span class="promo-after">después $<span class="js-precio-nuevo">69</span></span></span>
+    <span class="promo-c js-count" aria-label="Tiempo hasta la suba de precio"><b data-u="d">00</b>d <b data-u="h">00</b>h <b data-u="m">00</b>m <b data-u="s">00</b>s</span>
+  </a>
   <div class="wrap">
     <div class="brand">
       <a class="logo" href="#top" aria-label="AI EDITOR">AI EDITOR</a>
@@ -331,12 +377,41 @@
       <span class="tag reveal">Precio</span>
       <h2 class="d2 reveal" style="margin-top:18px">Menos que una hora<br><span class="it">de un editor.</span></h2>
     </div>
+    <div class="vs-wrap reveal">
+      <table class="vs">
+        <caption class="lead-sr">Editor freelance comparado con AI EDITOR</caption>
+        <thead>
+          <tr><th scope="col"><span class="lead-sr">Concepto</span></th><th scope="col">Editor freelance</th><th scope="col" class="me">AI EDITOR</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Costo por reel</th><td>USD 20 a 50</td><td class="me">Menos de USD 0,15</td></tr>
+          <tr><th scope="row">Reels por día</th><td>1 o 2</td><td class="me">Hasta 5</td></tr>
+          <tr><th scope="row">150 reels al mes</th><td><s>USD 3.000 a 7.500</s></td><td class="me">USD 20 de tu plan de Claude</td></tr>
+          <tr><th scope="row">La herramienta</th><td>No aplica</td><td class="me">$<span class="js-price">49</span>, pago único</td></tr>
+          <tr><th scope="row">Entrega</th><td>24 a 72 horas</td><td class="me">Minutos</td></tr>
+          <tr><th scope="row">Aprende tu estilo</th><td>Si es bueno</td><td class="me">Sí, desde el onboarding</td></tr>
+          <tr><th scope="row">Horario</th><td>El del editor</td><td class="me">Cuando quieras</td></tr>
+        </tbody>
+      </table>
+      <p class="vs-note">Valores de referencia de editores freelance de reels. El plan de Claude se paga aparte y la cantidad de reels por día depende de tu plan y del largo de cada video.</p>
+    </div>
     <div class="pricing reveal">
       <div class="left">
         <div class="gridbg" aria-hidden="true"></div>
         <span class="label">AI EDITOR by Santiago Remedio</span>
-        <div class="amount"><b>$<span class="js-price">49</span></b><s class="js-before" hidden></s></div>
-        <span class="label">USD · pago único · acceso inmediato</span>
+        <div>
+          <div class="amount"><b>$<span class="js-price">49</span></b><s class="js-before" hidden></s></div>
+          <span class="label" style="display:block;margin-top:18px">USD · pago único · acceso inmediato</span>
+        </div>
+        <div class="deal js-campaign" hidden>
+          <span class="label">Sube a <b>$<span class="js-precio-nuevo">69</span></b> en</span>
+          <div class="clock js-count" aria-label="Tiempo hasta la suba de precio">
+            <div><b data-u="d">00</b><span>días</span></div>
+            <div><b data-u="h">00</b><span>horas</span></div>
+            <div><b data-u="m">00</b><span>min</span></div>
+            <div><b data-u="s">00</b><span>seg</span></div>
+          </div>
+        </div>
       </div>
       <div>
         <ul class="incl">

@@ -26,4 +26,14 @@ window.AIE = {
   // Precio que se muestra en la página
   precio: "49",
   precioAntes: "", // ej: "39" para mostrarlo tachado. Vacío = no se muestra.
+
+  // Campaña de suba de precio. Mientras no llegue la fecha "hasta", la página muestra
+  // el precio nuevo tachado, la barra de arriba y la cuenta regresiva.
+  // Cuando llega la fecha: la cuenta desaparece sola. Si "stripeNuevo" tiene el link de Stripe
+  // del precio nuevo, la página pasa sola a cobrar el precio nuevo. Si está vacío, sigue en el precio actual.
+  campana: {
+    hasta: "2026-12-01T00:00:00-03:00", // 1 de diciembre, 00:00 hora de Uruguay
+    precioNuevo: "69",
+    stripeNuevo: "", // pegá acá el Payment Link de USD 69 para que el cambio sea automático
+  },
 };

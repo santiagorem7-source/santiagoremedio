@@ -2,6 +2,37 @@
   var C = window.AIE || {};
   var vacio = function (v) { return !v || /PEGA|^\s*$/.test(v); };
 
+  // Campaña de suba: antes de la fecha muestra la cuenta; después, si hay link nuevo, cobra el precio nuevo
+  var camp = C.campana || {};
+  var fin = camp.hasta ? new Date(camp.hasta).getTime() : 0;
+  var hayNuevo = !vacio(camp.precioNuevo);
+  var activa = fin > 0 && hayNuevo && Date.now() < fin;
+  if (fin > 0 && hayNuevo && Date.now() >= fin && !vacio(camp.stripeNuevo)) {
+    C.precio = camp.precioNuevo;
+    C.stripe = camp.stripeNuevo;
+  }
+  if (activa && vacio(C.precioAntes)) C.precioAntes = camp.precioNuevo;
+
+  if (activa) {
+    var ultimoDia = new Date(fin - 1000).toLocaleDateString("es", { day: "numeric", month: "long", timeZone: "America/Montevideo" });
+    document.querySelectorAll(".js-hasta").forEach(function (el) { el.textContent = ultimoDia; });
+    document.querySelectorAll(".js-precio-nuevo").forEach(function (el) { el.textContent = camp.precioNuevo; });
+    document.querySelectorAll(".js-campaign").forEach(function (el) { el.hidden = false; });
+    document.documentElement.classList.add("con-campana");
+    var dos = function (n) { return (n < 10 ? "0" : "") + n; };
+    var relojes = document.querySelectorAll(".js-count");
+    var tic = function () {
+      var r = Math.max(0, Math.floor((fin - Date.now()) / 1000));
+      var v = { d: Math.floor(r / 86400), h: Math.floor(r % 86400 / 3600), m: Math.floor(r % 3600 / 60), s: r % 60 };
+      relojes.forEach(function (box) {
+        box.querySelectorAll("[data-u]").forEach(function (b) { b.textContent = dos(v[b.getAttribute("data-u")]); });
+      });
+      if (r === 0) { clearInterval(intervalo); location.reload(); }
+    };
+    var intervalo = setInterval(tic, 1000);
+    tic();
+  }
+
   // Precio
   document.querySelectorAll(".js-price").forEach(function (el) { el.textContent = C.precio || "49"; });
   var antes = document.querySelector(".js-before");
