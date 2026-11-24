@@ -6,9 +6,9 @@
 <!-- VISTA PREVIA DE LINKS (WhatsApp, Instagram, Google)
      Los robots que arman esas vistas previas no corren el script de la página: nada de lo que está acá cambia solo el 1/12.
      Por eso la descripción y los textos de og: no dicen precio. El precio está solo en la imagen (og.jpg: "Hasta el 30/11 · después $39").
-     Instagram y Facebook guardan la imagen según su dirección: si la reemplazás, cambiá también la dirección (por eso el ?v=2).
+     Instagram y Facebook guardan la imagen según su dirección: si la reemplazás, cambiá también la dirección (por eso el ?v=3).
      PENDIENTE PARA EL 1/12/2026 (fin del Black Friday), en un solo deploy:
-       1. og:image: cambiar assets/og.jpg?v=2 por assets/og-39.jpg (ya está hecha: dice $39/mes, sin Black Friday).
+       1. og:image: cambiar assets/og.jpg?v=3 por assets/og-39.jpg (ya está hecha, con la tipografía nueva: dice $39/mes, sin Black Friday).
        2. Título de la pestaña (la línea de abajo): cambiarlo a "Cardinal · Santiago Remedio — $39/mes" (en el navegador ya cambia solo; esto es para los robots).
        3. Pegar https://santiagoremedio.com/ en https://developers.facebook.com/tools/debug/ y tocar "Scrape Again",
           para que Instagram y Facebook dejen de mostrar la vista previa vieja. -->
@@ -19,7 +19,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Cardinal — Hacé contenido en masa con IA">
 <meta property="og:description" content="Cursos + comunidad en Skool, por Santiago Remedio. Traé audiencia todos los días, aunque nunca hayas editado un video.">
-<meta property="og:image" content="https://santiagoremedio.com/assets/og.jpg?v=2">
+<meta property="og:image" content="https://santiagoremedio.com/assets/og.jpg?v=3">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -27,7 +27,7 @@
 <meta name="theme-color" content="#04060c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&family=Saira+Semi+Condensed:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#04060c; --card:#0a0e19; --line:rgba(130,160,255,.13); --line2:rgba(130,160,255,.24); --line-card:rgba(130,160,255,.18);
@@ -36,7 +36,8 @@
   --r:14px; --r-hero:24px; --gut:16px; --hh:56px;
   --ease:cubic-bezier(.16,1,.3,1);
   --lift:0 10px 30px -12px rgba(0,0,0,.6);
-  --display:"Unbounded",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif;
+  --display:"Geist",system-ui,-apple-system,sans-serif; --body:"Geist",system-ui,-apple-system,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace; --num:"Saira Semi Condensed","Geist",system-ui,sans-serif;
 }
 @media (min-width:1001px){:root{--hh:64px}}
 
@@ -95,19 +96,19 @@ body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opac
 .logo{display:flex;align-items:center;gap:10px;flex:none;min-height:44px}
 .logo__mark{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(90% 90% at 50% 40%,#13245e,#060a1c 75%);box-shadow:0 0 0 1px var(--line2)}
 .logo__mark svg{width:30px;height:30px;overflow:visible}
-.logo__word{display:flex;align-items:center;gap:6px;font:800 13px/1 var(--display);letter-spacing:.01em;text-transform:uppercase}
-.logo__word i{display:inline-block;font-style:normal;transform:skewX(-12deg);background:linear-gradient(90deg,#3f7bff,#8fb6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.logo__word svg{width:11px;height:11px;margin-left:-2px;filter:drop-shadow(0 0 4px rgba(150,190,255,.9))}
+.logo__word{display:flex;align-items:center;gap:6px;font:700 13px/1 var(--display);letter-spacing:.07em;text-transform:uppercase}
+.logo__word i{display:inline-block;font-style:normal;background:linear-gradient(90deg,#3f7bff,#8fb6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo__word svg{width:11px;height:11px;margin-left:-2px}
 .menu-btn{margin-left:auto;width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.03);transition:background-color .2s}
 @media (hover:hover){.menu-btn:hover{background:rgba(255,255,255,.08)}}
 .menu-btn .ic{width:22px;height:22px}
 .drop,.nav__links,.nav__cta{display:none}
 .drop{align-items:center;gap:8px;height:34px;padding:0 12px 0 5px;border-radius:10px;border:1px solid var(--line2);background:rgba(255,255,255,.03);font:500 13px/1 var(--body);color:#cfd8f3;white-space:nowrap;transition:background-color .2s}
 @media (hover:hover){.drop:hover{background:rgba(255,255,255,.07)}}
-.drop__tag{padding:5px 7px;border-radius:6px;background:rgba(47,107,255,.22);color:#a9c6ff;font:700 12px/1 var(--body)}
+.drop__tag{padding:5px 7px;border-radius:6px;background:rgba(47,107,255,.22);color:#a9c6ff;font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
 .nav__cta{position:relative;margin-left:auto}
 .nav__cta .btn{height:44px}
-.sticker{position:absolute;left:50%;bottom:-12px;transform:translateX(-50%) rotate(-3deg);padding:4px 7px;border-radius:4px;background:var(--hot);color:#fff;font:italic 800 12px/1 var(--display);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;box-shadow:0 6px 14px -6px rgba(0,0,0,.7);pointer-events:none}
+.sticker{position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);padding:4px 7px;border-radius:6px;background:var(--hot);color:#fff;font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;pointer-events:none}
 @media (min-width:641px){
   .logo__word{font-size:16px}
   .nav__cta{display:block}
@@ -134,7 +135,7 @@ body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opac
 /* cerrado a mano (eligió un ítem o apretó Esc): queda cerrado hasta que vuelva a entrar */
 .dd.is-closed .pop,.nav__cta.is-closed .pop{opacity:0;visibility:hidden;transform:translateY(-6px) scale(.98)}
 .dd__panel{left:-40px;width:640px}
-.dd__h,.offers__h{margin:2px 4px 12px;font:600 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.dd__h,.offers__h{margin:2px 4px 12px;font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
 .dd__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .dd__item{padding:6px;border-radius:12px;transition:background-color .2s}
 .dd__item:hover{background:rgba(255,255,255,.05)}
@@ -172,8 +173,11 @@ main,.foot,.promo{transition:filter .3s}
 /* HERO: qué es, después el precio */
 .hero{position:relative;isolation:isolate;overflow:hidden;margin-top:12px;padding:22px 16px 18px;border-radius:var(--r-hero);background:#03050b;border:1px solid var(--line-card);box-shadow:0 40px 120px -40px rgba(47,107,255,.55);display:flex;flex-direction:column;align-items:center;text-align:center}
 .hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(60% 45% at 50% 0%,rgba(40,70,200,.16),transparent 70%),radial-gradient(40% 40% at 12% 8%,rgba(40,70,200,.12),transparent 70%)}
+/* textura de puntos finos del escenario (baja, no le quita contraste al texto) */
+.hero::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(rgba(165,185,255,.12) 1px,transparent 1.25px) 0 0/14px 14px;
+  -webkit-mask-image:radial-gradient(85% 75% at 50% 42%,#000 25%,transparent 100%);mask-image:radial-gradient(85% 75% at 50% 42%,#000 25%,transparent 100%)}
 .hero>*{position:relative;z-index:4}
-.hero__h1{font:800 30px/1.08 var(--display);letter-spacing:-.03em}
+.hero__h1{font:600 30px/1.1 var(--display);letter-spacing:-.025em}
 @media (max-width:370px){.hero__h1{font-size:28px}}
 .hero__sub{margin-top:10px;font-size:16px;line-height:1.45;color:var(--soft)}
 /* teléfonos: no entran en una fila, así que se apilan con el mismo ancho */
@@ -181,16 +185,16 @@ main,.foot,.promo{transition:filter .3s}
 .chip{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:30px;padding:0 12px 0 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);font:500 13px/1 var(--body);color:#dbe3f7;white-space:nowrap}
 .chip .ic{width:16px;height:16px;color:var(--sky)}
 /* lockup de precio: el planeta vive acá adentro para que el horizonte siempre corte el número */
-.lockup{--pz:clamp(100px,32.5vw,150px);--lb:19px;--hz:calc(var(--lb) + var(--pz)*.6);--pw:920px;--fw:min(620px,115%);position:relative;width:100%;margin-top:18px;display:flex;flex-direction:column;align-items:center}
+.lockup{--pz:clamp(118px,40vw,176px);--lb:19px;--hz:calc(var(--lb) + var(--pz)*.6);--pw:920px;--fw:min(620px,115%);position:relative;width:100%;margin-top:18px;display:flex;flex-direction:column;align-items:center}
 .hero>.lockup{z-index:auto}
 .bf-over .lockup{--lb:0px}
-.lockup__label{position:relative;z-index:4;margin-bottom:6px;padding-left:.32em;font:700 13px/1 var(--display);letter-spacing:.32em;text-transform:uppercase;color:#a9b8e8}
+.lockup__label{position:relative;z-index:4;margin-bottom:6px;padding-left:.14em;font:500 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#a9b8e8}
 .price{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:center;gap:8px}
-.price__num{display:inline-flex;align-items:flex-start;padding-right:.08em;font:900 var(--pz)/.86 var(--display);letter-spacing:-.06em;
+.price__num{position:relative;display:inline-flex;align-items:flex-start;padding-right:.04em;font:600 var(--pz)/.86 var(--num);letter-spacing:-.005em;
   background:linear-gradient(100deg,#14205a 0%,#2443b8 30%,#5b88ff 50%,#b9d0ff 62%,#4f7cf5 78%,#16246a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
   -webkit-mask-image:linear-gradient(180deg,#000 52%,rgba(0,0,0,.3) 80%,transparent 96%);mask-image:linear-gradient(180deg,#000 52%,rgba(0,0,0,.3) 80%,transparent 96%)}
-.price__num small{margin-top:.14em;font-size:.42em;letter-spacing:-.02em}
-.price__unit{display:flex;flex-direction:column;align-items:flex-start;margin-top:calc(var(--pz)*.1);font:700 14px/1.2 var(--body);color:var(--soft)}
+.price__num small{margin-top:.13em;margin-right:.02em;font-size:.42em;letter-spacing:0}
+.price__unit{display:flex;flex-direction:column;align-items:flex-start;gap:2px;margin-top:calc(var(--pz)*.1);font:500 13px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
 .planet{position:absolute;left:50%;top:var(--hz);z-index:2;width:var(--pw);aspect-ratio:1;border-radius:50%;transform:translateX(-50%);pointer-events:none;
   background:radial-gradient(closest-side,#03050b 96%,#0a1a55 99%,transparent 100%);
   box-shadow:0 -24px 90px -10px rgba(47,107,255,.55),0 -2px 18px rgba(61,123,255,.5)}
@@ -201,13 +205,36 @@ main,.foot,.promo{transition:filter .3s}
 .flare{position:absolute;left:50%;top:calc(var(--hz) - 15px);z-index:3;width:var(--fw);height:30px;transform:translateX(-50%);pointer-events:none;filter:blur(3px);
   background:radial-gradient(50% 50% at 50% 50%,#fff,rgba(160,195,255,.75) 22%,rgba(61,123,255,.25) 52%,transparent 72%)}
 .flare::after{content:"";position:absolute;left:50%;top:50%;width:1400px;height:2px;transform:translate(-50%,-50%);background:linear-gradient(90deg,transparent,rgba(160,190,255,.55),transparent)}
+/* sol del eclipse (hero): un recorte del borde del planeta que gira alrededor del centro del planeta,
+   así el punto de luz siempre queda sobre la curva. El script solo cambia --sa (giro), --lo (luz del número) y --si (intensidad). */
+.sun{--so:120px;--sw:min(var(--pw),1100px);position:absolute;left:50%;top:calc(var(--hz) - var(--so));z-index:3;width:var(--sw);height:300px;margin-left:calc(var(--sw)/-2);overflow:hidden;pointer-events:none;
+  transform-origin:50% calc(var(--so) + var(--pw)/2);transform:rotate(var(--sa,0deg));opacity:var(--si,.7);will-change:transform,opacity;mix-blend-mode:screen;mix-blend-mode:plus-lighter}
+.sun__rim,.sun__core{position:absolute;left:50%;top:var(--so)}
+.sun__rim{width:var(--pw);aspect-ratio:1;border-radius:50%;transform:translateX(-50%);
+  background:radial-gradient(closest-side,transparent 98.5%,rgba(150,185,255,.85) 99.2%,#fff 99.7%,transparent 100%);
+  -webkit-mask-image:radial-gradient(26% 12% at 50% 0%,#000,rgba(0,0,0,.45) 45%,transparent 100%);mask-image:radial-gradient(26% 12% at 50% 0%,#000,rgba(0,0,0,.45) 45%,transparent 100%)}
+.sun__core{width:100%;height:240px;transform:translate(-50%,-50%);
+  background:radial-gradient(56px 5px at 50% 50%,#fff,rgba(255,255,255,0)),
+    radial-gradient(150px 16px at 50% 50%,rgba(215,228,255,.9),rgba(130,165,255,.35) 45%,transparent),
+    radial-gradient(280px 120px at 50% 50%,rgba(95,115,255,.42),rgba(130,90,255,.14) 50%,transparent 78%)}
+/* luz del número: dos copias exactas encima. Una oscurece el lado lejano, la otra enciende el lado cercano al sol */
+.price__fx{position:absolute;inset:0;display:inline-flex;align-items:flex-start;padding-right:inherit;pointer-events:none;color:transparent;-webkit-background-clip:text;background-clip:text;background-repeat:no-repeat}
+/* la sombra es suave (máx. .3): el lado lejano baja un poco sin que el número se pierda en el fondo */
+.price__fx--shade{background-image:radial-gradient(closest-side,rgba(3,5,11,0) 35%,rgba(3,5,11,.3) 70%,rgba(3,5,11,.3));
+  background-size:calc(var(--pz)*5) calc(var(--pz)*3);background-position:calc(50% + var(--lo,0px)) calc(var(--pz)*-.8)}
+.price__fx--shade small{visibility:hidden}
+/* la luz es ancha y está por encima del borde del planeta (si no, el planeta la tapa) y viaja más que el sol (x1.35) para encender las cifras cercanas;
+   la segunda capa levanta apenas el "$" para que nunca se pierda cuando el sol está del otro lado */
+.price__fx--lit{background-image:radial-gradient(closest-side,rgba(255,255,255,.76),rgba(196,216,255,.6) 30%,rgba(110,150,255,.22) 62%,transparent),linear-gradient(90deg,rgba(150,180,255,.32),rgba(150,180,255,0) 22%);
+  background-size:calc(var(--pz)*2.1) calc(var(--pz)*1.2),100% 100%;background-position:calc(50% + var(--lo,0px)*1.35) calc(var(--pz)*-.2),0 0;
+  opacity:var(--si,.7);mix-blend-mode:screen;mix-blend-mode:plus-lighter}
 .cd{position:relative;z-index:4;display:flex;align-items:flex-start;justify-content:center;gap:clamp(2px,1vw,4px);margin-top:8px}
 .cd:not(.is-live){visibility:hidden}
 .cd__unit{display:flex;flex-direction:column;align-items:center;gap:6px}
-.cd__num{display:inline-flex;font:700 36px/1 var(--display);font-size:clamp(28px,10vw,36px);color:#dfe5f3}
-.cd__num b{display:inline-block;font-weight:inherit;background:linear-gradient(180deg,#fff 10%,#b7c3df 55%,#6b7899 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.cd__lab{font:600 12px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
-.cd__sep{font:700 28px/1 var(--display);font-size:clamp(22px,7.8vw,28px);color:#3a4566}
+.cd__num{display:inline-flex;font:500 40px/1 var(--num);font-size:clamp(32px,11vw,42px);letter-spacing:.02em;color:#dfe5f3}
+.cd__num b{display:inline-block;width:.6em;text-align:center;font-weight:inherit;background:linear-gradient(180deg,#fff 10%,#b7c3df 55%,#6b7899 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cd__lab{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.cd__sep{font:500 34px/1 var(--num);font-size:clamp(26px,9vw,34px);color:#3a4566}
 .hero__cta{width:100%;max-width:360px;margin-top:18px}
 .hero__more{display:inline-flex;align-items:center;gap:6px;min-height:44px;margin-top:2px;padding:0 12px;font:600 15px/1 var(--body);color:var(--soft);text-decoration:underline;text-decoration-color:rgba(201,211,238,.35);text-underline-offset:5px;transition:color .2s,text-decoration-color .2s}
 @media (hover:hover){.hero__more:hover{color:#fff;text-decoration-color:currentColor}}
@@ -219,12 +246,12 @@ main,.foot,.promo{transition:filter .3s}
   .hero__h1{font-size:40px}
   .hero__sub{font-size:18px}
   .chips{display:flex;flex-wrap:wrap;margin-top:16px}
-  .lockup{--pz:160px;--lb:22px;--pw:max(1500px,140%);--fw:620px;margin-top:22px}
-  .lockup__label{font-size:16px}
-  .price__unit{font-size:16px}
-  .cd{gap:10px;margin-top:6px}
-  .cd__num{font-size:48px}
-  .cd__sep{font-size:40px}
+  .lockup{--pz:196px;--lb:21px;--pw:max(1500px,140%);--fw:620px;margin-top:22px}
+  .lockup__label{font-size:14px}
+  .price__unit{font-size:14px}
+  .cd{gap:12px;margin-top:6px}
+  .cd__num{font-size:58px}
+  .cd__sep{font-size:48px}
   .hero__cta{margin-top:20px}
   .hero__lock{max-width:none}
 }
@@ -236,7 +263,7 @@ main,.foot,.promo{transition:filter .3s}
 .tile{min-width:0;scroll-snap-align:start}
 .tile__media{position:relative;height:220px;overflow:hidden;border-radius:var(--r);background:#05070e}
 .tile__media::after{content:"";position:absolute;inset:0;z-index:3;border-radius:inherit;border:1px solid var(--line-card);pointer-events:none}
-.tile h3{margin-top:14px;font:700 13px/1.35 var(--body);letter-spacing:.03em;text-transform:uppercase}
+.tile h3{margin-top:14px;font:500 13px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#dfe6fb}
 .tile p{margin-top:4px;font-size:14px;line-height:1.45;color:var(--mute)}
 .car__btn{position:absolute;z-index:5;width:44px;height:44px;display:none;place-items:center;border-radius:50%;color:#fff;background:rgba(14,18,32,.92);border:1px solid var(--line2);box-shadow:var(--lift);transition:opacity .25s,transform .25s var(--ease)}
 @media (hover:hover){.car__btn:not([aria-disabled="true"]):hover{transform:scale(1.06)}}
@@ -276,10 +303,10 @@ main,.foot,.promo{transition:filter .3s}
 }
 /* tile: seguidores */
 .grow{display:flex;flex-direction:column;padding:20px 22px;background:linear-gradient(160deg,#05070e 40%,#0c1a4d)}
-.grow__top{display:flex;justify-content:space-between;align-items:center;font:600 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
-.pill{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;border:1px solid rgba(156,194,255,.35);color:var(--sky);font:600 12px/1 var(--body);letter-spacing:.02em;text-transform:none}
+.grow__top{display:flex;justify-content:space-between;align-items:center;font:500 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.pill{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;border:1px solid rgba(156,194,255,.35);color:var(--sky);font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
 .pill .ic{width:14px;height:14px}
-.grow__num{margin-top:10px;font:800 44px/1 var(--display);letter-spacing:-.03em}
+.grow__num{margin-top:10px;font:600 46px/1 var(--display);letter-spacing:-.045em}
 .grow__bars{display:flex;align-items:flex-end;gap:8px;height:96px;margin-top:auto}
 .grow__bars i{flex:1;height:100%;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#9cc2ff,#2f6bff 55%,#13245e);transform-origin:bottom;transform:scaleY(var(--h));transition:transform 1.1s var(--ease)}
 .grow.is-pre .grow__bars i{transform:scaleY(.04)}
@@ -287,9 +314,9 @@ main,.foot,.promo{transition:filter .3s}
 .wall{perspective:900px}
 .wall__plane{position:absolute;inset:-48% -22%;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;transform:rotateX(28deg) rotateZ(-14deg)}
 .wall__plane img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:10px;border:1px solid var(--line2)}
-.wall__fade{position:absolute;inset:0;background:radial-gradient(70% 70% at 50% 50%,rgba(5,7,14,.3),#05070e 92%)}
-.wall__label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;font:900 34px/.95 var(--display);letter-spacing:-.03em;text-transform:uppercase;color:#fff;text-shadow:0 4px 30px #000,0 0 2px #000}
-.wall__label small{display:block;margin-top:8px;font:600 12px/1 var(--body);letter-spacing:.2em;color:var(--sky);text-shadow:0 1px 8px #000}
+.wall__fade{position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 50%,rgba(5,7,14,.7),#05070e 92%)}
+.wall__label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;font:600 34px/1 var(--display);letter-spacing:-.04em;text-transform:uppercase;color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.85)}
+.wall__label small{display:block;margin-top:8px;font:500 12px/1 var(--mono);letter-spacing:.14em;color:var(--sky);text-shadow:0 1px 8px #000}
 /* tile: garantía */
 .shield{display:grid;place-items:center;background:radial-gradient(60% 70% at 50% 50%,#0d1a4a,#060a1c 60%,#03050b)}
 .ring{position:absolute;left:50%;top:50%;border-radius:50%;border:1px solid rgba(120,165,255,.4);transform:translate(-50%,-50%)}
@@ -298,8 +325,8 @@ main,.foot,.promo{transition:filter .3s}
 .ring--3{width:252px;height:252px;opacity:.28}
 .shield__core{position:relative;text-align:center}
 .shield__core .ic{width:56px;height:56px;margin:0 auto;stroke-width:1.25;color:#fff}
-.shield__core b{display:block;margin-top:8px;font:800 28px/1 var(--display);letter-spacing:-.02em}
-.shield__core small{display:block;margin-top:6px;white-space:nowrap;font:600 12px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--sky)}
+.shield__core b{display:block;margin-top:8px;font:600 28px/1 var(--display);letter-spacing:-.03em}
+.shield__core small{display:block;margin-top:6px;white-space:nowrap;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--sky)}
 
 /* accesos rápidos (teléfonos y tablets) */
 .quick{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:18px}
@@ -313,7 +340,7 @@ main,.foot,.promo{transition:filter .3s}
 /* secciones */
 .sec{--sp:72px;padding-top:var(--sp)}
 .sec[id]{scroll-margin-top:calc(var(--hh) + 16px - var(--sp))}
-.h2{font:800 28px/1.08 var(--display);letter-spacing:-.03em}
+.h2{font:600 28px/1.1 var(--display);letter-spacing:-.025em}
 .lead{max-width:60ch;margin-top:12px;font-size:16px;line-height:1.55;color:var(--mute)}
 @media (min-width:641px){.lead{font-size:17px}}
 @media (min-width:1001px){.sec{--sp:112px}}
@@ -324,7 +351,7 @@ main,.foot,.promo{transition:filter .3s}
 .reel{position:relative;display:block;width:100%;aspect-ratio:9/16;overflow:hidden;border-radius:var(--r);background:#000;border:1px solid rgba(140,175,255,.22);box-shadow:0 30px 60px -24px rgba(0,0,0,.8);scroll-snap-align:start;text-align:left;transition:transform .35s var(--ease),border-color .35s}
 .reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .reel::after{content:"";position:absolute;inset:auto 0 0;height:42%;background:linear-gradient(180deg,transparent,rgba(3,5,11,.88));pointer-events:none}
-.reel__tag{position:absolute;left:10px;top:10px;z-index:2;padding:7px 9px;border-radius:8px;background:rgba(5,8,20,.8);border:1px solid rgba(255,255,255,.14);color:#e6edff;font:700 12px/1 var(--body);letter-spacing:.06em;text-transform:uppercase}
+.reel__tag{position:absolute;left:10px;top:10px;z-index:2;padding:7px 9px;border-radius:8px;background:rgba(5,8,20,.8);border:1px solid rgba(255,255,255,.14);color:#e6edff;font:500 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
 .reel__play{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;display:flex;align-items:center;gap:10px;font:600 14px/1.2 var(--body);color:#fff}
 .reel__pi{width:36px;height:36px;flex:none;display:grid;place-items:center;border-radius:50%;background:#fff;color:#0a1033}
 .reel__pi .ic{width:16px;height:16px;margin-left:2px}
@@ -340,7 +367,8 @@ main,.foot,.promo{transition:filter .3s}
 .pains__list li{display:flex;align-items:flex-start;gap:14px;padding:18px 0;font:500 17px/1.4 var(--body)}
 .pains__list li+li{border-top:1px solid var(--line)}
 .pains__list .ic{width:22px;height:22px;margin-top:1px;color:#ff6b8f}
-.pains__end{margin-top:22px;font:600 20px/1.35 var(--body);color:#dfe6fb}
+.pains__end{margin-top:22px;font:500 20px/1.25 var(--body);letter-spacing:-.01em;color:#dfe6fb}
+@media (min-width:641px){.pains__end{letter-spacing:-.02em}}
 @media (min-width:1001px){
   .pains{padding:8px 28px}
   .pains__list{display:grid;grid-template-columns:repeat(3,1fr)}
@@ -353,11 +381,11 @@ main,.foot,.promo{transition:filter .3s}
 .story__photo{position:relative;aspect-ratio:4/5}
 .story__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
 .story__photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,25,0) 42%,rgba(10,14,25,.72) 72%,#0a0e19)}
-.story__h{position:absolute;left:20px;right:20px;bottom:16px;z-index:2;font:800 28px/1.08 var(--display);letter-spacing:-.03em}
+.story__h{position:absolute;left:20px;right:20px;bottom:16px;z-index:2;font:600 28px/1.1 var(--display);letter-spacing:-.025em}
 .story__body{position:relative;padding:2px 20px 20px}
 .stat{padding:16px 0;border-top:1px solid var(--line)}
 .stat:first-child{border-top:none}
-.stat__n{display:block;font:800 34px/1.05 var(--display);letter-spacing:-.03em}
+.stat__n{display:block;font:600 34px/1.05 var(--display);letter-spacing:-.04em}
 .stat__n--acc{color:var(--sky)}
 .stat p{margin-top:6px;font-size:15px;line-height:1.5;color:var(--mute)}
 .stat p b{font-weight:600;color:var(--ink)}
@@ -380,9 +408,9 @@ main,.foot,.promo{transition:filter .3s}
 .mod{position:relative;min-width:0;overflow:hidden;border-radius:var(--r);background:var(--card);border:1px solid var(--line-card);scroll-snap-align:start;transition:transform .45s var(--ease),border-color .45s,box-shadow .45s}
 .mod--bonus{border-color:rgba(120,160,255,.42)}
 .mod img{width:100%;aspect-ratio:1200/619;object-fit:cover;transition:transform .6s var(--ease)}
-.mod__t{padding:14px 16px 0;font:700 13px/1.35 var(--body);letter-spacing:.03em;text-transform:uppercase}
+.mod__t{padding:14px 16px 0;font:500 13px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#dfe6fb}
 .mod__cap{padding:4px 16px 16px;font-size:14px;line-height:1.45;color:var(--mute)}
-.mods__count{margin-top:12px;text-align:center;font:600 12px/1 var(--body);letter-spacing:.08em;color:var(--mute)}
+.mods__count{margin-top:12px;text-align:center;font:500 12px/1 var(--mono);letter-spacing:.1em;color:var(--mute)}
 @media (hover:hover){
   .mod:hover{border-color:rgba(120,160,255,.5);box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
   .mod:hover img{transform:scale(1.04)}
@@ -397,21 +425,24 @@ main,.foot,.promo{transition:filter .3s}
 .plan{position:relative;isolation:isolate;overflow:hidden;margin-top:24px;padding:22px 20px 24px;border-radius:var(--r-hero);color:#fff;
   background:linear-gradient(155deg,#2a5ae6,#1f4fe0 38%,#1238b8 70%,#0c2a9a);box-shadow:0 30px 60px -30px rgba(0,0,0,.75)}
 .plan::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(rgba(255,255,255,.14) 1px,transparent 1.4px);background-size:12px 12px;-webkit-mask-image:linear-gradient(200deg,#000,transparent 60%);mask-image:linear-gradient(200deg,#000,transparent 60%)}
-.plan__chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.34);font:600 13px/1.2 var(--body)}
+.plan__chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.34);font:500 12px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase}
 .plan__chip .ic{width:15px;height:15px}
-.plan__name{margin-top:16px;font:800 32px/1 var(--display);letter-spacing:-.03em}
+.plan__name{margin-top:16px;font:600 32px/1 var(--display);letter-spacing:-.03em}
 .bf-over .plan__name{margin-top:0}
 .plan ::selection{background:#fff;color:#0b1d6b}
 .plan__desc{margin-top:8px;font-size:14px;color:#e8efff}
 .plan__price{display:flex;align-items:baseline;gap:clamp(4px,2vw,8px);margin-top:18px;white-space:nowrap}
-.plan__price s{font:700 24px/1 var(--display);font-size:clamp(18px,6.7vw,24px);color:rgba(255,255,255,.72);text-decoration-thickness:3px}
-.plan__price b{font:900 52px/1 var(--display);font-size:clamp(40px,14.5vw,52px);letter-spacing:-.05em}
-.plan__price span{font-size:15px;font-weight:600;color:#e8efff}
+.plan__price s{font:500 26px/1 var(--num);font-size:clamp(20px,7vw,26px);color:rgba(255,255,255,.72);text-decoration-thickness:3px}
+.plan__price b{font:600 60px/1 var(--num);font-size:clamp(48px,17vw,60px);letter-spacing:-.005em}
+.plan__price>span{font:500 13px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#e8efff}
 .plan__note{display:flex;gap:8px;margin-top:12px;font-size:14px;line-height:1.45;color:#e8efff}
 .plan__note .ic{width:16px;height:16px;margin-top:2px}
 .plan__btn{width:100%;height:54px;margin-top:18px;font-size:16px;font-weight:700}
 .plan__small{margin-top:10px;text-align:center;font-size:13px;color:#e8efff;text-wrap:balance}
 /* teléfonos: dos renglones limpios en vez de un punto separador colgando al final */
+/* teléfonos: la etiqueta en mono mayúscula no entra en un renglón; ahí va en Geist como antes */
+@media (max-width:640px){.plan__chip{font:500 12px/1.2 var(--mono);letter-spacing:.04em;padding:6px 10px}.plan__chip .ic{display:none}}
+@media (max-width:370px){.plan__chip{font:600 13px/1.2 var(--body);letter-spacing:0;text-transform:none}.plan__chip .ic{display:block}}
 @media (max-width:640px){.plan__desc>span,.plan__small>span,.plan__note .s{display:block}.plan__desc .sep,.plan__small .sep{display:none}.plan__note .s{text-wrap:balance}}
 .plan__g{display:flex;gap:12px;margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.24);font-size:15px;line-height:1.45}
 .plan__g .ic{width:22px;height:22px}
@@ -456,10 +487,10 @@ main,.foot,.promo{transition:filter .3s}
 .final{--hz:calc(100% - 175px);--pw:920px;--fw:min(620px,115%);position:relative;isolation:isolate;overflow:hidden;margin-top:96px;padding:48px 20px 44px;border-radius:var(--r-hero);background:#03050b;border:1px solid var(--line-card);text-align:center;display:flex;flex-direction:column;align-items:center}
 .final>:not(.planet):not(.flare){position:relative;z-index:4}
 .final__av{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.16)}
-.final__h{margin-top:18px;font:900 34px/1.02 var(--display);letter-spacing:-.04em}
+.final__h{margin-top:18px;font:600 34px/1.05 var(--display);letter-spacing:-.03em}
 .final__p{margin-top:12px;max-width:36ch;font-size:16px;line-height:1.5;color:var(--soft)}
 .final__btn{width:100%;max-width:360px;margin-top:68px}
-.final__sig{margin-top:14px;font:italic 500 15px/1 var(--body);color:var(--mute)}
+.final__sig{margin-top:14px;font:500 15px/1 var(--body);color:var(--mute)}
 @media (min-width:641px){.final{--hz:calc(100% - 182px);--pw:max(1400px,140%);--fw:620px;padding:72px 24px 56px}.final__p{max-width:none;font-size:17px}.final__btn{margin-top:64px}}
 
 /* footer */
@@ -476,7 +507,7 @@ main,.foot,.promo{transition:filter .3s}
   visibility:hidden;transform:translateY(calc(100% + 24px));transition:transform .45s var(--ease),visibility 0s .45s}
 .mbar.show{visibility:visible;transform:none;transition:transform .45s var(--ease),visibility 0s}
 .mbar__t{min-width:0;line-height:1.25}
-.mbar__t b{display:block;font:800 15px/1.2 var(--display)}
+.mbar__t b{display:block;font:600 15px/1.2 var(--display);letter-spacing:-.01em}
 .mbar__t>span{display:block;font-size:12px;color:var(--mute);white-space:nowrap}
 .mbar__btn{margin-left:auto;padding:0 20px}
 @media (max-width:640px){.mbar{display:flex}}
@@ -493,7 +524,7 @@ main,.foot,.promo{transition:filter .3s}
 .sheet__handle{display:flex;justify-content:center;align-items:center;height:22px;margin:-8px -16px 0;padding-top:6px;cursor:grab}
 .sheet__handle::before{content:"";width:40px;height:4px;border-radius:4px;background:rgba(255,255,255,.24)}
 .sheet__head{display:flex;align-items:center;justify-content:space-between;min-height:48px}
-.sheet__head h2{font:700 18px/1 var(--display)}
+.sheet__head h2{font:600 18px/1 var(--display);letter-spacing:-.01em}
 .sheet__x{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.06);transition:background-color .2s}
 @media (hover:hover){.sheet__x:hover{background:rgba(255,255,255,.12)}}
 .sheet__x:active{background:rgba(255,255,255,.16)}
@@ -518,7 +549,7 @@ main,.foot,.promo{transition:filter .3s}
 @media (hover:hover){.lb__x:hover,.lb__nav:hover{background:rgba(255,255,255,.16)}}
 .lb__x:active,.lb__nav:active,.menu-btn:active{background:rgba(255,255,255,.16)}
 .lb__cap{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;font-size:13px;color:var(--mute)}
-.lb__cap b{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink);text-transform:uppercase;letter-spacing:.06em}
+.lb__cap b{display:inline-flex;align-items:center;gap:6px;font:500 13px/1 var(--mono);color:var(--ink);text-transform:uppercase;letter-spacing:.1em}
 .lb__cap .ic{width:16px;height:16px;color:var(--sky)}
 @media (min-width:641px){.lb::backdrop{background:rgba(2,3,8,.92)}.lb__in{padding:64px 24px 24px}}
 
@@ -526,39 +557,48 @@ main,.foot,.promo{transition:filter .3s}
 .spot::after{content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(380px circle at var(--x,50%) var(--y,50%),rgba(255,255,255,.06),transparent 45%)}
 .spot>*{position:relative;z-index:1}
 @media (hover:hover){.spot:hover::after{opacity:1}}
+/* borde de 1px que se ilumina donde está el mouse (el script agrega el <span class="hl"> solo con mouse) */
+.hl,.spot>.hl,.hero>.hl{position:absolute;inset:0;z-index:6;border-radius:inherit;padding:1px;pointer-events:none;opacity:0;transition:opacity .35s;
+  background:radial-gradient(280px circle at var(--x,50%) var(--y,50%),rgba(185,208,255,.9),rgba(120,160,255,.28) 40%,transparent 72%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.plan>.hl{padding:1.5px;background:radial-gradient(220px circle at var(--x,50%) var(--y,50%),#fff,rgba(255,255,255,.45) 35%,transparent 70%)}
+.plan.spot::after{background:radial-gradient(380px circle at var(--x,50%) var(--y,50%),rgba(255,255,255,.1),transparent 45%)}
+.faq details{position:relative}
+:is(.hero,.pains,.story,.plan,.mod,.tile,.faq details):hover .hl{opacity:1}
 
 /* escala tipográfica por pantalla (pasos fijos) */
 @media (min-width:641px){
-  .h2{font-size:40px}
+  .hero__h1{letter-spacing:-.03em}
+  .h2{font-size:40px;letter-spacing:-.03em}
   .pains__end{font-size:24px}
-  .plan__price s{font-size:30px}
-  .plan__price b{font-size:64px}
-  .final__h{font-size:52px}
+  .plan__price s{font-size:32px}
+  .plan__price b{font-size:76px}
+  .final__h{font-size:52px;letter-spacing:-.035em}
 }
 @media (min-width:641px){.stat__n{font-size:38px}.story__h{font-size:30px}}
-@media (min-width:860px){.plan__price s{font-size:34px}.plan__price b{font-size:72px}}
+@media (min-width:860px){.plan__price s{font-size:36px}.plan__price b{font-size:88px}.plan__price>span{font-size:14px}}
 @media (min-width:1001px){
-  .hero__h1{font-size:46px}
-  .lockup{--pz:176px}
-  .cd__num{font-size:56px}
-  .cd__sep{font-size:46px}
-  .h2{font-size:52px}
+  .hero__h1{font-size:46px;letter-spacing:-.035em}
+  .lockup{--pz:212px}
+  .cd__num{font-size:68px}
+  .cd__sep{font-size:56px}
+  .h2{font-size:44px;line-height:1.08;letter-spacing:-.03em}
   .pains__end{font-size:26px}
   .stat__n{font-size:46px}
-  .story__h{font-size:44px}
-  .final__h{font-size:64px}
+  .story__h{font-size:40px;letter-spacing:-.03em}
+  .final__h{font-size:64px;letter-spacing:-.04em}
 }
 @media (min-width:1201px){.hero__h1{font-size:52px}}
 
 /* números tabulares: el atajo font: los vuelve proporcionales, así que se reponen acá (si no, la cuenta regresiva baila).
-   Los precios grandes ($29 del hero y de la tarjeta) quedan proporcionales a propósito: son fijos y así se dibujó la firma del hero. */
-.cd__num,.grow__num,.stat__n,.plan__chip,.mods__count,.mbar__t b,.promo,.sticker,.chip,.pill,.btn,.tile h3,.mod__t,.faq summary h3,.shield__core b{font-variant-numeric:tabular-nums}
+   Los precios grandes y la cuenta regresiva usan Saira Semi Condensed (solo números), con cifras tabulares: $29 y $39 miden lo mismo. */
+.price__num,.plan__price,.cd__num,.grow__num,.stat__n,.plan__chip,.mods__count,.mbar__t b,.promo,.sticker,.chip,.pill,.btn,.tile h3,.mod__t,.faq summary h3,.shield__core b{font-variant-numeric:tabular-nums}
 
 /* el único momento animado: entrada del número y el planeta */
 @media (prefers-reduced-motion:no-preference){
   .hero .price__num{animation:priceIn .8s var(--ease) both}
   .hero .planet{animation:planetIn .9s var(--ease) both}
-  .hero .flare{animation:fadeIn .5s .4s ease-out both}
+  .hero .sun{animation:fadeIn .7s .45s ease-out both}
   .cd__num b.tick{animation:tick .45s var(--ease)}
 }
 @keyframes priceIn{from{opacity:0;filter:blur(14px);transform:translateY(18px) scale(.97)}}
@@ -638,12 +678,12 @@ main,.foot,.promo{transition:filter .3s}
         <div class="pop dd__panel" id="dd-panel">
           <p class="dd__h">Los 6 módulos de Cardinal</p>
           <div class="dd__grid">
-            <a class="dd__item" href="#m1"><img src="assets/modulo-01.webp" alt="" width="1200" height="619" loading="lazy"><span>Comienzo</span></a>
-            <a class="dd__item" href="#m2"><img src="assets/modulo-02.webp" alt="" width="1200" height="619" loading="lazy"><span>Estrategia y guion</span></a>
-            <a class="dd__item" href="#m3"><img src="assets/modulo-03.webp" alt="" width="1200" height="619" loading="lazy"><span>Editar videos con IA</span></a>
-            <a class="dd__item" href="#m4"><img src="assets/modulo-04.webp" alt="" width="1200" height="619" loading="lazy"><span>Carruseles con IA</span></a>
-            <a class="dd__item" href="#m5"><img src="assets/modulo-05.webp" alt="" width="1200" height="619" loading="lazy"><span>Distribución y métricas</span></a>
-            <a class="dd__item" href="#m6"><img src="assets/modulo-06.webp" alt="" width="1200" height="619" loading="lazy"><span>Avanzado</span></a>
+            <a class="dd__item" href="#m1"><img src="assets/modulo-01.webp?v=2" alt="" width="1200" height="619" loading="lazy"><span>Comienzo</span></a>
+            <a class="dd__item" href="#m2"><img src="assets/modulo-02.webp?v=2" alt="" width="1200" height="619" loading="lazy"><span>Estrategia y guion</span></a>
+            <a class="dd__item" href="#m3"><img src="assets/modulo-03.webp?v=2" alt="" width="1200" height="619" loading="lazy"><span>Editar videos con IA</span></a>
+            <a class="dd__item" href="#m4"><img src="assets/modulo-04.webp?v=2" alt="" width="1200" height="619" loading="lazy"><span>Carruseles con IA</span></a>
+            <a class="dd__item" href="#m5"><img src="assets/modulo-05.webp?v=2" alt="" width="1200" height="619" loading="lazy"><span>Distribución y métricas</span></a>
+            <a class="dd__item" href="#m6"><img src="assets/modulo-06.webp?v=2" alt="" width="1200" height="619" loading="lazy"><span>Avanzado</span></a>
           </div>
           <div class="dd__foot">
             <span><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Garantía de 7 días</span>
@@ -685,10 +725,10 @@ main,.foot,.promo{transition:filter .3s}
       </ul>
       <div class="lockup">
         <div class="planet" aria-hidden="true"></div>
-        <div class="flare" aria-hidden="true"></div>
+        <div class="sun" aria-hidden="true"><i class="sun__rim"></i><i class="sun__core"></i></div>
         <p class="lockup__label bf-only">Black Friday</p>
         <p class="price">
-          <span class="price__num"><small>$</small><span class="bf-only">29</span><span class="after-only">39</span></span>
+          <span class="price__num"><small>$</small><span class="bf-only">29</span><span class="after-only">39</span><span class="price__fx price__fx--shade" aria-hidden="true"><small>$</small><span class="bf-only">29</span><span class="after-only">39</span></span><span class="price__fx price__fx--lit" aria-hidden="true"><small>$</small><span class="bf-only">29</span><span class="after-only">39</span></span></span>
           <span class="price__unit"><span>USD</span><span>/mes</span></span>
         </p>
         <div class="cd bf-only" role="timer" aria-label="Tiempo que queda del precio de Black Friday">
@@ -839,12 +879,12 @@ main,.foot,.promo{transition:filter .3s}
       <p class="lead">Cursos + comunidad en Skool. Para creadores, negocios y quienes hacen crecer marcas de otros.</p>
       <div class="mods-wrap">
         <div class="mods js-track" id="mods">
-          <article class="mod" id="m1"><img src="assets/modulo-01.webp" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>01<span aria-hidden="true"> ·</span> Comienzo</h3><p class="mod__cap">Arrancás con lo básico, aunque nunca hayas editado un video.</p></article>
-          <article class="mod" id="m2"><img src="assets/modulo-02.webp" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>02<span aria-hidden="true"> ·</span> Estrategia y guion</h3><p class="mod__cap">Qué subir y cómo escribirlo.</p></article>
-          <article class="mod" id="m3"><img src="assets/modulo-03.webp" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>03<span aria-hidden="true"> ·</span> Editar videos con IA</h3><p class="mod__cap">Edición de videos con IA, normales y generados con Higgsfield.</p></article>
-          <article class="mod" id="m4"><img src="assets/modulo-04.webp" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>04<span aria-hidden="true"> ·</span> Carruseles con IA</h3><p class="mod__cap">Carruseles con IA listos para publicar.</p></article>
-          <article class="mod" id="m5"><img src="assets/modulo-05.webp" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>05<span aria-hidden="true"> ·</span> Distribución y métricas</h3><p class="mod__cap">Trial reels (reels de prueba) y Claude conectado a tu Instagram.</p></article>
-          <article class="mod mod--bonus" id="m6"><img src="assets/modulo-06.webp" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>06<span aria-hidden="true"> ·</span> Avanzado</h3><p class="mod__cap">Para los que quieren ir más allá. Incluye la clase nueva: Tu clon con IA.</p></article>
+          <article class="mod" id="m1"><img src="assets/modulo-01.webp?v=2" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>01<span aria-hidden="true"> ·</span> Comienzo</h3><p class="mod__cap">Arrancás con lo básico, aunque nunca hayas editado un video.</p></article>
+          <article class="mod" id="m2"><img src="assets/modulo-02.webp?v=2" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>02<span aria-hidden="true"> ·</span> Estrategia y guion</h3><p class="mod__cap">Qué subir y cómo escribirlo.</p></article>
+          <article class="mod" id="m3"><img src="assets/modulo-03.webp?v=2" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>03<span aria-hidden="true"> ·</span> Editar videos con IA</h3><p class="mod__cap">Edición de videos con IA, normales y generados con Higgsfield.</p></article>
+          <article class="mod" id="m4"><img src="assets/modulo-04.webp?v=2" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>04<span aria-hidden="true"> ·</span> Carruseles con IA</h3><p class="mod__cap">Carruseles con IA listos para publicar.</p></article>
+          <article class="mod" id="m5"><img src="assets/modulo-05.webp?v=2" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>05<span aria-hidden="true"> ·</span> Distribución y métricas</h3><p class="mod__cap">Trial reels (reels de prueba) y Claude conectado a tu Instagram.</p></article>
+          <article class="mod mod--bonus" id="m6"><img src="assets/modulo-06.webp?v=2" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>06<span aria-hidden="true"> ·</span> Avanzado</h3><p class="mod__cap">Para los que quieren ir más allá. Incluye la clase nueva: Tu clon con IA.</p></article>
         </div>
         <p class="mods__count" aria-hidden="true"><span class="js-count">1</span> / 6</p>
       </div>
@@ -1100,12 +1140,21 @@ main,.foot,.promo{transition:filter .3s}
   }
   [$(".car"), $(".reels"), $(".mods-wrap")].forEach(carousel);
 
-  /* ===== spotlight e inclinación (solo con mouse) ===== */
+  /* ===== spotlight, borde iluminado e inclinación (solo con mouse) ===== */
+  const fineHover = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const follow = el => el.addEventListener("pointermove", e => {
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--x", e.clientX - r.left + "px"); el.style.setProperty("--y", e.clientY - r.top + "px");
+  });
+  if (canHover) $$(".spot").forEach(follow);
+  if (fineHover){
+    // en las preguntas el borde va dentro del <summary> (lo demás del <details> se oculta cuando está cerrado)
+    $$(".hero, .pains, .story, .plan, .mod, .tile__media, .faq details").forEach(el => {
+      (el.matches("details") ? $("summary", el) : el).insertAdjacentHTML("beforeend", '<span class="hl" aria-hidden="true"></span>');
+      if (!el.classList.contains("spot")) follow(el);
+    });
+  }
   if (canHover){
-    $$(".spot").forEach(el => el.addEventListener("pointermove", e => {
-      const r = el.getBoundingClientRect();
-      el.style.setProperty("--x", e.clientX - r.left + "px"); el.style.setProperty("--y", e.clientY - r.top + "px");
-    }));
     if (!reduce) $$(".mod").forEach(el => {
       el.addEventListener("pointermove", e => {
         if (!matchMedia("(min-width: 641px)").matches) return;
@@ -1114,6 +1163,64 @@ main,.foot,.promo{transition:filter .3s}
       });
       el.addEventListener("pointerleave", () => el.style.transform = "");
     });
+  }
+
+  /* ===== hero: el sol del eclipse sigue al mouse (o al dedo); en teléfonos, si nadie lo toca, se pasea solo ===== */
+  // un solo requestAnimationFrame escribe tres variables en .lockup: --sa (giro del sol sobre el borde), --lo (luz del número) y --si (intensidad).
+  // con "reducir movimiento" no corre: el sol queda centrado y quieto.
+  const hero = $(".hero"), lockup = $(".lockup", hero), planet = $(".planet", lockup), priceNum = $(".price__num", lockup);
+  if (!reduce){
+    // REST: intensidad en reposo; NEAR: el mouse se mueve por la página pero fuera del hero; 1: el mouse o el dedo están sobre el hero
+    const sweeps = !fineHover, REST = .7, NEAR = .82;
+    let box = {l: 0, w: 1}, R = 1, half = 1, numW = 1;
+    const measure = () => {
+      const r = hero.getBoundingClientRect();
+      box = {l: r.left + scrollX, w: r.width || 1};
+      R = planet.offsetWidth / 2 || 1; half = lockup.offsetWidth / 2; numW = priceNum.offsetWidth;
+    };
+    let tu = 0, cu = 0, ti = REST, ci = REST, touching = false, over = false, inView = true, raf = 0, lastT = 0;
+    const out = {sa: "", lo: "", si: ""};
+    const put = (k, v) => { if (out[k] !== v){ out[k] = v; lockup.style.setProperty("--" + k, v); } };
+    const toU = x => Math.max(-1, Math.min(1, (x + scrollX - box.l - box.w / 2) / (box.w / 2)));
+    function frame(t){
+      raf = 0;
+      const wander = sweeps && !touching;
+      // paseo solo: alcanza con ~30 cuadros por segundo (con el dedo o el mouse encima va a 60)
+      if (wander && lastT && t - lastT < 30){ if (inView && !document.hidden) raf = requestAnimationFrame(frame); return; }
+      const dt = lastT ? Math.min(64, t - lastT) : 16.7; lastT = t;
+      if (wander) tu = .9 * Math.sin(t / 9000 * 2 * Math.PI); // ida y vuelta cada 9 s (el seno ya frena en las puntas)
+      const k = 1 - Math.pow(.9, dt / 16.7), ki = 1 - Math.pow(.94, dt / 16.7);
+      cu += (tu - cu) * k; ci += (ti - ci) * ki;
+      // en pantallas táctiles el punto de luz llega hasta debajo del dedo (casi hasta el borde del hero)
+      const reach = sweeps ? box.w / 2 - 24 : half * .8;
+      const s = Math.max(-.8, Math.min(.8, cu * reach / R));
+      put("sa", (Math.asin(s) * 57.29578).toFixed(2) + "deg");
+      put("lo", (Math.round(cu * numW * (sweeps ? .5 : .62) * 2) / 2) + "px"); // en medios píxeles: no repinta el número por cambios invisibles
+      put("si", ci.toFixed(3));
+      const settled = Math.abs(tu - cu) < .0008 && Math.abs(ti - ci) < .002;
+      if (inView && !document.hidden && (wander || !settled)) raf = requestAnimationFrame(frame); else lastT = 0;
+    }
+    const kick = () => { if (!raf && inView && !document.hidden) raf = requestAnimationFrame(frame); };
+    measure();
+    new ResizeObserver(measure).observe(hero);
+    addEventListener("resize", measure);
+    document.fonts && document.fonts.ready.then(measure);
+    if (fineHover){
+      // con mouse: el sol sigue al cursor esté donde esté en la página (mientras el hero se ve); sobre el hero brilla más
+      hero.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") over = true; });
+      hero.addEventListener("pointerleave", e => { if (e.pointerType === "mouse"){ over = false; ti = NEAR; kick(); } });
+      addEventListener("pointermove", e => {
+        if (e.pointerType !== "mouse" || !inView) return;
+        tu = toU(e.clientX); ti = over ? 1 : NEAR; kick();
+      }, {passive: true});
+      // el mouse salió de la ventana: el sol se queda donde estaba y vuelve a la intensidad de reposo
+      document.documentElement.addEventListener("mouseleave", () => { over = false; ti = REST; kick(); });
+    }
+    const onTouch = e => { touching = e.touches.length > 0; if (touching){ tu = toU(e.touches[0].clientX); ti = 1; } else ti = REST; kick(); };
+    ["touchstart", "touchmove", "touchend", "touchcancel"].forEach(n => hero.addEventListener(n, onTouch, {passive: true}));
+    new IntersectionObserver(([en]) => { inView = en.isIntersecting; kick(); }).observe(hero);
+    document.addEventListener("visibilitychange", kick);
+    kick();
   }
 
   /* ===== barra fija: solo cuando no se ve ni el botón del hero, ni el precio, ni el cierre ===== */
@@ -1247,7 +1354,7 @@ main,.foot,.promo{transition:filter .3s}
 
   /* ===== estrellas de fondo (30 fps, pausadas si la pestaña no se ve) ===== */
   const cv = $("#stars"), cx = cv.getContext("2d");
-  let W = 0, H = 0, vw = 0, dpr = 1, stars = [], raf = 0, last = 0;
+  let W = 0, H = 0, vw = 0, dpr = 1, stars = [], raf = 0;
   function size(){
     dpr = Math.min(devicePixelRatio || 1, 1.5);
     vw = innerWidth;
@@ -1265,9 +1372,11 @@ main,.foot,.promo{transition:filter .3s}
       cx.beginPath(); cx.arc(s.x, (s.y - off * s.s + H) % H, s.r, 0, 6.283); cx.fill();
     }
   }
-  function loop(t){ raf = requestAnimationFrame(loop); if (t - last < 33) return; last = t; draw(t); }
-  const start = () => { if (!raf && !reduce && !document.hidden) raf = requestAnimationFrame(loop); };
-  const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+  // dibuja un cuadro y espera ~20 ms antes de pedir el siguiente: ~30 fps sin despertar en cada cuadro
+  let tmo = 0;
+  function loop(t){ raf = 0; draw(t); tmo = setTimeout(() => { tmo = 0; raf = requestAnimationFrame(loop); }, 20); }
+  const start = () => { if (!raf && !tmo && !reduce && !document.hidden) raf = requestAnimationFrame(loop); };
+  const stop = () => { cancelAnimationFrame(raf); clearTimeout(tmo); raf = tmo = 0; };
   size(); draw(0); start();
   addEventListener("resize", () => {
     if (innerWidth !== vw) size(); else if (Math.round(innerHeight * dpr) !== H) H = cv.height = Math.round(innerHeight * dpr); else return;
