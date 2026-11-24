@@ -2,12 +2,24 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- VISTA PREVIA DE LINKS (WhatsApp, Instagram, Google)
+     Los robots que arman esas vistas previas no corren el script de la página: nada de lo que está acá cambia solo el 1/12.
+     Por eso la descripción y los textos de og: no dicen precio. El precio está solo en la imagen (og.jpg: "Hasta el 30/11 · después $39").
+     Instagram y Facebook guardan la imagen según su dirección: si la reemplazás, cambiá también la dirección (por eso el ?v=2).
+     PENDIENTE PARA EL 1/12/2026 (fin del Black Friday), en un solo deploy:
+       1. og:image: cambiar assets/og.jpg?v=2 por assets/og-39.jpg (ya está hecha: dice $39/mes, sin Black Friday).
+       2. Título de la pestaña (la línea de abajo): cambiarlo a "Cardinal · Santiago Remedio — $39/mes" (en el navegador ya cambia solo; esto es para los robots).
+       3. Pegar https://santiagoremedio.com/ en https://developers.facebook.com/tools/debug/ y tocar "Scrape Again",
+          para que Instagram y Facebook dejen de mostrar la vista previa vieja. -->
 <title>Cardinal · Santiago Remedio — Black Friday $29/mes</title>
-<meta name="description" content="Hacé contenido en masa con IA y traé audiencia todos los días, aunque nunca hayas editado un video. Black Friday: $29/mes hasta el 30 de noviembre.">
-<meta property="og:title" content="Cardinal — Black Friday $29/mes">
-<meta property="og:description" content="Contenido en masa con IA. $29/mes hasta el 30 de noviembre, después $39. Si entrás ahora, se te congela en $29.">
-<meta property="og:image" content="https://santiagoremedio.com/assets/og.jpg">
+<meta name="description" content="Hacé contenido en masa con IA y traé audiencia todos los días, aunque nunca hayas editado un video. Cursos + comunidad en Skool, por Santiago Remedio.">
+<link rel="canonical" href="https://santiagoremedio.com/">
+<meta property="og:url" content="https://santiagoremedio.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cardinal — Hacé contenido en masa con IA">
+<meta property="og:description" content="Cursos + comunidad en Skool, por Santiago Remedio. Traé audiencia todos los días, aunque nunca hayas editado un video.">
+<meta property="og:image" content="https://santiagoremedio.com/assets/og.jpg?v=2">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -18,401 +30,560 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@500;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#04060c; --card:#0a0e19; --card2:#0d1220; --line:rgba(130,160,255,.13); --line2:rgba(130,160,255,.24);
-  --ink:#eef2ff; --mute:#8b94ad; --dim:#6f7896;
-  --blue:#2f6bff; --blue2:#5b8cff; --sky:#9cc2ff; --glow:#3d7bff;
-  --hot:#ff2e63;
-  --r:22px; --ease:cubic-bezier(.2,.8,.2,1);
+  --bg:#04060c; --card:#0a0e19; --line:rgba(130,160,255,.13); --line2:rgba(130,160,255,.24); --line-card:rgba(130,160,255,.18);
+  --ink:#eef2ff; --soft:#c9d3ee; --mute:#9aa4be;
+  --sky:#9cc2ff; --b1:#3366f5; --b2:#1f4fe0; --hot:#e0174e;
+  --r:14px; --r-hero:24px; --gut:16px; --hh:56px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --lift:0 10px 30px -12px rgba(0,0,0,.6);
   --display:"Unbounded",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;background:var(--bg)}
-body{font-family:var(--body);color:var(--ink);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%}
-.wrap{width:min(1240px,calc(100% - 32px));margin:0 auto}
+@media (min-width:1001px){:root{--hh:64px}}
 
-/* fondo de estrellas + grano */
-#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
-body::after{content:"";position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.07;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation:grain 1s steps(4) infinite}
-@keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-1%,3%)}}
-main,header,footer,.ticker{position:relative;z-index:2}
-
-/* ticker */
-.ticker{background:linear-gradient(90deg,#0b1a4d,#1d47d6,#0b1a4d);overflow:hidden;white-space:nowrap;border-bottom:1px solid var(--line2)}
-.ticker__track{display:inline-flex;gap:38px;padding:9px 0;animation:marquee 32s linear infinite;font:700 12px/1 var(--display);letter-spacing:.14em;text-transform:uppercase}
-.ticker__track span{display:inline-flex;align-items:center;gap:38px}
-.ticker__track i{font-style:normal;color:var(--sky)}
-@keyframes marquee{to{transform:translateX(-50%)}}
-
-/* nav */
-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(4,6,12,.72);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;gap:22px;height:64px}
-.logo{display:flex;align-items:center;gap:10px;flex:none}
-.logo__mark{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:radial-gradient(90% 90% at 50% 40%,#13245e,#060a1c 75%);box-shadow:0 0 0 1px var(--line2),0 0 20px rgba(61,123,255,.35);overflow:hidden}
-.logo__mark svg{width:30px;height:30px;overflow:visible}
-.logo__word{font:800 16px/1 var(--display);letter-spacing:.01em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
-.logo__word i{font-style:normal;display:inline-block;transform:skewX(-12deg);background:linear-gradient(90deg,#3f7bff,#8fb6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.logo__word svg{width:11px;height:11px;margin-left:-2px;filter:drop-shadow(0 0 4px rgba(150,190,255,.9))}
-/* pill tipo "New drops" */
-.drop{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 12px 0 5px;border-radius:10px;font-size:13px;font-weight:500;color:#cfd8f3;box-shadow:0 0 0 1px var(--line2) inset;background:rgba(255,255,255,.03);transition:background .2s;white-space:nowrap}
-.drop:hover{background:rgba(255,255,255,.07)}
-.drop__tag{font:700 10.5px/1 var(--body);padding:5px 7px;border-radius:6px;background:rgba(47,107,255,.22);color:#a9c6ff;box-shadow:0 0 0 1px rgba(91,140,255,.45) inset}
-/* menú desplegable de módulos */
-.dd{position:relative}
-.dd__btn{display:inline-flex;align-items:center;gap:5px}
-.dd__btn svg{width:10px;height:10px;transition:transform .25s}
-.dd:hover .dd__btn svg,.dd:focus-within .dd__btn svg{transform:rotate(180deg)}
-.dd__panel,.offers{position:absolute;top:calc(100% + 14px);opacity:0;visibility:hidden;transform:translateY(-6px) scale(.98);transform-origin:top;transition:opacity .22s,transform .3s var(--ease),visibility .22s;z-index:80;
-  background:rgba(12,15,26,.97);border-radius:18px;box-shadow:0 0 0 1px var(--line2),0 30px 80px rgba(0,0,0,.7);padding:16px}
-.dd__panel::before,.offers::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px}
-.dd__panel{left:-40px;width:640px}
-.dd:hover .dd__panel,.dd:focus-within .dd__panel,.nav__cta:hover .offers,.nav__cta:focus-within .offers{opacity:1;visibility:visible;transform:none}
-.dd__h{font:600 11px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:2px 4px 12px}
-.dd__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.dd__item{border-radius:12px;padding:6px;transition:background .2s}
-.dd__item:hover{background:rgba(255,255,255,.05)}
-.dd__item img{border-radius:9px;aspect-ratio:1460/752;object-fit:cover;box-shadow:0 0 0 1px var(--line)}
-.dd__item span{display:block;margin:8px 2px 2px;font-size:13px;font-weight:600;color:#dfe6fb}
-.dd__foot{margin-top:12px;display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);font-size:13px;color:var(--mute)}
-.dd__foot a{color:var(--sky);font-weight:600}
-.offers{right:0;top:calc(100% + 22px);width:360px;padding:10px}
-.offers__h{font:600 11px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:8px 8px 8px}
-.offer{display:flex;align-items:center;gap:12px;padding:10px;border-radius:12px;transition:background .2s}
-.offer:hover{background:rgba(255,255,255,.05)}
-.offer__ico{flex:none;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:rgba(47,107,255,.16);color:var(--sky);font-weight:800;font-size:14px}
-.offer__ico.hot{background:rgba(255,46,99,.16);color:#ff6b8f}
-.offer b{display:block;font-size:13.5px;font-weight:600;color:#eef2ff}
-.offer small{display:block;margin-top:3px;font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
-.offer em{margin-left:auto;font-style:normal;font-size:12px;font-weight:600;padding:6px 10px;border-radius:8px;background:#fff;color:#0a1033}
-body:has(.dd:hover) main,body:has(.nav__cta:hover) main{filter:brightness(.42) blur(1px)}
-main{transition:filter .3s}
-.nav__links{display:flex;gap:4px;margin-left:10px}
-.nav__links > a,.dd__btn{padding:8px 12px;border-radius:10px;color:var(--mute);font-size:14px;font-weight:500;transition:color .2s,background .2s}
-.nav__links > a:hover,.dd__btn:hover{color:var(--ink);background:rgba(255,255,255,.05)}
-.nav__cta{margin-left:auto;position:relative}
-.sticker{position:absolute;left:50%;bottom:-11px;transform:translateX(-50%) rotate(-3deg);white-space:nowrap;background:var(--hot);color:#fff;font:800 9.5px/1 var(--display);font-style:italic;letter-spacing:.04em;padding:4px 7px;border-radius:4px;box-shadow:0 4px 14px rgba(255,46,99,.45);pointer-events:none}
-
-/* botones */
-.btn{--b:var(--blue);position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 24px;border-radius:12px;font:600 15px/1 var(--body);cursor:pointer;border:0;transition:transform .25s var(--ease),box-shadow .25s,background .25s;overflow:hidden;isolation:isolate}
-.btn--blue{background:linear-gradient(180deg,#4a82ff,#2457ec);color:#fff;box-shadow:0 0 0 1px rgba(160,190,255,.35) inset,0 10px 30px -8px rgba(47,107,255,.8)}
-.btn--blue::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);animation:sheen 3.6s ease-in-out infinite}
-@keyframes sheen{55%,100%{transform:translateX(120%)}}
-.btn--white{background:#fff;color:#070a14;box-shadow:0 -3px 0 rgba(0,0,0,.12) inset}
-.btn--ghost{background:rgba(255,255,255,.06);color:var(--ink);box-shadow:0 0 0 1px var(--line2) inset}
-.btn:hover{transform:translateY(-2px)}
-.btn--blue:hover{box-shadow:0 0 0 1px rgba(190,210,255,.6) inset,0 16px 40px -8px rgba(47,107,255,1)}
-.btn--sm{height:38px;padding:0 16px;font-size:14px;border-radius:10px}
-.btn--lg{height:56px;padding:0 30px;font-size:16px}
-
-/* HERO tipo Higgsfield */
-.hero{--hz:clamp(236px,calc(11vw + 120px),290px);margin-top:16px;position:relative;border-radius:28px;overflow:hidden;background:#03050b;min-height:clamp(560px,78vh,720px);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:clamp(34px,6vh,60px) 20px 40px;box-shadow:0 0 0 1px var(--line2),0 40px 120px -40px rgba(47,107,255,.55)}
-.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 100%,rgba(47,107,255,.22),transparent 70%),radial-gradient(40% 40% at 15% 10%,rgba(40,70,200,.12),transparent 70%);pointer-events:none}
-.hero__eyebrow{position:relative;z-index:3;font:700 clamp(13px,1.6vw,20px)/1 var(--display);letter-spacing:.32em;text-transform:uppercase;background:linear-gradient(90deg,#6f8fe8,#c9d8ff,#6f8fe8);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:pan 5s linear infinite}
-@keyframes pan{to{background-position:-200% 0}}
-.hero__big{position:relative;z-index:1;margin-top:clamp(4px,1vh,14px);font:900 clamp(130px,23vw,300px)/.86 var(--display);letter-spacing:-.06em;display:flex;align-items:flex-start;
-  background:linear-gradient(100deg,#0e1640 0%,#1d2f82 28%,#3e6dff 55%,#a9c6ff 72%,#2c4fc7 88%,#0e1640 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
-  -webkit-mask-image:linear-gradient(180deg,#000 55%,rgba(0,0,0,.25) 82%,transparent 96%);mask-image:linear-gradient(180deg,#000 55%,rgba(0,0,0,.25) 82%,transparent 96%);
-  animation:bigsheen 7s ease-in-out infinite, bigin 1.4s var(--ease) both}
-.hero__big small{font-size:.42em;margin-top:.14em;letter-spacing:-.02em}
-@keyframes bigsheen{50%{background-position:100% 0}}
-@keyframes bigin{from{opacity:0;filter:blur(24px);transform:translateY(30px) scale(.96)}}
-/* planeta */
-.planet{position:absolute;left:50%;top:var(--hz);width:max(1500px,150%);aspect-ratio:1;transform:translateX(-50%);border-radius:50%;z-index:2;
-  background:radial-gradient(closest-side,#03050b 96%,#0a1a55 99%,transparent 100%);
-  animation:rise 1.8s var(--ease) both .15s}
-.planet::before{content:"";position:absolute;inset:0;border-radius:50%;
-  background-image:radial-gradient(rgba(120,150,255,.16) 1px,transparent 1.4px);background-size:14px 14px;
-  -webkit-mask-image:radial-gradient(70% 22% at 50% 0%,#000,transparent 80%);mask-image:radial-gradient(70% 22% at 50% 0%,#000,transparent 80%)}
-.planet::after{content:"";position:absolute;inset:0;border-radius:50%;
-  background:radial-gradient(closest-side,transparent 98.7%,rgba(120,165,255,.55) 99.3%,rgba(225,235,255,1) 99.75%,transparent 100%);
-  -webkit-mask-image:radial-gradient(62% 18% at 50% 0%,#000 20%,rgba(0,0,0,.45) 60%,transparent 100%);mask-image:radial-gradient(62% 18% at 50% 0%,#000 20%,rgba(0,0,0,.45) 60%,transparent 100%)}
-.planet{box-shadow:0 -24px 90px -10px rgba(47,107,255,.55),0 -2px 18px rgba(61,123,255,.5)}
-.flare{position:absolute;left:50%;top:calc(var(--hz) - 15px);width:620px;height:30px;transform:translateX(-50%);z-index:3;pointer-events:none;
-  background:radial-gradient(50% 50% at 50% 50%,#fff,rgba(160,195,255,.75) 22%,rgba(61,123,255,.25) 52%,transparent 72%);filter:blur(3px);animation:flare 4.5s ease-in-out infinite, fadein 2s 1s both}
-.flare::after{content:"";position:absolute;left:50%;top:50%;width:1400px;height:2px;transform:translate(-50%,-50%);background:linear-gradient(90deg,transparent,rgba(160,190,255,.55),transparent)}
-@keyframes flare{50%{opacity:.7;transform:translateX(-50%) scaleX(.82)}}
-@keyframes rise{from{transform:translate(-50%,120px);opacity:0}}
-@keyframes fadein{from{opacity:0}}
-.hero__count{position:relative;z-index:4;margin-top:clamp(2px,1.2vw,18px);display:flex;align-items:flex-start;gap:clamp(6px,1.4vw,16px);animation:fadein 1s .7s both}
-.cd__unit{display:flex;flex-direction:column;align-items:center;gap:8px}
-.cd__num{font:700 clamp(40px,7vw,84px)/1 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums;
-  background:linear-gradient(180deg,#ffffff 10%,#b7c3df 55%,#6b7899 100%);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-flex}
-.cd__num b{display:inline-block;width:.74em;text-align:center;font-weight:inherit}
-.cd__num b.tick{animation:tick .45s var(--ease)}
-@keyframes tick{from{transform:translateY(-30%);opacity:0;filter:blur(6px)}}
-.cd__lab{font:600 10px/1 var(--body);letter-spacing:.24em;color:var(--dim);text-transform:uppercase}
-.cd__sep{font:700 clamp(36px,6vw,72px)/1 var(--display);color:#3a4566;padding-top:.02em}
-.hero__sub{position:relative;z-index:4;margin-top:22px;text-align:center;color:#b8c3e0;font-size:clamp(14px,1.5vw,17px);line-height:1.5;max-width:560px;animation:fadein 1s .9s both}
-.hero__sub s{color:var(--dim)}
-.hero__sub strong{color:#fff}
-.hero__btns{position:relative;z-index:4;margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;animation:fadein 1s 1.1s both}
-.hero__lock{position:relative;z-index:4;margin-top:16px;font-size:12.5px;color:var(--mute);display:flex;align-items:center;gap:8px;animation:fadein 1s 1.3s both}
-.hero__lock::before{content:"";width:7px;height:7px;border-radius:50%;background:#46e38a;box-shadow:0 0 10px #46e38a;animation:blink 1.6s infinite}
-@keyframes blink{50%{opacity:.3}}
-
-/* tiles animados */
-.car{position:relative;margin-top:16px}
-.tiles{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 28px)/3);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding-bottom:4px}
-.tiles::-webkit-scrollbar{display:none}
-.tile{scroll-snap-align:start}
-.car__btn{position:absolute;top:95px;z-index:5;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;color:#fff;background:rgba(14,18,32,.85);backdrop-filter:blur(8px);box-shadow:0 0 0 1px var(--line2),0 10px 30px rgba(0,0,0,.5);transition:opacity .25s,transform .25s var(--ease)}
-.car__btn:hover{transform:scale(1.08)}
-.car__btn svg{width:16px;height:16px}
-.car__btn.prev{left:-14px}.car__btn.next{right:-14px}
-.car__btn[disabled]{opacity:0;pointer-events:none}
-.car__dots{display:flex;gap:6px;justify-content:center;margin-top:16px}
-.car__dots i{width:6px;height:6px;border-radius:9px;background:rgba(255,255,255,.18);transition:width .3s,background .3s}
-.car__dots i.on{width:22px;background:var(--blue2)}
-/* tile: reels en teléfonos */
-.phones{background:radial-gradient(70% 80% at 50% 100%,rgba(47,107,255,.28),#05070e 70%);display:flex;align-items:center;justify-content:center}
-.phones .ph{position:absolute;width:104px;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 0 0 1.5px rgba(160,190,255,.35),0 20px 40px rgba(0,0,0,.6);transition:transform .6s var(--ease)}
-.phones .ph video,.phones .ph img{width:100%;height:100%;object-fit:cover}
-.phones .ph:nth-child(1){transform:translateX(-92px) rotate(-9deg) scale(.9)}
-.phones .ph:nth-child(2){z-index:2;transform:translateY(-4px) scale(1.06)}
-.phones .ph:nth-child(3){transform:translateX(92px) rotate(9deg) scale(.9)}
-.tile:hover .phones .ph:nth-child(1){transform:translateX(-112px) rotate(-12deg) scale(.92)}
-.tile:hover .phones .ph:nth-child(3){transform:translateX(112px) rotate(12deg) scale(.92)}
-/* tile: garantía */
-.shield{display:grid;place-items:center;background:radial-gradient(60% 70% at 50% 50%,#0d1a4a,#03050b 75%)}
-.shield__ring{position:absolute;left:50%;top:50%;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;box-shadow:0 0 0 1px rgba(120,165,255,.5);animation:ring 3s ease-out infinite}
-.shield__ring:nth-child(2){animation-delay:1s}.shield__ring:nth-child(3){animation-delay:2s}
-@keyframes ring{from{transform:scale(.6);opacity:1}to{transform:scale(2.2);opacity:0}}
-.shield__core{position:relative;text-align:center}
-.shield__core svg{width:58px;height:58px;filter:drop-shadow(0 0 18px rgba(61,123,255,.9))}
-.shield__core b{display:block;margin-top:8px;font:900 28px/1 var(--display);letter-spacing:-.02em}
-.shield__core small{display:block;margin-top:6px;font:600 10.5px/1 var(--body);letter-spacing:.22em;color:var(--sky);text-transform:uppercase}
-.tile{position:relative}
-.tile__media{position:relative;height:230px;border-radius:var(--r);overflow:hidden;background:#05070e;box-shadow:0 0 0 1px var(--line)}
-.tile h3{margin-top:14px;font:700 12.5px/1.3 var(--display);letter-spacing:.02em;text-transform:uppercase}
-.tile h3.blue{color:var(--sky)}
-.tile p{margin-top:5px;color:var(--mute);font-size:13.5px;line-height:1.45}
-
-/* tile 1: BLACK FRIDAY con glitch */
-.bf{display:grid;place-items:center;background:radial-gradient(70% 70% at 50% 50%,#0b1640,#03050b 75%)}
-.bf__inner{text-align:center;position:relative}
-.bf__brand{font:600 13px/1 var(--display);color:#cfe0ff;display:flex;gap:6px;align-items:center;justify-content:center;margin-bottom:8px}
-.bf__word{position:relative;font:900 italic clamp(26px,3vw,38px)/1 var(--display);letter-spacing:-.03em;color:#fff;white-space:nowrap;text-transform:uppercase}
-.bf__word em{font-style:inherit;background:var(--blue);padding:2px 8px 4px;margin-left:6px;border-radius:4px;box-shadow:0 0 30px rgba(47,107,255,.7)}
-.bf__word::before,.bf__word::after{content:attr(data-t);position:absolute;inset:0;opacity:0}
-.bf__word::before{color:#5be1ff;animation:gl1 4s steps(1) infinite}
-.bf__word::after{color:var(--hot);animation:gl2 4s steps(1) infinite}
-@keyframes gl1{0%,86%,100%{opacity:0}87%{opacity:.85;transform:translate(-5px,0);clip-path:inset(10% 0 55% 0)}89%{opacity:.85;transform:translate(4px,0);clip-path:inset(60% 0 8% 0)}91%{opacity:.85;transform:translate(-3px,0);clip-path:inset(30% 0 40% 0)}93%{opacity:0}}
-@keyframes gl2{0%,86%,100%{opacity:0}88%{opacity:.8;transform:translate(5px,0);clip-path:inset(45% 0 25% 0)}90%{opacity:.8;transform:translate(-4px,0);clip-path:inset(5% 0 70% 0)}92%{opacity:0}}
-.bf__off{margin-top:10px;font:700 15px/1 var(--display);color:#fff;letter-spacing:.02em}
-.bf__off span{color:var(--sky)}
-.spark{position:absolute;width:22px;height:22px;color:#fff;animation:twinkle 2.6s ease-in-out infinite}
-.spark svg{width:100%;height:100%}
-@keyframes twinkle{0%,100%{transform:scale(.4) rotate(0);opacity:.3}50%{transform:scale(1) rotate(90deg);opacity:1}}
-
-/* tile 2: contador de seguidores con barras */
-.grow{padding:22px 24px;display:flex;flex-direction:column;background:radial-gradient(80% 90% at 80% 100%,rgba(47,107,255,.25),transparent 60%),#05070e}
-.grow__top{display:flex;justify-content:space-between;align-items:center;color:var(--mute);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:rgba(47,107,255,.18);color:var(--sky);font-size:11px;box-shadow:0 0 0 1px rgba(91,140,255,.35) inset}
-.grow__num{margin-top:10px;font:800 46px/1 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.grow__bars{margin-top:auto;display:flex;align-items:flex-end;gap:8px;height:96px}
-.grow__bars i{flex:1;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#9cc2ff,#2f6bff 55%,rgba(47,107,255,.15));box-shadow:0 0 18px rgba(61,123,255,.45);transform-origin:bottom;transform:scaleY(.04);transition:transform 1.1s var(--ease)}
-.grow.on .grow__bars i{transform:scaleY(var(--h))}
-
-/* tile 3: collage de portadas */
-.wall{background:#05070e;perspective:900px}
-.wall__plane{position:absolute;inset:-40% -20%;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;transform:rotateX(28deg) rotateZ(-14deg);animation:wall 26s linear infinite}
-.wall__plane img{width:100%;border-radius:10px;box-shadow:0 0 0 1px var(--line2)}
-@keyframes wall{to{transform:rotateX(28deg) rotateZ(-14deg) translateY(-33.3%)}}
-.wall__fade{position:absolute;inset:0;background:radial-gradient(70% 70% at 50% 50%,transparent,#05070e 92%)}
-.wall__label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;font:900 italic 34px/0.95 var(--display);letter-spacing:-.03em;text-transform:uppercase;color:#fff;text-shadow:0 4px 30px #000,0 0 2px #000}
-.wall__label small{display:block;margin-top:8px;font:600 11px/1 var(--body);letter-spacing:.2em;color:var(--sky);text-shadow:none}
-
-/* bloque promo + mini tiles */
-.promo{display:grid;grid-template-columns:1.05fr 1.6fr;gap:14px;margin-top:44px}
-.promo__card{position:relative;border-radius:var(--r);overflow:hidden;padding:28px;min-height:300px;background:#060914;box-shadow:0 0 0 1px var(--line2);display:flex;flex-direction:column}
-.promo__card::after{content:"";position:absolute;left:-20%;right:-20%;bottom:-62%;height:100%;border-radius:50%;background:radial-gradient(closest-side,#060914 97.6%,rgba(120,165,255,.55) 98.6%,rgba(225,235,255,.9) 99.4%,transparent 100%);box-shadow:0 -20px 70px -10px rgba(47,107,255,.45);pointer-events:none}
-.promo__card > *{position:relative;z-index:1}
-.promo__eyebrow{font:700 11px/1 var(--display);letter-spacing:.26em;color:var(--blue2);text-transform:uppercase}
-.promo__card h2{position:relative;z-index:1;margin-top:14px;font:800 clamp(24px,2.6vw,32px)/1.08 var(--display);letter-spacing:-.02em;text-transform:uppercase;max-width:12ch}
-.promo__mini{margin-top:auto;padding-top:20px;position:relative;z-index:1}
-.promo__mini .cd__num{font-size:34px}
-.promo__mini .cd__sep{font-size:30px}
-.promo__mini .row{display:flex;gap:8px;align-items:flex-start}
-.promo__mini .btn{margin-top:16px}
-.minis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.mini{position:relative;border-radius:16px;padding:18px;background:var(--card);box-shadow:0 0 0 1px var(--line);min-height:142px;display:flex;flex-direction:column;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s}
-.mini:hover{transform:translateY(-3px);box-shadow:0 0 0 1px var(--line2),0 18px 40px -20px rgba(47,107,255,.6)}
-.mini__ico{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:rgba(47,107,255,.14);color:var(--sky);font-size:15px}
-.mini__tag{position:absolute;top:14px;right:14px;font:800 9px/1 var(--display);padding:4px 6px;border-radius:4px;letter-spacing:.06em}
-.tag-blue{background:var(--blue);color:#fff}.tag-hot{background:var(--hot);color:#fff}.tag-sky{background:#cfe0ff;color:#0a1640}
-.mini h4{margin-top:auto;font:600 14.5px/1.25 var(--body)}
-.mini p{margin-top:4px;color:var(--mute);font-size:12.5px;line-height:1.4}
-
-/* fila de reels */
-.reelrow{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-top:36px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.reelrow__track{display:flex;gap:18px;width:max-content;animation:marquee 60s linear infinite;padding:10px 0 20px}
-.reelrow:hover .reelrow__track{animation-play-state:paused}
-.rph{position:relative;width:210px;aspect-ratio:9/16;border-radius:24px;overflow:hidden;background:#000;box-shadow:0 0 0 1.5px rgba(140,175,255,.22),0 30px 60px -20px rgba(0,0,0,.8);transition:transform .45s var(--ease),box-shadow .45s;flex:none}
-.rph:hover{transform:translateY(-8px) scale(1.03);box-shadow:0 0 0 1.5px rgba(140,175,255,.6),0 30px 70px -20px rgba(47,107,255,.7)}
-.rph video,.rph img{width:100%;height:100%;object-fit:cover}
-.rph__tag{position:absolute;left:10px;top:10px;font:700 10px/1 var(--body);letter-spacing:.06em;padding:6px 8px;border-radius:7px;background:rgba(5,8,20,.72);backdrop-filter:blur(6px);color:#dfe8ff;box-shadow:0 0 0 1px rgba(255,255,255,.12) inset;text-transform:uppercase}
-
-/* secciones */
-section{padding:110px 0 0}
-.kicker{font:700 11.5px/1 var(--display);letter-spacing:.28em;text-transform:uppercase;color:var(--blue2)}
-.h2{margin-top:14px;font:800 clamp(30px,4.6vw,56px)/1.03 var(--display);letter-spacing:-.035em}
-.h2 .grad{background:linear-gradient(90deg,#3e6dff,#a9c6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{margin-top:16px;color:var(--mute);font-size:17px;line-height:1.55;max-width:600px}
-
-/* dolores */
-.pains{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
-.pain{border-radius:var(--r);padding:26px;background:var(--card);box-shadow:0 0 0 1px var(--line);position:relative;overflow:hidden}
-.pain__x{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,46,99,.12);color:#ff6b8f;font-weight:700;box-shadow:0 0 0 1px rgba(255,46,99,.3) inset}
-.pain p{margin-top:18px;font-size:18px;line-height:1.4;font-weight:500}
-.pains__end{margin-top:26px;font:600 clamp(18px,2vw,22px)/1.4 var(--body);color:#cfd8f3}
-
-/* historia */
-.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;margin-top:40px;align-items:stretch}
-.story__photo{position:relative;border-radius:var(--r);overflow:hidden;box-shadow:0 0 0 1px var(--line2);min-height:420px;background:#0a0f22}
-.story__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.story__photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(4,6,12,.9))}
-.story__name{position:absolute;left:22px;bottom:20px;z-index:2}
-.story__name b{display:block;font:800 20px/1.1 var(--display)}
-.story__name span{color:var(--sky);font-size:13px}
-.story__body{display:flex;flex-direction:column;gap:14px}
-.stat{border-radius:var(--r);padding:24px 26px;background:var(--card);box-shadow:0 0 0 1px var(--line);display:flex;align-items:center;gap:22px}
-.stat__n{font:800 clamp(34px,4vw,50px)/1 var(--display);letter-spacing:-.03em;min-width:5.2ch;font-variant-numeric:tabular-nums}
-.stat__n.grad{background:linear-gradient(90deg,#5b8cff,#cfe0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.stat p{color:var(--mute);font-size:15px;line-height:1.45}
-.stat p b{color:var(--ink);font-weight:600}
-.stat--hl{background:linear-gradient(120deg,rgba(47,107,255,.2),rgba(10,14,25,1) 60%);box-shadow:0 0 0 1px var(--line2)}
-
-/* módulos */
-.mods{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
-.mod{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 0 0 1px var(--line);transition:transform .45s var(--ease),box-shadow .45s;transform-style:preserve-3d;background:#000}
-.mod img{width:100%;aspect-ratio:1460/752;object-fit:cover;transition:transform .6s var(--ease)}
-.mod:hover{box-shadow:0 0 0 1px rgba(120,160,255,.5),0 30px 60px -30px rgba(47,107,255,.9)}
-.mod:hover img{transform:scale(1.04)}
-.mod__cap{padding:14px 16px 16px;background:var(--card)}
-.mod__cap p{color:var(--mute);font-size:13.5px;line-height:1.45}
-.mod--bonus{box-shadow:0 0 0 1px rgba(120,160,255,.45)}
-
-/* precio */
-.pricing{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;margin-top:40px;align-items:stretch}
-.plan{position:relative;border-radius:26px;padding:30px;overflow:hidden;color:#fff;
-  background:radial-gradient(90% 80% at 100% 0%,#7fb0ff 0%,transparent 55%),linear-gradient(150deg,#3a74ff 0%,#1f4fe0 45%,#0c2a9a 100%);
-  box-shadow:0 0 0 1px rgba(180,205,255,.45) inset,0 40px 100px -40px rgba(47,107,255,.9)}
-.plan::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.14) 1px,transparent 1.4px);background-size:12px 12px;-webkit-mask-image:linear-gradient(200deg,#000,transparent 60%);mask-image:linear-gradient(200deg,#000,transparent 60%)}
-.plan > *{position:relative}
-.plan__top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.plan__name{font:800 34px/1 var(--display);letter-spacing:-.03em}
-.plan__badge{background:#fff;color:#0c2a9a;font:900 italic 11px/1.05 var(--display);text-transform:uppercase;padding:7px 9px;border-radius:6px;transform:rotate(3deg);text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.25)}
-.plan__desc{margin-top:8px;color:rgba(255,255,255,.8);font-size:14px}
-.plan__price{margin-top:26px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
-.plan__price s{font:700 34px/1 var(--display);color:rgba(255,255,255,.5);text-decoration-thickness:3px}
-.plan__price b{font:900 72px/1 var(--display);letter-spacing:-.05em}
-.plan__price span{font-size:15px;color:rgba(255,255,255,.85)}
-.plan__freeze{margin-top:14px;display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:rgba(4,10,40,.35);font-size:13.5px;font-weight:500;box-shadow:0 0 0 1px rgba(255,255,255,.18) inset}
-.plan__cta{margin-top:22px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.plan__cta .btn{background:#fff;color:#0b1d6b;height:54px;padding:0 28px;font-size:16px;font-weight:700}
-.plan__timer{font-size:13px;color:rgba(255,255,255,.85);font-variant-numeric:tabular-nums}
-.plan__list{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.2);display:grid;gap:11px;list-style:none}
-.plan__list li{display:flex;gap:10px;font-size:15px;line-height:1.4}
-.plan__list li::before{content:"";flex:none;width:18px;height:18px;margin-top:1px;border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%231f4fe0' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
-.side{display:flex;flex-direction:column;gap:16px}
-.guarantee{flex:1;border-radius:26px;padding:30px;background:var(--card);box-shadow:0 0 0 1px var(--line2);display:flex;flex-direction:column;position:relative;overflow:hidden}
-.guarantee__shield{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;background:radial-gradient(circle at 50% 30%,#2a5cff,#0b1640);box-shadow:0 0 0 1px var(--line2),0 0 40px rgba(47,107,255,.5)}
-.guarantee h3{margin-top:22px;font:800 24px/1.15 var(--display);letter-spacing:-.02em}
-.guarantee p{margin-top:10px;color:var(--mute);font-size:15.5px;line-height:1.5}
-.compare{border-radius:26px;padding:24px 26px;background:var(--card);box-shadow:0 0 0 1px var(--line)}
-.compare__row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px}
-.compare__row:last-child{border:0}
-.compare__row b{font:700 16px/1 var(--display)}
-.compare__row .now{color:#46e38a}
-.compare__row .later{color:var(--mute)}
-
-/* faq */
-.faq{margin-top:36px;display:grid;gap:10px;max-width:860px}
-.faq details{border-radius:16px;background:var(--card);box-shadow:0 0 0 1px var(--line);transition:box-shadow .3s}
-.faq details[open]{box-shadow:0 0 0 1px var(--line2)}
-.faq summary{list-style:none;cursor:pointer;padding:20px 22px;font-weight:600;font-size:16px;display:flex;justify-content:space-between;align-items:center;gap:16px}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font:500 22px/1 var(--display);color:var(--sky);transition:transform .3s var(--ease)}
-.faq details[open] summary::after{transform:rotate(45deg)}
-.faq .ans{padding:0 22px 20px;color:var(--mute);font-size:15px;line-height:1.6}
-
-/* cierre */
-.final{margin:120px 0 0;position:relative;border-radius:28px;overflow:hidden;background:#03050b;padding:80px 24px 90px;text-align:center;box-shadow:0 0 0 1px var(--line2)}
-.final{--hz:72%}
-.final .planet{width:max(1400px,140%)}
-.final h2{position:relative;z-index:4;font:900 clamp(34px,6vw,76px)/1 var(--display);letter-spacing:-.04em}
-.final p{position:relative;z-index:4;margin:16px auto 0;color:#b8c3e0;font-size:17px;max-width:520px;line-height:1.5}
-.final .btn{position:relative;z-index:4;margin-top:28px}
-.final .hero__lock{justify-content:center}
-
-footer{padding:50px 0 120px;color:var(--dim);font-size:13px}
-footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:26px}
-footer a:hover{color:var(--ink)}
-.foot__links{display:flex;gap:20px;flex-wrap:wrap}
-
-/* barra fija mobile */
-.mbar{position:fixed;left:10px;right:10px;bottom:10px;z-index:60;display:none;align-items:center;gap:12px;padding:10px 10px 10px 16px;border-radius:16px;background:rgba(10,14,28,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 0 0 1px var(--line2),0 20px 40px rgba(0,0,0,.6);transform:translateY(140%);transition:transform .5s var(--ease)}
-.mbar.show{transform:none}
-.mbar__t{font-size:12px;color:var(--mute);line-height:1.3}
-.mbar__t b{display:block;color:#fff;font:800 15px/1.1 var(--display)}
-.mbar .btn{margin-left:auto}
-
-/* reveal al scrollear */
-.rv{opacity:0;transform:translateY(34px);filter:blur(10px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease);transition-delay:var(--d,0s)}
-.rv.in{opacity:1;transform:none;filter:none}
-
-/* spotlight que sigue al mouse */
-.spot{--x:50%;--y:50%}
-.spot::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(380px circle at var(--x) var(--y),rgba(91,140,255,.14),transparent 45%);z-index:0}
-.spot:hover::before{opacity:1}
+/* base y superficies del navegador */
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0;padding:0}
+html{background:var(--bg);color-scheme:dark;caret-color:var(--sky);scrollbar-color:#4a5578 var(--bg);scrollbar-width:thin;scrollbar-gutter:stable;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+html.is-locked{overflow:hidden}
+body{font:400 16px/1.5 var(--body);color:var(--ink);background:var(--bg);font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+::selection{background:#2f6bff;color:#fff}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#4a5578;border:2px solid var(--bg);border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:#5d6b94}
+a{color:inherit;text-decoration:none;text-underline-offset:.24em;text-decoration-thickness:1px;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+img,video{display:block;max-width:100%}
+img{height:auto}
+ul{list-style:none}
+:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+[id]{scroll-margin-top:calc(var(--hh) + 16px)}
+h1,h2,h3{text-wrap:balance}
+p,li{text-wrap:pretty}
+.sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+.nw{white-space:nowrap}
+.skip{position:absolute;left:12px;top:-64px;z-index:100;padding:12px 18px;border-radius:999px;background:#fff;color:#0b1d6b;font-weight:600;box-shadow:var(--lift);transition:top .2s var(--ease)}
+.skip:focus{top:8px}
+.wrap{width:min(1240px,100% - 2*var(--gut));margin-inline:auto}
+.ic{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.ic--fill{fill:currentColor}
+.acc{color:var(--sky)}
 
 /* estado: terminó Black Friday */
 html:not(.bf-over) .after-only{display:none!important}
 .bf-over .bf-only{display:none!important}
 
-@media (max-width:1000px){
-  .nav__links,.drop{display:none}
-  .tiles{grid-auto-columns:calc((100% - 14px)/2)}
-  .promo{grid-template-columns:1fr}
-  .story{grid-template-columns:1fr}
-  .pricing{grid-template-columns:1fr}
-  .mods{grid-template-columns:1fr 1fr}
+/* fondo: estrellas + grano estático */
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.promo,main,footer{position:relative;z-index:2}
+
+/* barra de promo */
+.promo{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:6px var(--gut);font:600 13px/1.3 var(--body);color:#fff;text-align:center;background:linear-gradient(90deg,#0a1847,#1a43cf 50%,#0a1847);border-bottom:1px solid var(--line2)}
+.promo .ic{width:16px;height:16px}
+.promo__l{display:none}
+@media (hover:hover){.promo:hover .promo__t{text-decoration:underline}}
+.promo:focus-visible{outline:2px solid #fff;outline-offset:-4px}
+.promo:focus-visible .promo__t{text-decoration:underline}
+@media (min-width:641px){.promo{min-height:40px}.promo__l{display:inline}.promo__s{display:none}}
+
+/* header */
+.hdr{position:sticky;top:0;z-index:50;background:rgba(4,6,12,.8);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:12px;height:var(--hh)}
+.logo{display:flex;align-items:center;gap:10px;flex:none;min-height:44px}
+.logo__mark{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(90% 90% at 50% 40%,#13245e,#060a1c 75%);box-shadow:0 0 0 1px var(--line2)}
+.logo__mark svg{width:30px;height:30px;overflow:visible}
+.logo__word{display:flex;align-items:center;gap:6px;font:800 13px/1 var(--display);letter-spacing:.01em;text-transform:uppercase}
+.logo__word i{display:inline-block;font-style:normal;transform:skewX(-12deg);background:linear-gradient(90deg,#3f7bff,#8fb6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo__word svg{width:11px;height:11px;margin-left:-2px;filter:drop-shadow(0 0 4px rgba(150,190,255,.9))}
+.menu-btn{margin-left:auto;width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.03);transition:background-color .2s}
+@media (hover:hover){.menu-btn:hover{background:rgba(255,255,255,.08)}}
+.menu-btn .ic{width:22px;height:22px}
+.drop,.nav__links,.nav__cta{display:none}
+.drop{align-items:center;gap:8px;height:34px;padding:0 12px 0 5px;border-radius:10px;border:1px solid var(--line2);background:rgba(255,255,255,.03);font:500 13px/1 var(--body);color:#cfd8f3;white-space:nowrap;transition:background-color .2s}
+@media (hover:hover){.drop:hover{background:rgba(255,255,255,.07)}}
+.drop__tag{padding:5px 7px;border-radius:6px;background:rgba(47,107,255,.22);color:#a9c6ff;font:700 12px/1 var(--body)}
+.nav__cta{position:relative;margin-left:auto}
+.nav__cta .btn{height:44px}
+.sticker{position:absolute;left:50%;bottom:-12px;transform:translateX(-50%) rotate(-3deg);padding:4px 7px;border-radius:4px;background:var(--hot);color:#fff;font:italic 800 12px/1 var(--display);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;box-shadow:0 6px 14px -6px rgba(0,0,0,.7);pointer-events:none}
+@media (min-width:641px){
+  .logo__word{font-size:16px}
+  .nav__cta{display:block}
+  .menu-btn{margin-left:10px}
 }
-@media (max-width:1180px){.drop{display:none}}
-@media (max-width:640px){
-  .pains,.mods,.minis{grid-template-columns:1fr}
-  .tiles{grid-auto-columns:86%}
-  .car__btn{display:none}
-  .bf__word{font-size:22px}
-  .rph{width:160px;border-radius:18px}
-  .logo__word{font-size:13px}
-  .minis{grid-template-columns:1fr 1fr}
-  .hero{min-height:0;padding-bottom:34px}
-  .hero__count{gap:4px;margin-top:22px}
-  .hero .cd__num{font-size:36px}
-  .hero .cd__sep{font-size:28px}
-  .hero__big{font-size:min(150px,38vw)}
-  .hero{--hz:196px}
-  .cd__lab{font-size:8.5px;letter-spacing:.16em}
-  .nav .btn{height:36px;padding:0 12px;font-size:13px}
-  .mbar{display:flex}
-  section{padding-top:80px}
-  .story__photo{min-height:360px}
-  .plan__price b{font-size:60px}
+@media (max-width:1000px){.sticker{display:none}}
+@media (min-width:1001px){
+  .menu-btn{display:none}
+  .nav__links{display:flex;align-items:center;gap:2px;margin-left:6px}
+  .nav__cta .btn{height:40px}
 }
+@media (min-width:1181px){.drop{display:inline-flex}}
+
+/* menús de escritorio */
+.nav__links>a,.dd__btn{display:inline-flex;align-items:center;gap:5px;height:40px;padding:0 12px;border-radius:10px;color:var(--mute);font:500 14px/1 var(--body);transition:color .2s,background-color .2s}
+.nav__links>a:hover,.dd__btn:hover,.dd:focus-within .dd__btn{color:var(--ink);background:rgba(255,255,255,.05)}
+.dd{position:relative}
+.dd__btn .ic{width:14px;height:14px;transition:transform .25s var(--ease)}
+.dd:hover .dd__btn .ic,.dd:focus-within .dd__btn .ic{transform:rotate(180deg)}
+.dd.is-closed .dd__btn .ic{transform:none}
+.pop{position:absolute;top:calc(100% + 14px);z-index:80;padding:16px;border-radius:var(--r);background:#0c0f1a;border:1px solid var(--line2);box-shadow:0 30px 80px -20px rgba(0,0,0,.85);opacity:0;visibility:hidden;transform:translateY(-6px) scale(.98);transform-origin:top;transition:opacity .22s,transform .3s var(--ease),visibility .22s}
+.pop::before{content:"";position:absolute;left:0;right:0;top:-24px;height:24px}
+.dd:hover .pop,.dd:focus-within .pop,.nav__cta:hover .pop,.nav__cta:focus-within .pop{opacity:1;visibility:visible;transform:none}
+/* cerrado a mano (eligió un ítem o apretó Esc): queda cerrado hasta que vuelva a entrar */
+.dd.is-closed .pop,.nav__cta.is-closed .pop{opacity:0;visibility:hidden;transform:translateY(-6px) scale(.98)}
+.dd__panel{left:-40px;width:640px}
+.dd__h,.offers__h{margin:2px 4px 12px;font:600 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.dd__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.dd__item{padding:6px;border-radius:12px;transition:background-color .2s}
+.dd__item:hover{background:rgba(255,255,255,.05)}
+.dd__item img{width:100%;aspect-ratio:1200/619;object-fit:cover;border-radius:9px;border:1px solid var(--line)}
+.dd__item span{display:block;margin:8px 2px 2px;font-size:13px;font-weight:600;color:#dfe6fb}
+.dd__foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);font-size:13px;color:var(--mute)}
+.dd__foot span,.dd__foot a{display:inline-flex;align-items:center;gap:8px}
+.dd__foot .ic{width:16px;height:16px}
+.dd__foot a{color:var(--sky);font-weight:600}
+.dd__foot a:hover{text-decoration:underline}
+body:has(.dd:not(.is-closed):is(:hover,:focus-within)) :is(main,.foot,.promo){filter:brightness(.42)}
+main,.foot,.promo{transition:filter .3s}
+.mod:target{border-color:var(--sky)}
+.offers{right:0;top:calc(100% + 22px);width:360px;padding:10px}
+.offers__h{margin:8px}
+.offer{display:flex;align-items:center;gap:12px;padding:10px;border-radius:12px;transition:background-color .2s}
+.offer:hover{background:rgba(255,255,255,.05)}
+.offer__ico{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:rgba(47,107,255,.16);color:var(--sky)}
+.offer__ico.hot{background:rgba(224,23,78,.16);color:#ff6b8f}
+.offer__ico .ic{width:18px;height:18px}
+.offer b{display:block;font-size:14px;font-weight:600;color:var(--ink)}
+.offer small{display:block;margin-top:3px;font-size:12px;color:var(--mute);text-wrap:pretty}
+.offer em{flex:none;margin-left:auto;padding:7px 11px;border-radius:999px;background:#fff;color:#0a1033;font-style:normal;font-size:12px;font-weight:600}
+@media (max-width:1000px){.offers{display:none}}
+
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 24px;border-radius:999px;font:600 15px/1 var(--body);white-space:nowrap;cursor:pointer;transition:transform .2s var(--ease),filter .2s}
+.btn--blue{background:linear-gradient(180deg,var(--b1),var(--b2));color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),var(--lift)}
+.btn--white{background:#fff;color:#0b1d6b;box-shadow:var(--lift)}
+.btn--lg{height:52px;padding:0 28px;font-size:16px}
+.btn--sm{padding:0 18px;font-size:14px}
+@media (hover:hover){.btn:hover{transform:translateY(-1px);filter:brightness(1.08)}}
+.btn:active{transform:scale(.98)}
+
+/* HERO: qué es, después el precio */
+.hero{position:relative;isolation:isolate;overflow:hidden;margin-top:12px;padding:22px 16px 18px;border-radius:var(--r-hero);background:#03050b;border:1px solid var(--line-card);box-shadow:0 40px 120px -40px rgba(47,107,255,.55);display:flex;flex-direction:column;align-items:center;text-align:center}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(60% 45% at 50% 0%,rgba(40,70,200,.16),transparent 70%),radial-gradient(40% 40% at 12% 8%,rgba(40,70,200,.12),transparent 70%)}
+.hero>*{position:relative;z-index:4}
+.hero__h1{font:800 30px/1.08 var(--display);letter-spacing:-.03em}
+@media (max-width:370px){.hero__h1{font-size:28px}}
+.hero__sub{margin-top:10px;font-size:16px;line-height:1.45;color:var(--soft)}
+/* teléfonos: no entran en una fila, así que se apilan con el mismo ancho */
+.chips{display:grid;justify-content:center;gap:8px;margin-top:14px}
+.chip{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:30px;padding:0 12px 0 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);font:500 13px/1 var(--body);color:#dbe3f7;white-space:nowrap}
+.chip .ic{width:16px;height:16px;color:var(--sky)}
+/* lockup de precio: el planeta vive acá adentro para que el horizonte siempre corte el número */
+.lockup{--pz:clamp(100px,32.5vw,150px);--lb:19px;--hz:calc(var(--lb) + var(--pz)*.6);--pw:920px;--fw:min(620px,115%);position:relative;width:100%;margin-top:18px;display:flex;flex-direction:column;align-items:center}
+.hero>.lockup{z-index:auto}
+.bf-over .lockup{--lb:0px}
+.lockup__label{position:relative;z-index:4;margin-bottom:6px;padding-left:.32em;font:700 13px/1 var(--display);letter-spacing:.32em;text-transform:uppercase;color:#a9b8e8}
+.price{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:center;gap:8px}
+.price__num{display:inline-flex;align-items:flex-start;padding-right:.08em;font:900 var(--pz)/.86 var(--display);letter-spacing:-.06em;
+  background:linear-gradient(100deg,#14205a 0%,#2443b8 30%,#5b88ff 50%,#b9d0ff 62%,#4f7cf5 78%,#16246a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-mask-image:linear-gradient(180deg,#000 52%,rgba(0,0,0,.3) 80%,transparent 96%);mask-image:linear-gradient(180deg,#000 52%,rgba(0,0,0,.3) 80%,transparent 96%)}
+.price__num small{margin-top:.14em;font-size:.42em;letter-spacing:-.02em}
+.price__unit{display:flex;flex-direction:column;align-items:flex-start;margin-top:calc(var(--pz)*.1);font:700 14px/1.2 var(--body);color:var(--soft)}
+.planet{position:absolute;left:50%;top:var(--hz);z-index:2;width:var(--pw);aspect-ratio:1;border-radius:50%;transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(closest-side,#03050b 96%,#0a1a55 99%,transparent 100%);
+  box-shadow:0 -24px 90px -10px rgba(47,107,255,.55),0 -2px 18px rgba(61,123,255,.5)}
+.planet::before{content:"";position:absolute;inset:0;border-radius:50%;background-image:radial-gradient(rgba(120,150,255,.16) 1px,transparent 1.4px);background-size:14px 14px;
+  -webkit-mask-image:radial-gradient(70% 22% at 50% 0%,#000,transparent 80%);mask-image:radial-gradient(70% 22% at 50% 0%,#000,transparent 80%)}
+.planet::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(closest-side,transparent 98.7%,rgba(120,165,255,.55) 99.3%,rgba(225,235,255,1) 99.75%,transparent 100%);
+  -webkit-mask-image:radial-gradient(62% 18% at 50% 0%,#000 20%,rgba(0,0,0,.45) 60%,transparent 100%);mask-image:radial-gradient(62% 18% at 50% 0%,#000 20%,rgba(0,0,0,.45) 60%,transparent 100%)}
+.flare{position:absolute;left:50%;top:calc(var(--hz) - 15px);z-index:3;width:var(--fw);height:30px;transform:translateX(-50%);pointer-events:none;filter:blur(3px);
+  background:radial-gradient(50% 50% at 50% 50%,#fff,rgba(160,195,255,.75) 22%,rgba(61,123,255,.25) 52%,transparent 72%)}
+.flare::after{content:"";position:absolute;left:50%;top:50%;width:1400px;height:2px;transform:translate(-50%,-50%);background:linear-gradient(90deg,transparent,rgba(160,190,255,.55),transparent)}
+.cd{position:relative;z-index:4;display:flex;align-items:flex-start;justify-content:center;gap:clamp(2px,1vw,4px);margin-top:8px}
+.cd:not(.is-live){visibility:hidden}
+.cd__unit{display:flex;flex-direction:column;align-items:center;gap:6px}
+.cd__num{display:inline-flex;font:700 36px/1 var(--display);font-size:clamp(28px,10vw,36px);color:#dfe5f3}
+.cd__num b{display:inline-block;font-weight:inherit;background:linear-gradient(180deg,#fff 10%,#b7c3df 55%,#6b7899 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cd__lab{font:600 12px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.cd__sep{font:700 28px/1 var(--display);font-size:clamp(22px,7.8vw,28px);color:#3a4566}
+.hero__cta{width:100%;max-width:360px;margin-top:18px}
+.hero__more{display:inline-flex;align-items:center;gap:6px;min-height:44px;margin-top:2px;padding:0 12px;font:600 15px/1 var(--body);color:var(--soft);text-decoration:underline;text-decoration-color:rgba(201,211,238,.35);text-underline-offset:5px;transition:color .2s,text-decoration-color .2s}
+@media (hover:hover){.hero__more:hover{color:#fff;text-decoration-color:currentColor}}
+.hero__more .ic{width:18px;height:18px}
+.hero__lock{max-width:34ch;font-size:13px;line-height:1.45;color:var(--mute);text-wrap:balance}
+.hero__lock .ic{display:inline-block;width:14px;height:14px;margin-right:6px;vertical-align:-2px}
+@media (min-width:641px){
+  .hero{padding:36px 32px 28px}
+  .hero__h1{font-size:40px}
+  .hero__sub{font-size:18px}
+  .chips{display:flex;flex-wrap:wrap;margin-top:16px}
+  .lockup{--pz:160px;--lb:22px;--pw:max(1500px,140%);--fw:620px;margin-top:22px}
+  .lockup__label{font-size:16px}
+  .price__unit{font-size:16px}
+  .cd{gap:10px;margin-top:6px}
+  .cd__num{font-size:48px}
+  .cd__sep{font-size:40px}
+  .hero__cta{margin-top:20px}
+  .hero__lock{max-width:none}
+}
+
+/* carrusel de destacados */
+.car{position:relative;margin-top:16px}
+.tiles{display:grid;grid-auto-flow:column;grid-auto-columns:86%;gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:calc(-1*var(--gut));padding:0 var(--gut);scroll-padding-inline:var(--gut)}
+.tiles::-webkit-scrollbar,.reelrow::-webkit-scrollbar,.mods::-webkit-scrollbar{display:none}
+.tile{min-width:0;scroll-snap-align:start}
+.tile__media{position:relative;height:220px;overflow:hidden;border-radius:var(--r);background:#05070e}
+.tile__media::after{content:"";position:absolute;inset:0;z-index:3;border-radius:inherit;border:1px solid var(--line-card);pointer-events:none}
+.tile h3{margin-top:14px;font:700 13px/1.35 var(--body);letter-spacing:.03em;text-transform:uppercase}
+.tile p{margin-top:4px;font-size:14px;line-height:1.45;color:var(--mute)}
+.car__btn{position:absolute;z-index:5;width:44px;height:44px;display:none;place-items:center;border-radius:50%;color:#fff;background:rgba(14,18,32,.92);border:1px solid var(--line2);box-shadow:var(--lift);transition:opacity .25s,transform .25s var(--ease)}
+@media (hover:hover){.car__btn:not([aria-disabled="true"]):hover{transform:scale(1.06)}}
+.car__btn:not([aria-disabled="true"]):active{transform:scale(.96)}
+/* al llegar al final la flecha se apaga pero sigue en el orden de tabulación (si tiene el foco, se ve atenuada) */
+.car__btn[aria-disabled="true"]{cursor:default}
+.car__btn[aria-disabled="true"]:not(:focus-visible){opacity:0;pointer-events:none}
+.car__btn[aria-disabled="true"]:focus-visible{opacity:.4}
+.car__btn .ic{width:18px;height:18px}
+.car__btn.prev{left:-16px}.car__btn.next{right:-16px}
+.car>.car__btn{top:93px}
+.dots{display:flex;justify-content:center;margin-top:6px}
+.dot{width:44px;height:44px;display:grid;place-items:center}
+.dot::before{content:"";width:6px;height:6px;border-radius:9px;background:rgba(255,255,255,.42);transition:width .3s var(--ease),background-color .3s}
+.dot[aria-current="true"]::before{width:22px;background:var(--sky)}
+@media (hover:hover) and (pointer:fine){.dot{width:24px;height:32px}}
+@media (forced-colors:active){.dot::before{background:CanvasText}.dot[aria-current="true"]::before{background:Highlight}}
+@media (min-width:641px){
+  .tiles{grid-auto-columns:calc((100% - 14px)/2);gap:14px;margin-inline:0;padding:0;scroll-padding-inline:0}
+  .tile__media{height:230px}
+  .car__btn{display:grid}
+}
+/* sin margen lateral para colgar afuera: las flechas van adentro, sobre el borde de la fila */
+@media (min-width:641px) and (max-width:1339px){.car__btn.prev{left:8px}.car__btn.next{right:8px}}
+@media (min-width:1001px){.tiles{grid-auto-columns:calc((100% - 28px)/3)}}
+/* tile: reels en teléfonos */
+/* el abanico escala con el ancho del tile para no cortarse en teléfonos chicos */
+.phones{container-type:inline-size;display:flex;align-items:center;justify-content:center;background:radial-gradient(70% 80% at 50% 100%,#132a78,#070b1d 55%,#05070e)}
+.ph{position:absolute;width:min(104px,33cqw);aspect-ratio:9/16;overflow:hidden;border-radius:14px;background:#000;border:1.5px solid rgba(160,190,255,.35);box-shadow:0 20px 40px -10px rgba(0,0,0,.7);transition:transform .6s var(--ease)}
+.ph video{width:100%;height:100%;object-fit:cover}
+.ph:nth-child(1){transform:translateX(calc(-1*min(92px,29cqw))) rotate(-9deg) scale(.9)}
+.ph:nth-child(2){z-index:2;transform:translateY(-4px) scale(1.06)}
+.ph:nth-child(3){transform:translateX(min(92px,29cqw)) rotate(9deg) scale(.9)}
+@media (hover:hover){
+  .tile:hover .ph:nth-child(1){transform:translateX(-112px) rotate(-12deg) scale(.92)}
+  .tile:hover .ph:nth-child(3){transform:translateX(112px) rotate(12deg) scale(.92)}
+}
+/* tile: seguidores */
+.grow{display:flex;flex-direction:column;padding:20px 22px;background:linear-gradient(160deg,#05070e 40%,#0c1a4d)}
+.grow__top{display:flex;justify-content:space-between;align-items:center;font:600 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.pill{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;border:1px solid rgba(156,194,255,.35);color:var(--sky);font:600 12px/1 var(--body);letter-spacing:.02em;text-transform:none}
+.pill .ic{width:14px;height:14px}
+.grow__num{margin-top:10px;font:800 44px/1 var(--display);letter-spacing:-.03em}
+.grow__bars{display:flex;align-items:flex-end;gap:8px;height:96px;margin-top:auto}
+.grow__bars i{flex:1;height:100%;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#9cc2ff,#2f6bff 55%,#13245e);transform-origin:bottom;transform:scaleY(var(--h));transition:transform 1.1s var(--ease)}
+.grow.is-pre .grow__bars i{transform:scaleY(.04)}
+/* tile: pared de reels */
+.wall{perspective:900px}
+.wall__plane{position:absolute;inset:-48% -22%;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;transform:rotateX(28deg) rotateZ(-14deg)}
+.wall__plane img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:10px;border:1px solid var(--line2)}
+.wall__fade{position:absolute;inset:0;background:radial-gradient(70% 70% at 50% 50%,rgba(5,7,14,.3),#05070e 92%)}
+.wall__label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;font:900 34px/.95 var(--display);letter-spacing:-.03em;text-transform:uppercase;color:#fff;text-shadow:0 4px 30px #000,0 0 2px #000}
+.wall__label small{display:block;margin-top:8px;font:600 12px/1 var(--body);letter-spacing:.2em;color:var(--sky);text-shadow:0 1px 8px #000}
+/* tile: garantía */
+.shield{display:grid;place-items:center;background:radial-gradient(60% 70% at 50% 50%,#0d1a4a,#060a1c 60%,#03050b)}
+.ring{position:absolute;left:50%;top:50%;border-radius:50%;border:1px solid rgba(120,165,255,.4);transform:translate(-50%,-50%)}
+.ring--1{width:124px;height:124px}
+.ring--2{width:184px;height:184px;opacity:.55}
+.ring--3{width:252px;height:252px;opacity:.28}
+.shield__core{position:relative;text-align:center}
+.shield__core .ic{width:56px;height:56px;margin:0 auto;stroke-width:1.25;color:#fff}
+.shield__core b{display:block;margin-top:8px;font:800 28px/1 var(--display);letter-spacing:-.02em}
+.shield__core small{display:block;margin-top:6px;white-space:nowrap;font:600 12px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--sky)}
+
+/* accesos rápidos (teléfonos y tablets) */
+.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:18px}
+.quick a{display:flex;flex-direction:column;align-items:center;gap:8px;padding:4px 0;font:500 12px/1.2 var(--body);color:var(--soft);text-align:center;border-radius:14px}
+.quick__ic{width:56px;height:56px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#e3e9fb;transition:background-color .2s}
+@media (hover:hover){.quick a:hover .quick__ic{background:rgba(255,255,255,.1)}}
+.quick a:active .quick__ic{background:rgba(255,255,255,.16)}
+.quick__ic .ic{width:22px;height:22px}
+@media (min-width:1001px){.quick{display:none}}
+
+/* secciones */
+.sec{--sp:72px;padding-top:var(--sp)}
+.sec[id]{scroll-margin-top:calc(var(--hh) + 16px - var(--sp))}
+.h2{font:800 28px/1.08 var(--display);letter-spacing:-.03em}
+.lead{max-width:60ch;margin-top:12px;font-size:16px;line-height:1.55;color:var(--mute)}
+@media (min-width:641px){.lead{font-size:17px}}
+@media (min-width:1001px){.sec{--sp:112px}}
+
+/* reels */
+.reels{position:relative;margin-top:24px}
+.reelrow{display:grid;grid-auto-flow:column;grid-auto-columns:68%;gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:calc(-1*var(--gut));padding:8px var(--gut);scroll-padding-inline:var(--gut)}
+.reel{position:relative;display:block;width:100%;aspect-ratio:9/16;overflow:hidden;border-radius:var(--r);background:#000;border:1px solid rgba(140,175,255,.22);box-shadow:0 30px 60px -24px rgba(0,0,0,.8);scroll-snap-align:start;text-align:left;transition:transform .35s var(--ease),border-color .35s}
+.reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.reel::after{content:"";position:absolute;inset:auto 0 0;height:42%;background:linear-gradient(180deg,transparent,rgba(3,5,11,.88));pointer-events:none}
+.reel__tag{position:absolute;left:10px;top:10px;z-index:2;padding:7px 9px;border-radius:8px;background:rgba(5,8,20,.8);border:1px solid rgba(255,255,255,.14);color:#e6edff;font:700 12px/1 var(--body);letter-spacing:.06em;text-transform:uppercase}
+.reel__play{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;display:flex;align-items:center;gap:10px;font:600 14px/1.2 var(--body);color:#fff}
+.reel__pi{width:36px;height:36px;flex:none;display:grid;place-items:center;border-radius:50%;background:#fff;color:#0a1033}
+.reel__pi .ic{width:16px;height:16px;margin-left:2px}
+@media (hover:hover){.reel:hover{transform:translateY(-4px);border-color:rgba(140,175,255,.55)}}
+.reel:active{transform:scale(.98)}
+.reels>.car__btn{top:50%;margin-top:-22px}
+/* 8px de aire a los lados para que el anillo de foco de la primera y la última tarjeta no se corte */
+@media (min-width:641px){.reelrow{grid-auto-columns:calc((100% - 36px)/3.4);margin-inline:-8px;padding:8px;scroll-padding-inline:8px}}
+@media (min-width:1001px){.reelrow{grid-auto-columns:calc((100% - 56px)/5);gap:14px}}
+
+/* dolores */
+.pains{position:relative;margin-top:24px;padding:4px 20px;border-radius:var(--r);background:var(--card);border:1px solid var(--line-card)}
+.pains__list li{display:flex;align-items:flex-start;gap:14px;padding:18px 0;font:500 17px/1.4 var(--body)}
+.pains__list li+li{border-top:1px solid var(--line)}
+.pains__list .ic{width:22px;height:22px;margin-top:1px;color:#ff6b8f}
+.pains__end{margin-top:22px;font:600 20px/1.35 var(--body);color:#dfe6fb}
+@media (min-width:1001px){
+  .pains{padding:8px 28px}
+  .pains__list{display:grid;grid-template-columns:repeat(3,1fr)}
+  .pains__list li{padding:22px 24px 22px 0}
+  .pains__list li+li{border-top:none;border-left:1px solid var(--line);padding-left:24px}
+}
+
+/* historia */
+.story{position:relative;overflow:hidden;border-radius:var(--r);background:var(--card);border:1px solid var(--line-card);display:grid}
+.story__photo{position:relative;aspect-ratio:4/5}
+.story__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.story__photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,25,0) 42%,rgba(10,14,25,.72) 72%,#0a0e19)}
+.story__h{position:absolute;left:20px;right:20px;bottom:16px;z-index:2;font:800 28px/1.08 var(--display);letter-spacing:-.03em}
+.story__body{position:relative;padding:2px 20px 20px}
+.stat{padding:16px 0;border-top:1px solid var(--line)}
+.stat:first-child{border-top:none}
+.stat__n{display:block;font:800 34px/1.05 var(--display);letter-spacing:-.03em}
+.stat__n--acc{color:var(--sky)}
+.stat p{margin-top:6px;font-size:15px;line-height:1.5;color:var(--mute)}
+.stat p b{font-weight:600;color:var(--ink)}
+.story__ig{display:inline-flex;align-items:center;gap:10px;min-height:44px;margin-top:4px;font-weight:600;text-decoration:underline;text-decoration-color:rgba(238,242,255,.3);text-underline-offset:4px;transition:text-decoration-color .2s}
+@media (hover:hover){.story__ig:hover{text-decoration-color:currentColor}}
+.story__ig .ic{color:var(--sky)}
+@media (min-width:641px){
+  .story{grid-template-columns:45% 1fr}
+  .story__photo{aspect-ratio:auto;min-height:460px}
+  .story__h{left:28px;right:28px;bottom:24px}
+  .story__body{display:flex;flex-direction:column;justify-content:center;padding:24px 40px}
+  .stat{padding:18px 0}
+  .stat p{font-size:16px}
+  .story__ig{margin-top:8px}
+}
+
+/* módulos */
+.mods-wrap{position:relative;margin-top:24px}
+.mods{display:grid;grid-auto-flow:column;grid-auto-columns:82%;gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:calc(-1*var(--gut));padding:0 var(--gut);scroll-padding-inline:var(--gut)}
+.mod{position:relative;min-width:0;overflow:hidden;border-radius:var(--r);background:var(--card);border:1px solid var(--line-card);scroll-snap-align:start;transition:transform .45s var(--ease),border-color .45s,box-shadow .45s}
+.mod--bonus{border-color:rgba(120,160,255,.42)}
+.mod img{width:100%;aspect-ratio:1200/619;object-fit:cover;transition:transform .6s var(--ease)}
+.mod__t{padding:14px 16px 0;font:700 13px/1.35 var(--body);letter-spacing:.03em;text-transform:uppercase}
+.mod__cap{padding:4px 16px 16px;font-size:14px;line-height:1.45;color:var(--mute)}
+.mods__count{margin-top:12px;text-align:center;font:600 12px/1 var(--body);letter-spacing:.08em;color:var(--mute)}
+@media (hover:hover){
+  .mod:hover{border-color:rgba(120,160,255,.5);box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
+  .mod:hover img{transform:scale(1.04)}
+}
+@media (min-width:641px){
+  .mods{grid-auto-flow:row;grid-template-columns:1fr 1fr;gap:14px;overflow:visible;margin-inline:0;padding:0}
+  .mods__count{display:none}
+}
+@media (min-width:1001px){.mods{grid-template-columns:repeat(3,1fr)}}
+
+/* precio */
+.plan{position:relative;isolation:isolate;overflow:hidden;margin-top:24px;padding:22px 20px 24px;border-radius:var(--r-hero);color:#fff;
+  background:linear-gradient(155deg,#2a5ae6,#1f4fe0 38%,#1238b8 70%,#0c2a9a);box-shadow:0 30px 60px -30px rgba(0,0,0,.75)}
+.plan::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(rgba(255,255,255,.14) 1px,transparent 1.4px);background-size:12px 12px;-webkit-mask-image:linear-gradient(200deg,#000,transparent 60%);mask-image:linear-gradient(200deg,#000,transparent 60%)}
+.plan__chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.34);font:600 13px/1.2 var(--body)}
+.plan__chip .ic{width:15px;height:15px}
+.plan__name{margin-top:16px;font:800 32px/1 var(--display);letter-spacing:-.03em}
+.bf-over .plan__name{margin-top:0}
+.plan ::selection{background:#fff;color:#0b1d6b}
+.plan__desc{margin-top:8px;font-size:14px;color:#e8efff}
+.plan__price{display:flex;align-items:baseline;gap:clamp(4px,2vw,8px);margin-top:18px;white-space:nowrap}
+.plan__price s{font:700 24px/1 var(--display);font-size:clamp(18px,6.7vw,24px);color:rgba(255,255,255,.72);text-decoration-thickness:3px}
+.plan__price b{font:900 52px/1 var(--display);font-size:clamp(40px,14.5vw,52px);letter-spacing:-.05em}
+.plan__price span{font-size:15px;font-weight:600;color:#e8efff}
+.plan__note{display:flex;gap:8px;margin-top:12px;font-size:14px;line-height:1.45;color:#e8efff}
+.plan__note .ic{width:16px;height:16px;margin-top:2px}
+.plan__btn{width:100%;height:54px;margin-top:18px;font-size:16px;font-weight:700}
+.plan__small{margin-top:10px;text-align:center;font-size:13px;color:#e8efff;text-wrap:balance}
+/* teléfonos: dos renglones limpios en vez de un punto separador colgando al final */
+@media (max-width:640px){.plan__desc>span,.plan__small>span,.plan__note .s{display:block}.plan__desc .sep,.plan__small .sep{display:none}.plan__note .s{text-wrap:balance}}
+.plan__g{display:flex;gap:12px;margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.24);font-size:15px;line-height:1.45}
+.plan__g .ic{width:22px;height:22px}
+.plan__list{display:grid;gap:12px;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.24)}
+.plan__list li{display:flex;gap:10px;font-size:15px;line-height:1.4}
+.chk{width:20px;height:20px;flex:none;display:grid;place-items:center;margin-top:1px;border-radius:50%;background:#fff;color:var(--b2)}
+.chk .ic{width:13px;height:13px;stroke-width:2.6}
+@media (min-width:860px){
+  .plan{display:grid;grid-template-columns:1.1fr 1fr;gap:0 44px;padding:34px 36px}
+  .plan__list{position:relative;align-content:center;gap:16px;margin-top:0;padding:0 0 0 44px;border-top:none}
+  .plan__list::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(255,255,255,.24)}
+  .plan__list li{font-size:16px}
+}
+
+/* preguntas */
+.faq{display:grid;gap:10px;max-width:860px;margin-top:24px}
+.faq details{border-radius:var(--r);background:var(--card);border:1px solid var(--line-card);transition:border-color .3s}
+.faq details[open]{border-color:var(--line2)}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;padding:14px 18px;border-radius:var(--r);cursor:pointer;list-style:none;transition:background-color .2s}
+.faq summary:active{background:rgba(255,255,255,.05)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary h3{font:600 16px/1.35 var(--body)}
+.faq summary .ic{color:var(--sky);transition:transform .3s var(--ease)}
+.faq details[open] summary .ic{transform:rotate(45deg)}
+@media (hover:hover){.faq summary:hover h3{color:#fff}}
+.ans{padding:0 18px 18px}
+.ans p{max-width:68ch;font-size:15px;line-height:1.6;color:var(--mute)}
+.faq__more{display:flex;flex-wrap:wrap;align-items:center;column-gap:8px;margin-top:20px;font-size:15px;color:var(--mute)}
+.faq__more a{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:600;color:var(--ink);text-decoration:underline;text-decoration-color:rgba(238,242,255,.3);text-underline-offset:4px;transition:text-decoration-color .2s}
+@media (hover:hover){.faq__more a:hover{text-decoration-color:currentColor}}
+.faq__more .ic{color:var(--sky)}
+/* escritorio: título y contacto a la izquierda, preguntas a la derecha (sin hueco vacío) */
+@media (min-width:1001px){
+  #faq{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;column-gap:64px;align-items:start}
+  #faq>.h2{grid-column:1;grid-row:1}
+  #faq>.faq__more{grid-column:1;grid-row:2}
+  #faq>.faq{grid-column:2;grid-row:1/span 2;max-width:none;margin-top:0}
+}
+
+/* cierre */
+/* el horizonte queda a la misma distancia del texto; el botón baja para que la curva no toque sus esquinas */
+.final{--hz:calc(100% - 175px);--pw:920px;--fw:min(620px,115%);position:relative;isolation:isolate;overflow:hidden;margin-top:96px;padding:48px 20px 44px;border-radius:var(--r-hero);background:#03050b;border:1px solid var(--line-card);text-align:center;display:flex;flex-direction:column;align-items:center}
+.final>:not(.planet):not(.flare){position:relative;z-index:4}
+.final__av{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.16)}
+.final__h{margin-top:18px;font:900 34px/1.02 var(--display);letter-spacing:-.04em}
+.final__p{margin-top:12px;max-width:36ch;font-size:16px;line-height:1.5;color:var(--soft)}
+.final__btn{width:100%;max-width:360px;margin-top:68px}
+.final__sig{margin-top:14px;font:italic 500 15px/1 var(--body);color:var(--mute)}
+@media (min-width:641px){.final{--hz:calc(100% - 182px);--pw:max(1400px,140%);--fw:620px;padding:72px 24px 56px}.final__p{max-width:none;font-size:17px}.final__btn{margin-top:64px}}
+
+/* footer */
+.foot{padding:48px 0 calc(110px + env(safe-area-inset-bottom));font-size:13px;color:var(--mute)}
+.foot .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 24px;padding-top:20px;border-top:1px solid var(--line)}
+.foot__links{display:flex;flex-wrap:wrap;gap:0 20px}
+.foot__links a{display:inline-flex;align-items:center;min-height:44px;transition:color .2s}
+@media (hover:hover){.foot__links a:hover{color:var(--ink);text-decoration:underline}}
+@media (min-width:641px){.foot{padding-bottom:48px}}
+
+/* barra fija (teléfonos) */
+.mbar{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:60;display:none;align-items:center;gap:12px;height:64px;padding:8px 8px 8px 20px;border-radius:999px;
+  background:rgba(10,14,28,.88);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--line2);box-shadow:0 18px 40px -12px rgba(0,0,0,.75);
+  visibility:hidden;transform:translateY(calc(100% + 24px));transition:transform .45s var(--ease),visibility 0s .45s}
+.mbar.show{visibility:visible;transform:none;transition:transform .45s var(--ease),visibility 0s}
+.mbar__t{min-width:0;line-height:1.25}
+.mbar__t b{display:block;font:800 15px/1.2 var(--display)}
+.mbar__t>span{display:block;font-size:12px;color:var(--mute);white-space:nowrap}
+.mbar__btn{margin-left:auto;padding:0 20px}
+@media (max-width:640px){.mbar{display:flex}}
+
+/* menú (bottom sheet) */
+.sheet,.lb{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:transparent;color:var(--ink);overflow:hidden}
+.sheet::backdrop{background:transparent}
+.sheet__scrim{position:absolute;inset:0;background:rgba(2,3,8,.62);opacity:0;transition:opacity .3s var(--ease)}
+.sheet__panel{position:absolute;left:0;right:0;bottom:0;max-width:560px;max-height:calc(100% - 24px);margin-inline:auto;overflow:auto;padding:8px 16px calc(16px + env(safe-area-inset-bottom));border-radius:24px 24px 0 0;background:#0b0f1c;border:1px solid var(--line2);border-bottom:0;box-shadow:0 -20px 60px -20px rgba(0,0,0,.85);transform:translateY(100%);transition:transform .3s var(--ease)}
+.sheet.is-open .sheet__scrim{opacity:1}
+.sheet.is-open .sheet__panel{transform:none}
+/* la manija y el título se pueden arrastrar hacia abajo para cerrar */
+.sheet__handle,.sheet__head{touch-action:none;-webkit-user-select:none;user-select:none}
+.sheet__handle{display:flex;justify-content:center;align-items:center;height:22px;margin:-8px -16px 0;padding-top:6px;cursor:grab}
+.sheet__handle::before{content:"";width:40px;height:4px;border-radius:4px;background:rgba(255,255,255,.24)}
+.sheet__head{display:flex;align-items:center;justify-content:space-between;min-height:48px}
+.sheet__head h2{font:700 18px/1 var(--display)}
+.sheet__x{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.06);transition:background-color .2s}
+@media (hover:hover){.sheet__x:hover{background:rgba(255,255,255,.12)}}
+.sheet__x:active{background:rgba(255,255,255,.16)}
+.sheet__nav{margin-top:4px}
+.sheet__nav a{display:flex;align-items:center;gap:14px;height:56px;padding:0 4px;font:600 16px/1 var(--body);border-radius:12px;transition:background-color .15s}
+.sheet__nav a:active{background:rgba(255,255,255,.06)}
+.sheet__nav a+a{border-top:1px solid var(--line)}
+.sheet__nav .ic{color:var(--sky)}
+.sheet__nav .chev{width:18px;height:18px;margin-left:auto;color:var(--mute)}
+.sheet__btn{width:100%;margin-top:16px}
+.sheet__note{margin-top:10px;text-align:center;font-size:13px;color:var(--mute)}
+
+/* lightbox de reels */
+.lb::backdrop{background:#020308}
+.lb__in{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(60px + env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom))}
+.lb__stage{flex:1;min-height:0;width:100%;max-height:820px;display:flex;align-items:center;justify-content:center}
+/* el alto sale del espacio disponible y del ancho de la pantalla, así la caja es 9:16 exacto y las esquinas caen sobre la imagen */
+.lb__stage video{height:min(100%,calc((100vw - 24px)*16/9));width:auto;max-width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:var(--r);background:#000}
+.lb__x{position:absolute;top:calc(8px + env(safe-area-inset-top));right:8px;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.08);transition:background-color .2s}
+.lb__bar{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;max-width:440px;margin-top:12px}
+.lb__nav{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.08);transition:background-color .2s}
+@media (hover:hover){.lb__x:hover,.lb__nav:hover{background:rgba(255,255,255,.16)}}
+.lb__x:active,.lb__nav:active,.menu-btn:active{background:rgba(255,255,255,.16)}
+.lb__cap{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;font-size:13px;color:var(--mute)}
+.lb__cap b{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink);text-transform:uppercase;letter-spacing:.06em}
+.lb__cap .ic{width:16px;height:16px;color:var(--sky)}
+@media (min-width:641px){.lb::backdrop{background:rgba(2,3,8,.92)}.lb__in{padding:64px 24px 24px}}
+
+/* spotlight que sigue al mouse */
+.spot::after{content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(380px circle at var(--x,50%) var(--y,50%),rgba(255,255,255,.06),transparent 45%)}
+.spot>*{position:relative;z-index:1}
+@media (hover:hover){.spot:hover::after{opacity:1}}
+
+/* escala tipográfica por pantalla (pasos fijos) */
+@media (min-width:641px){
+  .h2{font-size:40px}
+  .pains__end{font-size:24px}
+  .plan__price s{font-size:30px}
+  .plan__price b{font-size:64px}
+  .final__h{font-size:52px}
+}
+@media (min-width:641px){.stat__n{font-size:38px}.story__h{font-size:30px}}
+@media (min-width:860px){.plan__price s{font-size:34px}.plan__price b{font-size:72px}}
+@media (min-width:1001px){
+  .hero__h1{font-size:46px}
+  .lockup{--pz:176px}
+  .cd__num{font-size:56px}
+  .cd__sep{font-size:46px}
+  .h2{font-size:52px}
+  .pains__end{font-size:26px}
+  .stat__n{font-size:46px}
+  .story__h{font-size:44px}
+  .final__h{font-size:64px}
+}
+@media (min-width:1201px){.hero__h1{font-size:52px}}
+
+/* números tabulares: el atajo font: los vuelve proporcionales, así que se reponen acá (si no, la cuenta regresiva baila).
+   Los precios grandes ($29 del hero y de la tarjeta) quedan proporcionales a propósito: son fijos y así se dibujó la firma del hero. */
+.cd__num,.grow__num,.stat__n,.plan__chip,.mods__count,.mbar__t b,.promo,.sticker,.chip,.pill,.btn,.tile h3,.mod__t,.faq summary h3,.shield__core b{font-variant-numeric:tabular-nums}
+
+/* el único momento animado: entrada del número y el planeta */
+@media (prefers-reduced-motion:no-preference){
+  .hero .price__num{animation:priceIn .8s var(--ease) both}
+  .hero .planet{animation:planetIn .9s var(--ease) both}
+  .hero .flare{animation:fadeIn .5s .4s ease-out both}
+  .cd__num b.tick{animation:tick .45s var(--ease)}
+}
+@keyframes priceIn{from{opacity:0;filter:blur(14px);transform:translateY(18px) scale(.97)}}
+@keyframes planetIn{from{opacity:0;transform:translate(-50%,80px)}}
+@keyframes fadeIn{from{opacity:0}}
+@keyframes tick{from{opacity:0;transform:translateY(-30%);filter:blur(6px)}}
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  .rv{opacity:1;transform:none;filter:none}
-  .grow__bars i{transform:scaleY(var(--h))}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 </style>
+<script>
+/* Antes de pintar nada: si ya pasó el fin de la oferta, la página arranca directo en modo $39 (sin mostrar un instante el $29).
+   Es la misma fecha que DEADLINE en el script de abajo: si la cambiás allá, cambiala también acá. Si no coinciden, manda la de abajo. */
+(function(){
+  if (Date.now() < Date.parse("2026-12-01T00:00:00-03:00")) return;
+  var r = document.documentElement;
+  r.setAttribute("data-bf-title", document.title);
+  r.classList.add("bf-over");
+  document.title = "Cardinal · Santiago Remedio — $39/mes";
+})();
+</script>
 </head>
 <body>
 <canvas id="stars" aria-hidden="true"></canvas>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <linearGradient id="cg" x1="18" y1="80" x2="86" y2="18" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#f3f6ff"/><stop offset="1" stop-color="#8fb0ff"/></linearGradient>
     <mask id="cm" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><rect x="37" y="40" width="29" height="19" rx="9.5" fill="#000"/><rect x="58" y="46.5" width="40" height="6.5" fill="#000"/></mask>
@@ -424,38 +595,60 @@ html:not(.bf-over) .after-only{display:none!important}
     <path d="M79 12.5Q80.6 26.4 94.5 28Q80.6 29.6 79 43.5Q77.4 29.6 63.5 28Q77.4 26.4 79 12.5Z" fill="#fff"/>
   </symbol>
   <symbol id="spark4" viewBox="0 0 24 24"><path d="M12 0Q13.3 10.7 24 12Q13.3 13.3 12 24Q10.7 13.3 0 12Q10.7 10.7 12 0Z" fill="#fff"/></symbol>
+  <!-- íconos: grilla de 24, trazo 1.75, puntas redondeadas -->
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="M5 9l7 7 7-7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.8v12.4a1 1 0 0 0 1.53.85l9.92-6.2a1 1 0 0 0 0-1.7L9.53 4.95A1 1 0 0 0 8 5.8z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 2.8v5.4c0 4.6-2.9 8.4-7 9.8-4.1-1.4-7-5.2-7-9.8V5.8z"/><path d="M9 12.2l2.2 2.2 4.1-4.4"/></symbol>
+  <symbol id="i-x-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.2l5.6 5.6M14.8 9.2l-5.6 5.6"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6"/></symbol>
+  <symbol id="i-film" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M7.5 4v16M16.5 4v16M3.5 9h4M3.5 15h4M16.5 9h4M16.5 15h4"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3.5 16.5l5.5-5.5 4 4 7.5-7.5"/><path d="M15 7.5h5.5V13"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3.5 12.6V5a1.5 1.5 0 0 1 1.5-1.5h7.6a1.5 1.5 0 0 1 1.06.44l7.4 7.4a1.5 1.5 0 0 1 0 2.12l-7.6 7.6a1.5 1.5 0 0 1-2.12 0l-7.4-7.4a1.5 1.5 0 0 1-.44-1.06z"/><path d="M8.5 8.5h.01"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 0 1 4.85.85c0 1.7-2.45 2.15-2.45 3.6"/><path d="M12 17.2h.01"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.2 6.8h.01"/></symbol>
+  <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4.5 9.5v5h3.2l4.8 4v-13l-4.8 4z"/><path d="M16 9a4.2 4.2 0 0 1 0 6M18.6 6.4a7.8 7.8 0 0 1 0 11.2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
 </svg>
 
+<a class="skip" href="#contenido">Saltar al contenido</a>
 
-<div class="ticker bf-only" aria-label="Oferta Black Friday">
-  <div class="ticker__track">
-    <span>Black Friday <i>✦</i> $29/mes hasta el 30 de noviembre <i>✦</i> Después sube a $39 <i>✦</i> Si entrás ahora, se te congela en $29 <i>✦</i> Garantía de 7 días <i>✦</i></span>
-    <span>Black Friday <i>✦</i> $29/mes hasta el 30 de noviembre <i>✦</i> Después sube a $39 <i>✦</i> Si entrás ahora, se te congela en $29 <i>✦</i> Garantía de 7 días <i>✦</i></span>
-  </div>
-</div>
+<a class="promo bf-only" href="#precio">
+  <span class="promo__t promo__l">Black Friday: $29 USD/mes hasta el 30/11 · después $39</span>
+  <span class="promo__t promo__s">Black Friday: $29/mes hasta el 30/11</span>
+  <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>
+</a>
 
-<header>
+<header class="hdr">
   <div class="wrap nav">
     <a href="#" class="logo" aria-label="Cardinal IA, inicio">
       <span class="logo__mark"><svg viewBox="0 0 100 100"><use href="#cardinal-c"/></svg></span>
       <span class="logo__word">Cardinal <i>IA</i><svg viewBox="0 0 24 24"><use href="#spark4"/></svg></span>
     </a>
-    <a class="drop" href="#modulos"><span class="drop__tag">Nuevo</span>Tu clon con IA</a>
+    <a class="drop" href="#m6"><span class="drop__tag">Nuevo</span>Tu clon con IA</a>
     <nav class="nav__links" aria-label="Secciones">
-      <a href="#adentro">Qué incluye</a>
       <div class="dd">
-        <a href="#modulos" class="dd__btn">Módulos <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 3.5l3 3 3-3"/></svg></a>
-        <div class="dd__panel">
-          <div class="dd__h">Los 6 módulos de Cardinal</div>
+        <a href="#modulos" class="dd__btn" aria-expanded="false" aria-controls="dd-panel">Módulos<svg class="ic" aria-hidden="true"><use href="#i-chev-d"/></svg></a>
+        <div class="pop dd__panel" id="dd-panel">
+          <p class="dd__h">Los 6 módulos de Cardinal</p>
           <div class="dd__grid">
-          <a class="dd__item" href="#modulos"><img src="assets/modulo-01.webp" alt=""><span>Comienzo</span></a>
-          <a class="dd__item" href="#modulos"><img src="assets/modulo-02.webp" alt=""><span>Estrategia y guion</span></a>
-          <a class="dd__item" href="#modulos"><img src="assets/modulo-03.webp" alt=""><span>Editar videos con IA</span></a>
-          <a class="dd__item" href="#modulos"><img src="assets/modulo-04.webp" alt=""><span>Carruseles con IA</span></a>
-          <a class="dd__item" href="#modulos"><img src="assets/modulo-05.webp" alt=""><span>Distribución y métricas</span></a>
-          <a class="dd__item" href="#modulos"><img src="assets/modulo-06.webp" alt=""><span>Avanzado</span></a>
+            <a class="dd__item" href="#m1"><img src="assets/modulo-01.webp" alt="" width="1200" height="619" loading="lazy"><span>Comienzo</span></a>
+            <a class="dd__item" href="#m2"><img src="assets/modulo-02.webp" alt="" width="1200" height="619" loading="lazy"><span>Estrategia y guion</span></a>
+            <a class="dd__item" href="#m3"><img src="assets/modulo-03.webp" alt="" width="1200" height="619" loading="lazy"><span>Editar videos con IA</span></a>
+            <a class="dd__item" href="#m4"><img src="assets/modulo-04.webp" alt="" width="1200" height="619" loading="lazy"><span>Carruseles con IA</span></a>
+            <a class="dd__item" href="#m5"><img src="assets/modulo-05.webp" alt="" width="1200" height="619" loading="lazy"><span>Distribución y métricas</span></a>
+            <a class="dd__item" href="#m6"><img src="assets/modulo-06.webp" alt="" width="1200" height="619" loading="lazy"><span>Avanzado</span></a>
           </div>
-          <div class="dd__foot"><span>🛡️ Garantía de 7 días</span><a class="js-join" href="#"><span class="bf-only">Entrar a $29/mes →</span><span class="after-only">Unirme →</span></a></div>
+          <div class="dd__foot">
+            <span><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Garantía de 7 días</span>
+            <a class="js-join" href="#"><span class="bf-only">Entrar a $29/mes</span><span class="after-only">Unirme a Cardinal · $39/mes</span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
         </div>
       </div>
       <a href="#reels">Reels</a>
@@ -465,286 +658,256 @@ html:not(.bf-over) .after-only{display:none!important}
     </nav>
     <div class="nav__cta">
       <a class="btn btn--blue btn--sm js-join" href="#">Unirme a Cardinal</a>
-      <span class="sticker bf-only">$29 HASTA EL 30/11</span>
-      <div class="offers">
-        <div class="offers__h">Ofertas especiales</div>
-        <a class="offer js-join bf-only" href="#"><span class="offer__ico hot">%</span><span><b>Cardinal a $29/mes</b><small>Termina en <span data-short>—</span></small></span><em>Entrar</em></a>
-        <a class="offer" href="#precio"><span class="offer__ico">✓</span><span><b>Garantía de 7 días</b><small>Tu primer reel con IA o te devuelvo el 100%</small></span><em>Ver</em></a>
-        <a class="offer" href="#modulos"><span class="offer__ico">✦</span><span><b>Clase nueva: Tu clon con IA</b><small>En el módulo Avanzado</small></span><em>Ver</em></a>
+      <span class="sticker bf-only">$29 hasta 30/11</span>
+      <div class="pop offers">
+        <p class="offers__h bf-only">Ofertas especiales</p>
+        <p class="offers__h after-only">Accesos rápidos</p>
+        <a class="offer js-join bf-only" href="#"><span class="offer__ico hot"><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg></span><span><b>Cardinal a $29/mes</b><small>Termina en <span data-short="dhm">—</span></small></span><em>Entrar</em></a>
+        <a class="offer js-join after-only" href="#"><span class="offer__ico"><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg></span><span><b>Cardinal a $39/mes</b><small>Cursos + comunidad en Skool</small></span><em>Unirme</em></a>
+        <a class="offer" href="#precio"><span class="offer__ico"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span><span><b>Garantía de 7 días</b><small>Tu primer reel con IA o te devuelvo el&nbsp;100%</small></span><em>Ver</em></a>
+        <a class="offer" href="#m6"><span class="offer__ico"><svg class="ic ic--fill" aria-hidden="true"><use href="#i-play"/></svg></span><span><b>Clase nueva: Tu clon con IA</b><small>En el módulo Avanzado</small></span><em>Ver</em></a>
       </div>
     </div>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
   </div>
 </header>
 
-<main>
+<main id="contenido">
   <div class="wrap">
 
     <!-- HERO -->
-    <div class="hero">
-      <div class="hero__eyebrow bf-only">Black Friday</div>
-      <div class="hero__eyebrow after-only">Cardinal</div>
-      <div class="hero__big bf-only" aria-label="29 dólares por mes"><small>$</small>29</div>
-      <div class="hero__big after-only" aria-label="39 dólares por mes"><small>$</small>39</div>
-      <div class="planet" aria-hidden="true"></div>
-      <div class="flare" aria-hidden="true"></div>
-
-      <div class="hero__count bf-only" role="timer" aria-label="Tiempo que queda de la oferta">
-        <div class="cd__unit"><div class="cd__num" data-cd="d">00</div><div class="cd__lab">días</div></div>
-        <div class="cd__sep">:</div>
-        <div class="cd__unit"><div class="cd__num" data-cd="h">00</div><div class="cd__lab">horas</div></div>
-        <div class="cd__sep">:</div>
-        <div class="cd__unit"><div class="cd__num" data-cd="m">00</div><div class="cd__lab">min</div></div>
-        <div class="cd__sep">:</div>
-        <div class="cd__unit"><div class="cd__num" data-cd="s">00</div><div class="cd__lab">seg</div></div>
+    <section class="hero" aria-labelledby="hero-t">
+      <h1 class="hero__h1" id="hero-t">Hacé contenido en masa con IA</h1>
+      <p class="hero__sub">y traé audiencia todos los días, aunque nunca hayas editado un video.</p>
+      <ul class="chips">
+        <li class="chip"><svg class="ic" aria-hidden="true"><use href="#i-grid"/></svg>Cursos + comunidad en Skool</li>
+        <li class="chip"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Garantía de 7 días</li>
+      </ul>
+      <div class="lockup">
+        <div class="planet" aria-hidden="true"></div>
+        <div class="flare" aria-hidden="true"></div>
+        <p class="lockup__label bf-only">Black Friday</p>
+        <p class="price">
+          <span class="price__num"><small>$</small><span class="bf-only">29</span><span class="after-only">39</span></span>
+          <span class="price__unit"><span>USD</span><span>/mes</span></span>
+        </p>
+        <div class="cd bf-only" role="timer" aria-label="Tiempo que queda del precio de Black Friday">
+          <div class="cd__unit"><span class="cd__num" data-cd="d">00</span><span class="cd__lab">días</span></div>
+          <span class="cd__sep" aria-hidden="true">:</span>
+          <div class="cd__unit"><span class="cd__num" data-cd="h">00</span><span class="cd__lab">horas</span></div>
+          <span class="cd__sep" aria-hidden="true">:</span>
+          <div class="cd__unit"><span class="cd__num" data-cd="m">00</span><span class="cd__lab">min</span></div>
+          <span class="cd__sep" aria-hidden="true">:</span>
+          <div class="cd__unit"><span class="cd__num" data-cd="s">00</span><span class="cd__lab">seg</span></div>
+        </div>
       </div>
+      <a class="btn btn--blue btn--lg hero__cta js-join" href="#"><span class="bf-only">Entrar a $29/mes</span><span class="after-only">Unirme a Cardinal · $39/mes</span></a>
+      <a class="hero__more" href="#modulos">Ver qué incluye<svg class="ic" aria-hidden="true"><use href="#i-chev-d"/></svg></a>
+      <p class="hero__lock bf-only"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg><span class="nw">Después sube a $39.</span> <span class="nw">Si entrás ahora, te queda en $29.</span></p>
+    </section>
 
-      <p class="hero__sub bf-only">Hacé contenido en masa con IA y traé audiencia todos los días, aunque nunca hayas editado un video. <strong>$29/mes</strong> hasta el 30 de noviembre, después <s>$39</s>.</p>
-      <p class="hero__sub after-only" style="margin-top:120px">Hacé contenido en masa con IA y traé audiencia todos los días, aunque nunca hayas editado un video. <strong>$39/mes</strong>.</p>
-      <div class="hero__btns">
-        <a class="btn btn--blue btn--lg js-join" href="#"><span class="bf-only">Entrar a $29/mes</span><span class="after-only">Unirme a Cardinal</span></a>
-        <a class="btn btn--white btn--lg" href="#adentro">Ver qué incluye</a>
-      </div>
-      <div class="hero__lock bf-only">Si entrás ahora, tu precio queda congelado en $29</div>
-    </div>
-
-    <!-- CARRUSEL DE TILES ANIMADOS -->
-    <div class="car">
-    <button class="car__btn prev" aria-label="Anterior" disabled><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg></button>
-    <button class="car__btn next" aria-label="Siguiente"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3l5 5-5 5"/></svg></button>
-    <div class="tiles" id="tiles">
-      <div class="tile rv bf-only">
-        <div class="tile__media bf">
-          <span class="spark" style="left:9%;top:16%"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z"/></svg></span>
-          <span class="spark" style="right:12%;top:22%;width:16px;height:16px;animation-delay:.8s"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z"/></svg></span>
-          <span class="spark" style="left:18%;bottom:16%;width:18px;height:18px;animation-delay:1.5s"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z"/></svg></span>
-          <span class="spark" style="right:20%;bottom:20%;width:12px;height:12px;animation-delay:2s"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z"/></svg></span>
-          <div class="bf__inner">
-            <div class="bf__brand">✦ Cardinal</div>
-            <div class="bf__word" data-t="Black Friday Sale">Black Friday<em>Sale</em></div>
-            <div class="bf__off">✦ <span>$29</span>/mes en vez de $39</div>
+    <!-- DESTACADOS -->
+    <section class="car" id="destacados" data-autoplay aria-labelledby="car-t">
+      <h2 class="sr-only" id="car-t">Lo destacado</h2>
+      <button class="car__btn prev" type="button" aria-label="Anterior" aria-controls="tiles"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button>
+      <button class="car__btn next" type="button" aria-label="Siguiente" aria-controls="tiles"><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+      <div class="tiles js-track" id="tiles">
+        <article class="tile">
+          <div class="tile__media phones" aria-hidden="true">
+            <div class="ph"><video data-loop src="assets/reels/reel-3.mp4" poster="assets/reels/reel-3.jpg" muted loop playsinline preload="none"></video></div>
+            <div class="ph"><video data-loop src="assets/reels/reel-1.mp4" poster="assets/reels/reel-1.jpg" muted loop playsinline preload="none"></video></div>
+            <div class="ph"><video data-loop src="assets/reels/reel-6.mp4" poster="assets/reels/reel-6.jpg" muted loop playsinline preload="none"></video></div>
           </div>
-        </div>
-        <h3 class="blue">Black Friday: $29/mes hasta el 30/11</h3>
-        <p>Entrás ahora y tu precio queda congelado en $29, aunque después suba.</p>
-      </div>
-
-      <div class="tile rv" style="--d:.1s">
-        <div class="tile__media phones">
-          <div class="ph"><video src="assets/reels/reel-3.mp4" poster="assets/reels/reel-3.jpg" muted loop playsinline preload="none"></video></div>
-          <div class="ph"><video src="assets/reels/reel-1.mp4" poster="assets/reels/reel-1.jpg" muted loop playsinline preload="none"></video></div>
-          <div class="ph"><video src="assets/reels/reel-6.mp4" poster="assets/reels/reel-6.jpg" muted loop playsinline preload="none"></video></div>
-        </div>
-        <h3>Reels hechos con IA</h3>
-        <p>Pixel, papel 3D, garabato, cámara: el contenido que subo todos los días.</p>
-      </div>
-
-      <div class="tile rv" style="--d:.2s">
-        <div class="tile__media grow" id="grow">
-          <div class="grow__top"><span>Seguidores</span><span class="pill">● 15 días</span></div>
-          <div class="grow__num"><span id="growNum">440</span></div>
-          <div class="grow__bars">
-            <i style="--h:.06"></i><i style="--h:.09"></i><i style="--h:.16"></i><i style="--h:.27"></i><i style="--h:.42"></i><i style="--h:.6"></i><i style="--h:.78"></i><i style="--h:1"></i>
+          <h3>Reels hechos con IA</h3>
+          <p>Pixel, papel 3D, garabato, cámara: el contenido que subo todos los días.</p>
+        </article>
+        <article class="tile">
+          <div class="tile__media grow" aria-hidden="true">
+            <div class="grow__top"><span>Seguidores</span><span class="pill"><svg class="ic"><use href="#i-trend"/></svg>15 días</span></div>
+            <div class="grow__num" data-count="10000" data-from="440" data-prefix="+" data-dur="1300">+10.000</div>
+            <div class="grow__bars"><i style="--h:.06"></i><i style="--h:.09"></i><i style="--h:.16"></i><i style="--h:.27"></i><i style="--h:.42"></i><i style="--h:.6"></i><i style="--h:.78"></i><i style="--h:1"></i></div>
           </div>
-        </div>
-        <h3>De 440 a +10.000 seguidores en 15 días</h3>
-        <p>Lo que hice en septiembre con contenido hecho con IA. Hoy paso los 20k.</p>
-      </div>
-
-      <div class="tile rv" style="--d:.3s">
-        <div class="tile__media wall">
-          <div class="wall__plane" aria-hidden="true">
-            <img src="assets/modulo-01.webp" alt=""><img src="assets/modulo-02.webp" alt=""><img src="assets/modulo-03.webp" alt="">
-            <img src="assets/modulo-04.webp" alt=""><img src="assets/modulo-05.webp" alt=""><img src="assets/modulo-06.webp" alt="">
-            <img src="assets/modulo-03.webp" alt=""><img src="assets/modulo-01.webp" alt=""><img src="assets/modulo-04.webp" alt="">
-            <img src="assets/modulo-01.webp" alt=""><img src="assets/modulo-02.webp" alt=""><img src="assets/modulo-03.webp" alt="">
-            <img src="assets/modulo-04.webp" alt=""><img src="assets/modulo-05.webp" alt=""><img src="assets/modulo-06.webp" alt="">
-            <img src="assets/modulo-03.webp" alt=""><img src="assets/modulo-01.webp" alt=""><img src="assets/modulo-04.webp" alt="">
+          <h3>De 440 a +10.000 seguidores en 15 días</h3>
+          <p>Empecé en septiembre con 440, casi todos amigos. Hoy paso los 20.000.</p>
+        </article>
+        <article class="tile">
+          <div class="tile__media wall" aria-hidden="true">
+            <div class="wall__plane">
+              <img src="assets/reels/reel-1.jpg" alt="" width="288" height="512" loading="lazy"><img src="assets/reels/reel-2.jpg" alt="" width="288" height="512" loading="lazy">
+              <img src="assets/reels/reel-3.jpg" alt="" width="288" height="512" loading="lazy"><img src="assets/reels/reel-4.jpg" alt="" width="288" height="512" loading="lazy">
+              <img src="assets/reels/reel-5.jpg" alt="" width="288" height="512" loading="lazy"><img src="assets/reels/reel-6.jpg" alt="" width="288" height="512" loading="lazy">
+              <img src="assets/reels/reel-1.jpg" alt="" width="288" height="512" loading="lazy"><img src="assets/reels/reel-8.jpg" alt="" width="288" height="512" loading="lazy">
+              <img src="assets/reels/reel-3.jpg" alt="" width="288" height="512" loading="lazy"><img src="assets/reels/reel-5.jpg" alt="" width="288" height="512" loading="lazy">
+              <img src="assets/reels/reel-4.jpg" alt="" width="288" height="512" loading="lazy"><img src="assets/reels/reel-2.jpg" alt="" width="288" height="512" loading="lazy">
+            </div>
+            <div class="wall__fade"></div>
+            <div class="wall__label">10–30<br>piezas<small>por día</small></div>
           </div>
-          <div class="wall__fade"></div>
-          <div class="wall__label">10–30<br>piezas<small>por día</small></div>
-        </div>
-        <h3>10 a 30 piezas por día</h3>
-        <p>Reels, carruseles y videos con IA sin vivir editando.</p>
-      </div>
-
-      <div class="tile rv" style="--d:.4s">
-        <div class="tile__media shield">
-          <span class="shield__ring"></span><span class="shield__ring"></span><span class="shield__ring"></span>
-          <div class="shield__core">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="rgba(47,107,255,.35)"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
-            <b>7 días</b><small>Garantía 100%</small>
+          <h3>10 a 30 piezas por día</h3>
+          <p>Lo que hago yo hoy: reels, carruseles y videos con IA, sin vivir editando.</p>
+        </article>
+        <article class="tile">
+          <div class="tile__media shield" aria-hidden="true">
+            <span class="ring ring--3"></span><span class="ring ring--2"></span><span class="ring ring--1"></span>
+            <div class="shield__core"><svg class="ic"><use href="#i-shield"/></svg><b>7 días</b><small>Devolución 100%</small></div>
           </div>
-        </div>
-        <h3>Garantía de 7 días</h3>
-        <p>Si en 7 días no tenés tu primer reel editado con IA, te devuelvo el 100%.</p>
+          <h3>Garantía de 7 días</h3>
+          <p>Si en 7 días no tenés tu primer reel editado con IA, te devuelvo el 100%.</p>
+        </article>
       </div>
-    </div>
-    <div class="car__dots" id="dots"></div>
-    </div>
+      <div class="dots" role="group" aria-label="Elegir destacado"></div>
+    </section>
 
-    <!-- PROMO + MINI TILES -->
-    <div class="promo" id="adentro">
-      <div class="promo__card spot rv">
-        <div class="promo__eyebrow bf-only">Black Friday</div>
-        <div class="promo__eyebrow after-only">Membresía</div>
-        <h2>Todo Cardinal: cursos + comunidad</h2>
-        <div class="promo__mini bf-only">
-          <div class="row" role="timer">
-            <div class="cd__num" data-cd="d">00</div><div class="cd__sep">:</div>
-            <div class="cd__num" data-cd="h">00</div><div class="cd__sep">:</div>
-            <div class="cd__num" data-cd="m">00</div><div class="cd__sep">:</div>
-            <div class="cd__num" data-cd="s">00</div>
-          </div>
-          <a class="btn btn--blue js-join" href="#">Entrar a $29/mes</a>
-        </div>
-        <div class="promo__mini after-only"><a class="btn btn--blue js-join" href="#">Unirme a Cardinal</a></div>
-      </div>
-      <div class="minis">
-        <div class="mini spot rv"><span class="mini__ico">✦</span><h4>Estrategia y guion</h4><p>Qué subir y cómo escribirlo para que lo vean</p></div>
-        <div class="mini spot rv" style="--d:.06s"><span class="mini__tag tag-blue">IA</span><span class="mini__ico">▶</span><h4>Edición de videos con IA</h4><p>Normales y generados con Higgsfield</p></div>
-        <div class="mini spot rv" style="--d:.12s"><span class="mini__ico">▤</span><h4>Carruseles con IA</h4><p>Listos para publicar</p></div>
-        <div class="mini spot rv" style="--d:.18s"><span class="mini__ico">↗</span><h4>Distribución y métricas</h4><p>Trial reels y métricas</p></div>
-        <div class="mini spot rv" style="--d:.24s"><span class="mini__tag tag-sky">NUEVO</span><span class="mini__ico">◎</span><h4>Claude + tu Instagram</h4><p>Claude conectado a tu cuenta</p></div>
-        <div class="mini spot rv" style="--d:.3s"><span class="mini__tag tag-hot">BONUS</span><span class="mini__ico">♛</span><h4>Módulo avanzado</h4><p>Para los que quieren ir más allá</p></div>
-      </div>
-    </div>
+    <!-- ACCESOS RÁPIDOS -->
+    <nav class="quick" aria-label="Ir a una sección">
+      <a href="#modulos"><span class="quick__ic"><svg class="ic" aria-hidden="true"><use href="#i-grid"/></svg></span>Módulos</a>
+      <a href="#reels"><span class="quick__ic"><svg class="ic" aria-hidden="true"><use href="#i-film"/></svg></span>Reels</a>
+      <a href="#historia"><span class="quick__ic"><svg class="ic" aria-hidden="true"><use href="#i-trend"/></svg></span>Historia</a>
+      <a href="#precio"><span class="quick__ic"><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg></span>Precio</a>
+      <a href="#faq"><span class="quick__ic"><svg class="ic" aria-hidden="true"><use href="#i-help"/></svg></span>Preguntas</a>
+    </nav>
 
     <!-- REELS -->
-    <section id="reels">
-      <div class="kicker rv">Hecho con IA</div>
-      <h2 class="h2 rv">Así se ve hacer contenido <span class="grad">en masa</span></h2>
-      <p class="lead rv">Reels que hice con IA en las últimas semanas, en distintos estilos. Sin vivir editando.</p>
-    </section>
-    <div class="reelrow rv">
-      <div class="reelrow__track">
-      <div class="rph"><video src="assets/reels/reel-1.mp4" poster="assets/reels/reel-1.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Pixel</span></div>
-      <div class="rph"><video src="assets/reels/reel-2.mp4" poster="assets/reels/reel-2.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Papel 3D</span></div>
-      <div class="rph"><video src="assets/reels/reel-3.mp4" poster="assets/reels/reel-3.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Garabato</span></div>
-      <div class="rph"><video src="assets/reels/reel-4.mp4" poster="assets/reels/reel-4.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Pixel</span></div>
-      <div class="rph"><video src="assets/reels/reel-5.mp4" poster="assets/reels/reel-5.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Pixel</span></div>
-      <div class="rph"><video src="assets/reels/reel-6.mp4" poster="assets/reels/reel-6.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Cámara</span></div>
-      <div class="rph"><video src="assets/reels/reel-7.mp4" poster="assets/reels/reel-7.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Datos</span></div>
-      <div class="rph"><video src="assets/reels/reel-8.mp4" poster="assets/reels/reel-8.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Pixel</span></div>
-      <div class="rph" aria-hidden="true"><video src="assets/reels/reel-1.mp4" poster="assets/reels/reel-1.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Pixel</span></div>
-      <div class="rph" aria-hidden="true"><video src="assets/reels/reel-2.mp4" poster="assets/reels/reel-2.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Papel 3D</span></div>
-      <div class="rph" aria-hidden="true"><video src="assets/reels/reel-3.mp4" poster="assets/reels/reel-3.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Garabato</span></div>
-      <div class="rph" aria-hidden="true"><video src="assets/reels/reel-4.mp4" poster="assets/reels/reel-4.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Pixel</span></div>
-      <div class="rph" aria-hidden="true"><video src="assets/reels/reel-5.mp4" poster="assets/reels/reel-5.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Pixel</span></div>
-      <div class="rph" aria-hidden="true"><video src="assets/reels/reel-6.mp4" poster="assets/reels/reel-6.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Cámara</span></div>
-      <div class="rph" aria-hidden="true"><video src="assets/reels/reel-7.mp4" poster="assets/reels/reel-7.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Datos</span></div>
-      <div class="rph" aria-hidden="true"><video src="assets/reels/reel-8.mp4" poster="assets/reels/reel-8.jpg" muted loop playsinline preload="none"></video><span class="rph__tag">Pixel</span></div>
+    <section class="sec" id="reels" aria-labelledby="reels-t">
+      <h2 class="h2" id="reels-t">Así se ve hacer contenido <span class="acc">en masa</span></h2>
+      <p class="lead">Reels que hice con IA en las últimas semanas, en distintos estilos. Tocá uno para verlo con sonido.</p>
+      <div class="reels">
+        <button class="car__btn prev" type="button" aria-label="Reels anteriores" aria-controls="reelrow"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button>
+        <button class="car__btn next" type="button" aria-label="Más reels" aria-controls="reelrow"><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+        <div class="reelrow js-track" id="reelrow">
+          <button class="reel" type="button" data-full="assets/reels/full-1.mp4" data-poster="assets/reels/reel-1.jpg" data-tag="Pixel" aria-label="Ver con sonido: reel estilo Pixel">
+            <video data-loop src="assets/reels/reel-1.mp4" poster="assets/reels/reel-1.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="reel__tag">Pixel</span><span class="reel__play"><span class="reel__pi"><svg class="ic ic--fill" aria-hidden="true"><use href="#i-play"/></svg></span>Ver con sonido</span>
+          </button>
+          <button class="reel" type="button" data-full="assets/reels/full-2.mp4" data-poster="assets/reels/reel-2.jpg" data-tag="Papel 3D" aria-label="Ver con sonido: reel estilo Papel 3D">
+            <video data-loop src="assets/reels/reel-2.mp4" poster="assets/reels/reel-2.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="reel__tag">Papel 3D</span><span class="reel__play"><span class="reel__pi"><svg class="ic ic--fill" aria-hidden="true"><use href="#i-play"/></svg></span>Ver con sonido</span>
+          </button>
+          <button class="reel" type="button" data-full="assets/reels/full-3.mp4" data-poster="assets/reels/reel-3.jpg" data-tag="Garabato" aria-label="Ver con sonido: reel estilo Garabato">
+            <video data-loop src="assets/reels/reel-3.mp4" poster="assets/reels/reel-3.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="reel__tag">Garabato</span><span class="reel__play"><span class="reel__pi"><svg class="ic ic--fill" aria-hidden="true"><use href="#i-play"/></svg></span>Ver con sonido</span>
+          </button>
+          <button class="reel" type="button" data-full="assets/reels/full-4.mp4" data-poster="assets/reels/reel-4.jpg" data-tag="Pixel" aria-label="Ver con sonido: otro reel estilo Pixel">
+            <video data-loop src="assets/reels/reel-4.mp4" poster="assets/reels/reel-4.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="reel__tag">Pixel</span><span class="reel__play"><span class="reel__pi"><svg class="ic ic--fill" aria-hidden="true"><use href="#i-play"/></svg></span>Ver con sonido</span>
+          </button>
+          <button class="reel" type="button" data-full="assets/reels/full-6.mp4" data-poster="assets/reels/reel-6.jpg" data-tag="Cámara" aria-label="Ver con sonido: reel estilo Cámara">
+            <video data-loop src="assets/reels/reel-6.mp4" poster="assets/reels/reel-6.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="reel__tag">Cámara</span><span class="reel__play"><span class="reel__pi"><svg class="ic ic--fill" aria-hidden="true"><use href="#i-play"/></svg></span>Ver con sonido</span>
+          </button>
+          <button class="reel" type="button" data-full="assets/reels/full-7.mp4" data-poster="assets/reels/reel-7.jpg" data-tag="Datos" aria-label="Ver con sonido: reel estilo Datos">
+            <video data-loop src="assets/reels/reel-7.mp4" poster="assets/reels/reel-7.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="reel__tag">Datos</span><span class="reel__play"><span class="reel__pi"><svg class="ic ic--fill" aria-hidden="true"><use href="#i-play"/></svg></span>Ver con sonido</span>
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
 
     <!-- DOLORES -->
-    <section>
-      <div class="kicker rv">Si hoy…</div>
-      <div class="pains">
-        <div class="pain rv"><div class="pain__x">✕</div><p>Grabás, editás y publicás, y no pasa nada.</p></div>
-        <div class="pain rv" style="--d:.08s"><div class="pain__x">✕</div><p>Tardás un día entero en sacar un solo reel.</p></div>
-        <div class="pain rv" style="--d:.16s"><div class="pain__x">✕</div><p>Sabés que tenés que estar en redes pero no sabés qué subir.</p></div>
+    <section class="sec" aria-labelledby="pains-t">
+      <h2 class="h2" id="pains-t">Si hoy…</h2>
+      <div class="pains spot">
+        <ul class="pains__list">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-x-circle"/></svg><span>Grabás, editás y publicás, y no pasa nada.</span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-x-circle"/></svg><span>Tardás un día entero en sacar un solo reel.</span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-x-circle"/></svg><span>Sabés que tenés que estar en redes, pero no sabés qué subir.</span></li>
+        </ul>
       </div>
-      <p class="pains__end rv">…estás donde yo estaba hace unos meses.</p>
+      <p class="pains__end">…estás donde yo estaba hace unos meses.</p>
     </section>
 
     <!-- HISTORIA -->
-    <section id="historia">
-      <div class="kicker rv">Mi historia</div>
-      <h2 class="h2 rv">De 440 seguidores a <span class="grad">más de 20.000</span></h2>
-      <div class="story">
-        <div class="story__photo rv">
-          <img src="assets/santi.webp" alt="Santiago Remedio" loading="lazy">
-          <div class="story__name"><b>Santiago Remedio</b><span>Creador de Cardinal</span></div>
+    <section class="sec" id="historia" aria-labelledby="story-t">
+      <div class="story spot">
+        <div class="story__photo">
+          <img src="assets/santi.webp" alt="Santiago Remedio" width="900" height="900" loading="lazy">
+          <h2 class="story__h" id="story-t">De 440 a más de <span class="acc">20.000</span> seguidores</h2>
         </div>
         <div class="story__body">
-          <div class="stat rv"><div class="stat__n" data-count="440">440</div><p><b>Septiembre.</b> Casi todos amigos. Grababa, editaba y no pasaba nada.</p></div>
-          <div class="stat stat--hl rv" style="--d:.08s"><div class="stat__n grad" data-count="10000" data-prefix="+">+10.000</div><p><b>En 15 días</b> después de empezar a hacer contenido con IA.</p></div>
-          <div class="stat rv" style="--d:.16s"><div class="stat__n" data-count="20000" data-prefix="+">+20.000</div><p><b>Hoy.</b> Y produzco 10 a 30 piezas por día sin vivir editando.</p></div>
+          <div class="stat"><span class="stat__n"><span class="sr-only">440</span><span aria-hidden="true" data-count="440">440</span></span><p><b>Septiembre.</b> Casi todos amigos. Grababa, editaba y no pasaba nada.</p></div>
+          <div class="stat"><span class="stat__n stat__n--acc"><span class="sr-only">+10.000</span><span aria-hidden="true" data-count="10000" data-prefix="+">+10.000</span></span><p><b>En 15 días,</b> después de empezar a hacer contenido con IA.</p></div>
+          <div class="stat"><span class="stat__n"><span class="sr-only">+20.000</span><span aria-hidden="true" data-count="20000" data-prefix="+">+20.000</span></span><p><b>Hoy.</b> Y hago 10 a 30 piezas por día sin vivir editando.</p></div>
+          <a class="story__ig" href="https://www.instagram.com/santiremedio/" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-ig"/></svg>Ver mi Instagram (@santiremedio)</a>
         </div>
       </div>
     </section>
 
     <!-- MÓDULOS -->
-    <section id="modulos">
-      <div class="kicker rv">Qué tenés adentro</div>
-      <h2 class="h2 rv">6 módulos para hacer <span class="grad">contenido en masa</span></h2>
-      <p class="lead rv">Para creadores, negocios y quienes hacen crecer marcas de otros.</p>
-      <div class="mods">
-        <article class="mod rv"><img src="assets/modulo-01.webp" alt="Módulo 01: Comienzo" loading="lazy"><div class="mod__cap"><p>Arrancás con lo básico y sacás tu primera victoria.</p></div></article>
-        <article class="mod rv" style="--d:.06s"><img src="assets/modulo-02.webp" alt="Módulo 02: Estrategia y guion" loading="lazy"><div class="mod__cap"><p>Qué subir y cómo escribirlo para que lo vean.</p></div></article>
-        <article class="mod rv" style="--d:.12s"><img src="assets/modulo-03.webp" alt="Módulo 03: Editar videos con IA" loading="lazy"><div class="mod__cap"><p>Edición de videos con IA, normales y generados con Higgsfield.</p></div></article>
-        <article class="mod rv"><img src="assets/modulo-04.webp" alt="Módulo 04: Carruseles con IA" loading="lazy"><div class="mod__cap"><p>Carruseles con IA listos para publicar.</p></div></article>
-        <article class="mod rv" style="--d:.06s"><img src="assets/modulo-05.webp" alt="Módulo 05: Distribución y métricas" loading="lazy"><div class="mod__cap"><p>Trial reels y Claude conectado a tu Instagram.</p></div></article>
-        <article class="mod mod--bonus rv" style="--d:.12s"><img src="assets/modulo-06.webp" alt="Módulo 06: Avanzado" loading="lazy"><div class="mod__cap"><p>Para los que quieren ir más allá.</p></div></article>
+    <section class="sec" id="modulos" aria-labelledby="mods-t">
+      <span id="adentro" aria-hidden="true"></span>
+      <h2 class="h2" id="mods-t">6 módulos para hacer contenido <span class="acc">en masa</span></h2>
+      <p class="lead">Cursos + comunidad en Skool. Para creadores, negocios y quienes hacen crecer marcas de otros.</p>
+      <div class="mods-wrap">
+        <div class="mods js-track" id="mods">
+          <article class="mod" id="m1"><img src="assets/modulo-01.webp" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>01<span aria-hidden="true"> ·</span> Comienzo</h3><p class="mod__cap">Arrancás con lo básico, aunque nunca hayas editado un video.</p></article>
+          <article class="mod" id="m2"><img src="assets/modulo-02.webp" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>02<span aria-hidden="true"> ·</span> Estrategia y guion</h3><p class="mod__cap">Qué subir y cómo escribirlo.</p></article>
+          <article class="mod" id="m3"><img src="assets/modulo-03.webp" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>03<span aria-hidden="true"> ·</span> Editar videos con IA</h3><p class="mod__cap">Edición de videos con IA, normales y generados con Higgsfield.</p></article>
+          <article class="mod" id="m4"><img src="assets/modulo-04.webp" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>04<span aria-hidden="true"> ·</span> Carruseles con IA</h3><p class="mod__cap">Carruseles con IA listos para publicar.</p></article>
+          <article class="mod" id="m5"><img src="assets/modulo-05.webp" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>05<span aria-hidden="true"> ·</span> Distribución y métricas</h3><p class="mod__cap">Trial reels (reels de prueba) y Claude conectado a tu Instagram.</p></article>
+          <article class="mod mod--bonus" id="m6"><img src="assets/modulo-06.webp" alt="" width="1200" height="619" loading="lazy"><h3 class="mod__t"><span class="sr-only">Módulo </span>06<span aria-hidden="true"> ·</span> Avanzado</h3><p class="mod__cap">Para los que quieren ir más allá. Incluye la clase nueva: Tu clon con IA.</p></article>
+        </div>
+        <p class="mods__count" aria-hidden="true"><span class="js-count">1</span> / 6</p>
       </div>
     </section>
 
     <!-- PRECIO -->
-    <section id="precio"><span id="lista" aria-hidden="true"></span>
-      <div class="kicker rv">Precio</div>
-      <h2 class="h2 rv"><span class="bf-only">Entrás a <span class="grad">$29</span> y te queda congelado</span><span class="after-only">Un solo plan, <span class="grad">todo incluido</span></span></h2>
-      <div class="pricing">
-        <div class="plan rv">
-          <div class="plan__top">
-            <div><div class="plan__name">Cardinal</div><div class="plan__desc">Membresía mensual · cursos + comunidad</div></div>
-            <div class="plan__badge bf-only">Black<br>Friday</div>
-          </div>
-          <div class="plan__price bf-only"><s>$39</s><b>$29</b><span>/mes</span></div>
-          <div class="plan__price after-only"><b>$39</b><span>/mes</span></div>
-          <div class="plan__freeze bf-only">🔒 Sube a $39/mes el 1 de diciembre. Si entrás ahora, se te congela en $29.</div>
-          <div class="plan__cta">
-            <a class="btn js-join" href="#"><span class="bf-only">Entrar a $29/mes</span><span class="after-only">Unirme a Cardinal</span></a>
-            <span class="plan__timer bf-only">Termina en <span id="planTimer">—</span></span>
-          </div>
-          <ul class="plan__list">
-            <li>Estrategia y guion: qué subir y cómo escribirlo</li>
-            <li>Edición de videos con IA, normales y con Higgsfield</li>
-            <li>Carruseles con IA listos para publicar</li>
-            <li>Distribución y métricas: trial reels y Claude conectado a tu Instagram</li>
-            <li>Módulo avanzado</li>
-            <li>Comunidad en Skool</li>
-          </ul>
+    <section class="sec" id="precio" aria-labelledby="price-t">
+      <span id="lista" aria-hidden="true"></span>
+      <h2 class="h2" id="price-t"><span class="bf-only">Entrás a <span class="acc">$29</span> y te queda congelado</span><span class="after-only">Un solo plan: cursos + comunidad</span></h2>
+      <div class="plan spot">
+        <div class="plan__main">
+          <p class="plan__chip bf-only"><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg><span>Black Friday · termina en <span data-short="dhm">—</span></span></p>
+          <h3 class="plan__name">Cardinal</h3>
+          <p class="plan__desc"><span>Membresía mensual</span><span class="sep" aria-hidden="true"> · </span><span>cursos + comunidad en&nbsp;Skool</span></p>
+          <p class="plan__price bf-only"><s><span class="sr-only">Antes </span>$39</s><b><span class="sr-only">Ahora </span>$29</b><span>USD/mes</span></p>
+          <p class="plan__price after-only"><b>$39</b><span>USD/mes</span></p>
+          <p class="plan__note bf-only"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg><span><span class="s">Sube a $39 el 1&nbsp;de&nbsp;diciembre.</span> <span class="s">Si&nbsp;entrás ahora, se te congela en&nbsp;$29.</span></span></p>
+          <a class="btn btn--white plan__btn js-join" href="#"><span class="bf-only">Entrar a $29/mes</span><span class="after-only">Unirme a Cardinal · $39/mes</span></a>
+          <p class="plan__small"><span>Se abre Skool para pagar</span><span class="sep" aria-hidden="true"> · </span><span>Cancelás cuando quieras</span></p>
+          <p class="plan__g"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><span><b>Garantía de 7 días:</b> si no tenés tu primer reel editado con IA, te devuelvo el 100%.</span></p>
         </div>
-        <div class="side">
-          <div class="guarantee spot rv" style="--d:.08s">
-            <div class="guarantee__shield"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
-            <h3>Garantía de 7 días</h3>
-            <p>Si en 7 días no tenés tu primer reel editado con IA, te devuelvo el 100%.</p>
-          </div>
-          <div class="compare rv bf-only" style="--d:.16s">
-            <div class="compare__row"><span>Hasta el 30 de noviembre</span><b class="now">$29/mes</b></div>
-            <div class="compare__row"><span>Desde el 1 de diciembre</span><b class="later">$39/mes</b></div>
-            <div class="compare__row"><span>Si entrás ahora</span><b class="now">$29 congelado</b></div>
-          </div>
-        </div>
+        <ul class="plan__list">
+          <li><span class="chk"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span>Estrategia y guion: qué subir y cómo escribirlo</li>
+          <li><span class="chk"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span>Edición de videos con IA, normales y con Higgsfield</li>
+          <li><span class="chk"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span>Carruseles con IA listos para publicar</li>
+          <li><span class="chk"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span>Distribución y métricas: trial reels y Claude conectado a tu Instagram</li>
+          <li><span class="chk"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span>Módulo avanzado, con la clase nueva “Tu clon con IA”</li>
+          <li><span class="chk"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span>Comunidad en Skool</li>
+        </ul>
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section id="faq">
-      <div class="kicker rv">Preguntas</div>
-      <h2 class="h2 rv">Antes de entrar</h2>
+    <!-- PREGUNTAS -->
+    <section class="sec" id="faq" aria-labelledby="faq-t">
+      <h2 class="h2" id="faq-t">Preguntas frecuentes</h2>
       <div class="faq">
-        <details class="rv"><summary>¿Necesito saber editar videos?</summary><div class="ans">No. Cardinal está pensado para que hagas contenido con IA aunque nunca hayas editado un video.</div></details>
-        <details class="rv"><summary>¿Qué pasa con el precio después del 30 de noviembre?</summary><div class="ans">El 1 de diciembre la membresía sube a $39/mes. Si entrás antes, tu precio queda congelado en $29/mes.</div></details>
-        <details class="rv"><summary>¿Para quién es?</summary><div class="ans">Para creadores, negocios y quienes hacen crecer marcas de otros y quieren usar la IA para hacer contenido en masa y traer audiencia todos los días.</div></details>
-        <details class="rv"><summary>¿Y si no me sirve?</summary><div class="ans">Tenés garantía de 7 días: si en ese tiempo no tenés tu primer reel editado con IA, te devuelvo el 100%.</div></details>
-        <details class="rv"><summary>¿Dónde está el contenido?</summary><div class="ans">Todo vive en Skool: los cursos, la comunidad y las novedades. Al tocar cualquier botón de esta página vas directo a la comunidad para sumarte.</div></details>
+        <details><summary><h3>¿Necesito saber editar videos?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="ans"><p>No. Cardinal está pensado para que hagas contenido con IA aunque nunca hayas editado un video.</p></div></details>
+        <details><summary><h3>¿En qué moneda se cobra?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="ans"><p class="bf-only">En dólares (USD): $29 por mes hasta el 30&nbsp;de&nbsp;noviembre y $39 desde el 1&nbsp;de&nbsp;diciembre.</p><p class="after-only">En dólares (USD): $39 por mes.</p></div></details>
+        <details class="bf-only"><summary><h3>¿Qué pasa con el precio después del 30&nbsp;de&nbsp;noviembre?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="ans"><p>Sube a $39/mes. Si entrás antes, tu precio queda congelado en $29/mes.</p></div></details>
+        <details><summary><h3>¿Puedo cancelar cuando quiera?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="ans"><p>Sí. Cancelás cuando quieras desde tu cuenta de Skool, sin pedirle permiso a nadie.</p></div></details>
+        <details><summary><h3>¿Las herramientas están incluidas?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="ans"><p>No. Herramientas como Claude o Higgsfield tienen su propio costo y se pagan aparte; no están incluidas en la membresía.</p></div></details>
+        <details><summary><h3>¿Cómo pido la garantía?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="ans"><p>Si en 7 días no tenés tu primer reel editado con IA, escribime por mensaje directo a @santiremedio en Instagram y te devuelvo el 100%.</p></div></details>
+        <details><summary><h3>¿Qué es Skool?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="ans"><p>Es la plataforma donde viven los cursos y la comunidad de Cardinal. Al tocar cualquier botón de esta página se abre Skool para que te sumes y pagues.</p></div></details>
+        <details><summary><h3>¿Para quién es?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><div class="ans"><p>Para creadores, negocios y quienes hacen crecer marcas de otros y quieren usar la IA para hacer contenido en masa y traer audiencia todos los días.</p></div></details>
       </div>
+      <p class="faq__more">¿Otra duda? <a href="https://www.instagram.com/santiremedio/" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-ig"/></svg>Escribime por Instagram (@santiremedio)</a></p>
     </section>
 
     <!-- CIERRE -->
-    <div class="final rv">
+    <section class="final" aria-labelledby="final-t">
       <div class="planet" aria-hidden="true"></div>
       <div class="flare" aria-hidden="true"></div>
-      <h2><span class="bf-only">$29/mes. Solo hasta el 30.</span><span class="after-only">Nos vemos adentro.</span></h2>
-      <p class="bf-only">Después sube a $39. Si entrás ahora, te queda congelado en $29. Nos vemos adentro.</p>
-      <a class="btn btn--blue btn--lg js-join" href="#"><span class="bf-only">Entrar a Cardinal a $29</span><span class="after-only">Unirme a Cardinal</span></a>
-    </div>
+      <img class="final__av" src="assets/santi.webp" alt="" width="56" height="56" loading="lazy">
+      <h2 class="final__h" id="final-t">Nos vemos adentro.</h2>
+      <p class="final__p bf-only">$29 USD/mes hasta el 30&nbsp;de&nbsp;noviembre. <span class="nw">Después $39.</span></p>
+      <p class="final__p after-only">$39 USD/mes. Cancelás cuando quieras.</p>
+      <a class="btn btn--blue btn--lg final__btn js-join" href="#"><span class="bf-only">Entrar a $29/mes</span><span class="after-only">Unirme a Cardinal · $39/mes</span></a>
+      <p class="final__sig">— Santi</p>
+    </section>
   </div>
 </main>
 
-<footer>
+<footer class="foot">
   <div class="wrap">
     <span>© 2026 Cardinal · por Santiago Remedio</span>
     <nav class="foot__links" aria-label="Más de Santiago">
@@ -757,150 +920,360 @@ html:not(.bf-over) .after-only{display:none!important}
 </footer>
 
 <div class="mbar" id="mbar">
-  <div class="mbar__t"><b class="bf-only">$29/mes</b><b class="after-only">Cardinal</b><span class="bf-only" id="mbarT">Black Friday</span></div>
-  <a class="btn btn--blue btn--sm js-join" href="#">Entrar</a>
+  <p class="mbar__t">
+    <b class="bf-only">$29 USD/mes</b><b class="after-only">$39 USD/mes</b>
+    <span class="bf-only">Termina en <span data-short="dh">—</span></span><span class="after-only">Cancelás cuando quieras</span>
+  </p>
+  <a class="btn btn--blue mbar__btn js-join" href="#"><span class="bf-only">Entrar a $29</span><span class="after-only">Unirme</span></a>
 </div>
+
+<dialog class="sheet" id="menu" aria-labelledby="menu-t">
+  <div class="sheet__scrim"></div>
+  <div class="sheet__panel">
+    <div class="sheet__handle" aria-hidden="true"></div>
+    <div class="sheet__head">
+      <h2 id="menu-t">Menú</h2>
+      <button class="sheet__x" type="button" aria-label="Cerrar menú"><svg class="ic" aria-hidden="true"><use href="#i-close"/></svg></button>
+    </div>
+    <nav class="sheet__nav" aria-label="Secciones">
+      <a href="#modulos"><svg class="ic" aria-hidden="true"><use href="#i-grid"/></svg>Módulos<svg class="ic chev" aria-hidden="true"><use href="#i-chev-r"/></svg></a>
+      <a href="#reels"><svg class="ic" aria-hidden="true"><use href="#i-film"/></svg>Reels<svg class="ic chev" aria-hidden="true"><use href="#i-chev-r"/></svg></a>
+      <a href="#historia"><svg class="ic" aria-hidden="true"><use href="#i-trend"/></svg>Mi historia<svg class="ic chev" aria-hidden="true"><use href="#i-chev-r"/></svg></a>
+      <a href="#precio"><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg>Precio<svg class="ic chev" aria-hidden="true"><use href="#i-chev-r"/></svg></a>
+      <a href="#faq"><svg class="ic" aria-hidden="true"><use href="#i-help"/></svg>Preguntas<svg class="ic chev" aria-hidden="true"><use href="#i-chev-r"/></svg></a>
+    </nav>
+    <a class="btn btn--blue btn--lg sheet__btn js-join" href="#"><span class="bf-only">Entrar a $29/mes</span><span class="after-only">Unirme a Cardinal · $39/mes</span></a>
+    <p class="sheet__note">Garantía de 7 días · se abre Skool para pagar</p>
+  </div>
+</dialog>
+
+<dialog class="lb" id="lb" aria-label="Reel con sonido">
+  <div class="lb__in">
+    <button class="lb__x" type="button" aria-label="Cerrar"><svg class="ic" aria-hidden="true"><use href="#i-close"/></svg></button>
+    <div class="lb__stage"><video class="lb__video" controls playsinline preload="none" width="540" height="960"></video></div>
+    <div class="lb__bar">
+      <button class="lb__nav" type="button" data-step="-1" aria-label="Reel anterior"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button>
+      <p class="lb__cap"><b><svg class="ic" aria-hidden="true"><use href="#i-volume"/></svg><span class="lb__tag">Pixel</span></b><span>Fragmento de 15 segundos</span></p>
+      <button class="lb__nav" type="button" data-step="1" aria-label="Reel siguiente"><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+    </div>
+  </div>
+</dialog>
 
 <script>
 (() => {
   /* ===== CONFIG: cambiá acá el link y la fecha ===== */
   const JOIN_URL = "https://www.skool.com/cardinal-6821/about";
   const DEADLINE = new Date("2026-12-01T00:00:00-03:00"); // fin de la oferta (hora de Argentina)
+  // ojo: la imagen de vista previa de links (WhatsApp, Instagram) no cambia sola; ver "PENDIENTE PARA EL 1/12" al principio del <head>
 
   document.querySelectorAll(".js-join").forEach(a => { a.href = JOIN_URL; a.target = "_blank"; a.rel = "noopener"; });
 
+  const root = document.documentElement;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canHover = matchMedia("(hover: hover)").matches;
+  const lock = on => root.classList.toggle("is-locked", on);
+  // en iOS, :active (respuesta al toque) solo se activa si la página escucha toques
+  document.addEventListener("touchstart", () => {}, {passive: true});
 
   /* ===== cuenta regresiva ===== */
+  // título de la pestaña (lo que muestra Instagram arriba): después de la fecha dice $39
+  const OVER_TITLE = "Cardinal · Santiago Remedio — $39/mes", BF_TITLE = root.getAttribute("data-bf-title") || document.title;
+  // la fecha de DEADLINE manda: si el <head> activó el modo $39 con otra fecha, se corrige acá
+  if (DEADLINE - Date.now() > 0 && root.classList.contains("bf-over")){ root.classList.remove("bf-over"); document.title = BF_TITLE; }
   const pad = n => String(n).padStart(2, "0");
-  const prev = {};
-  function setNum(el, val){
-    const key = el.dataset.cd + (el.closest(".promo") ? "p" : "h");
-    if (!el.children.length || prev[key] !== val){
-      const old = prev[key] || "";
-      el.innerHTML = [...val].map((c,i) => `<b class="${old[i] !== c && old ? "tick" : ""}">${c}</b>`).join("");
-      prev[key] = val;
-    }
+  const digits = $$("[data-cd]"), shorts = $$("[data-short]"), shown = new Map();
+  function paint(el, val){
+    const old = shown.get(el);
+    if (old === val) return;
+    el.innerHTML = [...val].map((c, i) => `<b${old && old[i] !== c ? ' class="tick"' : ""}>${c}</b>`).join("");
+    shown.set(el, val);
   }
   function tick(){
     const ms = DEADLINE - Date.now();
-    if (ms <= 0){ document.documentElement.classList.add("bf-over"); return false; }
-    const s = Math.floor(ms/1000), d = Math.floor(s/86400), h = Math.floor(s%86400/3600), m = Math.floor(s%3600/60), sec = s%60;
-    const vals = {d:pad(d), h:pad(h), m:pad(m), s:pad(sec)};
-    document.querySelectorAll("[data-cd]").forEach(el => setNum(el, vals[el.dataset.cd]));
-    const short = `${d}d ${pad(h)}h ${pad(m)}m ${pad(sec)}s`;
-    const pt = document.getElementById("planTimer"); if (pt) pt.textContent = short;
-    const mb = document.getElementById("mbarT"); if (mb) mb.textContent = `Sube a $39 en ${d}d ${pad(h)}h`;
-    document.querySelectorAll("[data-short]").forEach(el => el.textContent = `${d}d ${pad(h)}h ${pad(m)}m ${pad(sec)}s`);
+    if (ms <= 0){ root.classList.add("bf-over"); document.title = OVER_TITLE; return false; }
+    const s = Math.floor(ms / 1000), d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+    const val = {d: pad(d), h: pad(h), m: pad(m), s: pad(sec)};
+    digits.forEach(el => paint(el, val[el.dataset.cd]));
+    const text = {dhms: `${d}d ${pad(h)}h ${pad(m)}m ${pad(sec)}s`, dhm: `${d}d ${pad(h)}h ${pad(m)}m`, dh: `${d}d ${pad(h)}h`};
+    shorts.forEach(el => { const t = text[el.dataset.short] || text.dhms; if (el.textContent !== t) el.textContent = t; });
     return true;
   }
-  if (tick()) { const iv = setInterval(() => { if (!tick()) clearInterval(iv); }, 1000); }
+  if (tick()){ const iv = setInterval(() => { if (!tick()) clearInterval(iv); }, 1000); }
+  // la cuenta queda oculta hasta tener los números reales (nunca se ve "00:00:00:00")
+  $$(".cd").forEach(el => el.classList.add("is-live"));
 
-  /* ===== números que cuentan ===== */
+  /* ===== números que cuentan (una vez, al aparecer) ===== */
   const fmt = n => n.toLocaleString("es-AR");
-  function countUp(el, to, prefix = "", dur = 1600){
-    if (reduce){ el.textContent = prefix + fmt(to); return; }
-    const from = 0, t0 = performance.now();
-    const step = t => { const p = Math.min(1,(t-t0)/dur), e = 1-Math.pow(1-p,4);
-      el.textContent = prefix + fmt(Math.round(from + (to-from)*e)); if (p<1) requestAnimationFrame(step); };
+  function countUp(el){
+    const to = +el.dataset.count, from = +(el.dataset.from || 0), prefix = el.dataset.prefix || "", dur = +(el.dataset.dur || 1400), t0 = performance.now();
+    const step = t => {
+      const p = Math.min(1, (t - t0) / dur), v = Math.round(from + (to - from) * (1 - Math.pow(1 - p, 4)));
+      el.textContent = (v > from ? prefix : "") + fmt(v);
+      if (p < 1) requestAnimationFrame(step);
+    };
     requestAnimationFrame(step);
   }
-
-  /* ===== aparecer al scrollear ===== */
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(en => {
+  if (!reduce){
+    const grow = $(".grow");
+    grow.classList.add("is-pre");
+    $$("[data-count]").forEach(el => el.textContent = fmt(+(el.dataset.from || 0)));
+    // solo se anima la copia visible (aria-hidden); el lector de pantalla siempre lee el número real
+    const once = new IntersectionObserver(entries => entries.forEach(en => {
       if (!en.isIntersecting) return;
-      const el = en.target; el.classList.add("in");
-      el.querySelectorAll("[data-count]").forEach(c => countUp(c, +c.dataset.count, c.dataset.prefix || ""));
-      if (el.matches("[data-count]")) countUp(el, +el.dataset.count, el.dataset.prefix || "");
-      io.unobserve(el);
-    });
-  }, {threshold:.18, rootMargin:"0px 0px -40px 0px"});
-  document.querySelectorAll(".rv").forEach(el => io.observe(el));
-
-  /* tile de seguidores: barras + contador en loop */
-  const grow = document.getElementById("grow"), gn = document.getElementById("growNum");
-  let growing = false;
-  function runGrow(){
-    grow.classList.remove("on"); gn.textContent = "440";
-    setTimeout(() => { grow.classList.add("on"); countUp(gn, 10000, "+", 1300); }, 350);
+      once.unobserve(en.target);
+      if (en.target === grow) grow.classList.remove("is-pre");
+      countUp($("[data-count]", en.target));
+    }), {threshold: .5});
+    once.observe(grow);
+    $$(".stat__n").forEach(el => once.observe(el));
   }
-  new IntersectionObserver(([en]) => {
-    if (en.isIntersecting && !growing){ growing = true; runGrow(); if (!reduce) setInterval(runGrow, 5200); }
-  }, {threshold:.4}).observe(grow);
 
-  /* spotlight que sigue al mouse */
-  document.querySelectorAll(".spot").forEach(el => el.addEventListener("pointermove", e => {
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--x", (e.clientX - r.left) + "px"); el.style.setProperty("--y", (e.clientY - r.top) + "px");
-  }));
+  /* ===== videos: cargan cerca de la vista, se reproducen solo mientras se ven ===== */
+  const loops = $$("video[data-loop]");
+  let held = false;
+  const sync = v => (v.inView && !held && !document.hidden && !reduce) ? v.play().catch(() => {}) : v.pause();
+  const holdLoops = on => { held = on; loops.forEach(sync); };
+  if (!reduce){
+    const near = new IntersectionObserver(entries => entries.forEach(en => {
+      if (en.isIntersecting){ en.target.preload = "auto"; near.unobserve(en.target); }
+    }), {rootMargin: "300px"});
+    const seen = new IntersectionObserver(entries => entries.forEach(en => { en.target.inView = en.isIntersecting; sync(en.target); }), {threshold: .25});
+    loops.forEach(v => { near.observe(v); seen.observe(v); });
+    document.addEventListener("visibilitychange", () => loops.forEach(sync));
+  }
 
-  /* inclinación 3D de las portadas */
-  if (!reduce && matchMedia("(hover:hover)").matches){
-    document.querySelectorAll(".mod").forEach(el => {
+  /* ===== carruseles: flechas, puntos y contador ===== */
+  function carousel(box){
+    const track = $(".js-track", box), cards = [...track.children];
+    const prev = $(":scope > .car__btn.prev", box), next = $(":scope > .car__btn.next", box);
+    const dotsEl = $(".dots", box), counter = $(".js-count", box);
+    const gap = () => parseFloat(getComputedStyle(track).columnGap) || 0;
+    const stepW = () => cards[0].getBoundingClientRect().width + gap();
+    const maxX = () => track.scrollWidth - track.clientWidth;
+    const go = x => track.scrollTo({left: x, behavior: reduce ? "auto" : "smooth"});
+    // al llegar a un extremo la flecha se apaga con aria-disabled (no con disabled), así no se pierde el foco
+    const isOff = b => b.getAttribute("aria-disabled") === "true";
+    const setOff = (b, off) => { if (b && isOff(b) !== off) b.setAttribute("aria-disabled", String(off)); };
+    let dots = [];
+    function buildDots(){
+      if (!dotsEl) return;
+      const stops = Math.max(1, Math.round(maxX() / stepW()) + 1);
+      if (stops === dots.length) return;
+      dotsEl.innerHTML = Array.from({length: stops}, (_, i) => `<button class="dot" type="button" aria-label="Ver destacado ${i + 1} de ${stops}"></button>`).join("");
+      dots = [...dotsEl.children];
+      dots.forEach((d, i) => d.addEventListener("click", () => go(Math.min(i * stepW(), maxX()))));
+      dotsEl.hidden = stops < 2;
+    }
+    function state(){
+      const x = track.scrollLeft, max = maxX();
+      setOff(prev, x <= 2);
+      setOff(next, x >= max - 2);
+      const i = x >= max - 2 ? Math.round(max / stepW()) : Math.round(x / stepW());
+      dots.forEach((d, k) => d.setAttribute("aria-current", k === i ? "true" : "false"));
+      if (counter) counter.textContent = Math.min(cards.length, i + 1);
+    }
+    prev && prev.addEventListener("click", () => { if (!isOff(prev)) go(track.scrollLeft - stepW()); });
+    next && next.addEventListener("click", () => { if (!isOff(next)) go(track.scrollLeft + stepW()); });
+    track.addEventListener("scroll", state, {passive: true});
+    addEventListener("resize", () => { buildDots(); state(); });
+    buildDots(); state();
+
+    // pasa solo cada 5 s (solo con mouse y sin "reducir movimiento"); se pausa mientras el mouse o el foco están adentro
+    // y se apaga del todo apenas la persona lo usa (flechas, puntos, arrastre o rueda)
+    if (box.hasAttribute("data-autoplay") && canHover && !reduce){
+      let inView = false, stopped = false;
+      const stopAuto = () => { stopped = true; };
+      [prev, next].forEach(b => b && b.addEventListener("click", stopAuto));
+      dotsEl && dotsEl.addEventListener("click", stopAuto);
+      track.addEventListener("pointerdown", stopAuto);
+      track.addEventListener("keydown", stopAuto);
+      track.addEventListener("wheel", e => { if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) stopAuto(); }, {passive: true});
+      new IntersectionObserver(([en]) => inView = en.isIntersecting, {threshold: .5}).observe(box);
+      const auto = setInterval(() => {
+        if (stopped){ clearInterval(auto); return; }
+        if (box.matches(":hover") || box.contains(document.activeElement) || !inView || document.hidden || maxX() < 4) return;
+        go(track.scrollLeft >= maxX() - 2 ? 0 : track.scrollLeft + stepW());
+      }, 5000);
+    }
+  }
+  [$(".car"), $(".reels"), $(".mods-wrap")].forEach(carousel);
+
+  /* ===== spotlight e inclinación (solo con mouse) ===== */
+  if (canHover){
+    $$(".spot").forEach(el => el.addEventListener("pointermove", e => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--x", e.clientX - r.left + "px"); el.style.setProperty("--y", e.clientY - r.top + "px");
+    }));
+    if (!reduce) $$(".mod").forEach(el => {
       el.addEventListener("pointermove", e => {
-        const r = el.getBoundingClientRect(), x = (e.clientX-r.left)/r.width-.5, y = (e.clientY-r.top)/r.height-.5;
-        el.style.transform = `perspective(900px) rotateY(${x*8}deg) rotateX(${-y*8}deg) translateY(-4px)`;
+        if (!matchMedia("(min-width: 641px)").matches) return;
+        const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        el.style.transform = `perspective(900px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-4px)`;
       });
       el.addEventListener("pointerleave", () => el.style.transform = "");
     });
   }
 
-  /* videos: solo se reproducen cuando se ven */
-  const vio = new IntersectionObserver(entries => entries.forEach(en => {
-    const v = en.target;
-    if (en.isIntersecting){ if (v.preload === "none") v.preload = "auto"; if (!reduce) v.play().catch(() => {}); }
-    else v.pause();
-  }), {rootMargin:"120px"});
-  document.querySelectorAll("video").forEach(v => vio.observe(v));
+  /* ===== barra fija: solo cuando no se ve ni el botón del hero, ni el precio, ni el cierre ===== */
+  // lo que queda tapado por el header cuenta como "no visible"; el cierre cuenta como visible un poco antes
+  // de asomar, así la barra no aparece y desaparece en el tramo corto de las preguntas
+  const mbar = $("#mbar"), watched = [$(".hero__cta"), $(".plan"), $(".final")], visible = new Map(watched.map(el => [el, true]));
+  const setBar = entries => {
+    entries.forEach(en => visible.set(en.target, en.isIntersecting));
+    mbar.classList.toggle("show", watched.every(el => !visible.get(el)));
+  };
+  const underHdr = new IntersectionObserver(setBar, {rootMargin: `-${$(".hdr").offsetHeight}px 0px 0px 0px`});
+  underHdr.observe(watched[0]); underHdr.observe(watched[1]);
+  new IntersectionObserver(setBar, {rootMargin: "0px 0px 320px 0px"}).observe(watched[2]);
 
-  /* carrusel de tiles */
-  const track = document.getElementById("tiles"), prevB = document.querySelector(".car__btn.prev"), nextB = document.querySelector(".car__btn.next"), dotsEl = document.getElementById("dots");
-  const tiles = [...track.children].filter(t => getComputedStyle(t).display !== "none");
-  dotsEl.innerHTML = tiles.map(() => "<i></i>").join("");
-  const dots = [...dotsEl.children];
-  const stepW = () => tiles[0].getBoundingClientRect().width + 14;
-  function carState(){
-    const max = track.scrollWidth - track.clientWidth - 2;
-    prevB.disabled = track.scrollLeft <= 2; nextB.disabled = track.scrollLeft >= max;
-    const i = Math.round(track.scrollLeft / stepW());
-    dots.forEach((d,k) => d.classList.toggle("on", k === i));
+  /* ===== menús de escritorio (Módulos y Ofertas): se cierran al elegir algo o con Esc ===== */
+  const pops = $$(".dd, .nav__cta").map(box => {
+    const trigger = $(".dd__btn", box) || $(".btn", box), isDd = box.classList.contains("dd");
+    const sync = () => setTimeout(() => {
+      if (isDd) trigger.setAttribute("aria-expanded", String(!box.classList.contains("is-closed") && box.matches(":hover, :focus-within")));
+    });
+    const close = () => { box.classList.add("is-closed"); sync(); };
+    const reopen = () => { box.classList.remove("is-closed"); sync(); };
+    $$(".pop a", box).forEach(a => a.addEventListener("click", () => {
+      close();
+      if (box.contains(document.activeElement)) document.activeElement.blur();
+    }));
+    // vuelve a abrirse recién cuando la persona entra de nuevo (con el mouse o con el teclado desde afuera)
+    box.addEventListener("pointerenter", reopen);
+    box.addEventListener("pointerleave", sync);
+    box.addEventListener("focusin", e => { if (!box.contains(e.relatedTarget)) reopen(); else sync(); });
+    box.addEventListener("focusout", sync);
+    return {box, trigger, close};
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key !== "Escape") return;
+    pops.forEach(({box, trigger, close}) => {
+      if (box.classList.contains("is-closed") || !box.matches(":hover, :focus-within")) return;
+      const hadFocus = box.contains(document.activeElement);
+      close();
+      if (hadFocus) trigger.focus({preventScroll: true});
+    });
+  });
+
+  /* ===== menú (bottom sheet) ===== */
+  const menu = $("#menu"), menuBtn = $("#menuBtn");
+  const hasDialog = typeof menu.showModal === "function";
+  function openMenu(){
+    if (!hasDialog){ location.hash = "modulos"; return; }
+    menu.showModal(); lock(true); menuBtn.setAttribute("aria-expanded", "true");
+    requestAnimationFrame(() => requestAnimationFrame(() => menu.classList.add("is-open")));
   }
-  prevB.addEventListener("click", () => track.scrollBy({left:-stepW()}));
-  nextB.addEventListener("click", () => track.scrollBy({left:stepW()}));
-  track.addEventListener("scroll", carState, {passive:true}); addEventListener("resize", carState); carState();
-  let carHover = false; track.parentElement.addEventListener("pointerenter", () => carHover = true); track.parentElement.addEventListener("pointerleave", () => carHover = false);
-  if (!reduce) setInterval(() => {
-    if (carHover || document.hidden) return;
-    const max = track.scrollWidth - track.clientWidth - 2;
-    track.scrollBy({left: track.scrollLeft >= max ? -track.scrollWidth : stepW()});
-  }, 4500);
+  function closeMenu(then){
+    if (!menu.open){ then && then(); return; }
+    menu.classList.remove("is-open");
+    setTimeout(() => { menu.close(); lock(false); then && then(); }, reduce ? 0 : 280);
+  }
+  let navTarget = null; // sección elegida en el menú
+  menu.addEventListener("cancel", e => { e.preventDefault(); closeMenu(); });
+  menu.addEventListener("close", () => {
+    menu.classList.remove("is-open"); lock(false);
+    menuBtn.setAttribute("aria-expanded", "false");
+    if (!navTarget){ menuBtn.focus({preventScroll: true}); return; }
+    // eligió una sección: baja hasta ahí y el foco queda en su título (el próximo Tab sigue desde ahí, no desde arriba)
+    const target = navTarget, title = $("h2", navTarget) || navTarget;
+    navTarget = null;
+    target.scrollIntoView({behavior: reduce ? "auto" : "smooth", block: "start"});
+    if (!title.hasAttribute("tabindex")) title.setAttribute("tabindex", "-1");
+    title.focus({preventScroll: true});
+  });
+  menuBtn.addEventListener("click", openMenu);
+  $(".sheet__x", menu).addEventListener("click", () => closeMenu());
+  $(".sheet__scrim", menu).addEventListener("click", () => closeMenu());
+  $(".sheet__btn", menu).addEventListener("click", () => closeMenu());
+  $$(".sheet__nav a", menu).forEach(a => a.addEventListener("click", e => {
+    e.preventDefault();
+    navTarget = $(a.getAttribute("href"));
+    closeMenu();
+  }));
+  // arrastrar la manija o el título hacia abajo cierra el menú (más de 80 px o un tirón rápido); si no, vuelve a su lugar
+  const panel = $(".sheet__panel", menu);
+  let drag = null;
+  $$(".sheet__handle, .sheet__head", menu).forEach(el => {
+    el.addEventListener("pointerdown", e => {
+      if (e.button !== 0 || e.target.closest("button")) return;
+      drag = {el, y: e.clientY, dy: 0, t: e.timeStamp, v: 0};
+      el.setPointerCapture(e.pointerId);
+      panel.style.transition = "none";
+    });
+    el.addEventListener("pointermove", e => {
+      if (!drag || drag.el !== el) return;
+      const dy = Math.max(0, e.clientY - drag.y), dt = e.timeStamp - drag.t;
+      if (dt > 0) drag.v = (dy - drag.dy) / dt;
+      drag.dy = dy; drag.t = e.timeStamp;
+      panel.style.transform = `translateY(${dy}px)`;
+    });
+    const end = () => {
+      if (!drag || drag.el !== el) return;
+      const {dy, v} = drag;
+      drag = null;
+      panel.style.transition = ""; panel.style.transform = "";
+      if (dy > 80 || (dy > 12 && v > .5)) closeMenu();
+    };
+    el.addEventListener("pointerup", end);
+    el.addEventListener("pointercancel", end);
+  });
 
-  /* barra fija en mobile */
-  const mbar = document.getElementById("mbar"), hero = document.querySelector(".hero");
-  new IntersectionObserver(([en]) => mbar.classList.toggle("show", !en.isIntersecting), {threshold:0}).observe(hero);
+  /* ===== lightbox de reels (con sonido) ===== */
+  const lb = $("#lb"), lbVideo = $(".lb__video", lb), lbTag = $(".lb__tag", lb), reels = $$(".reel");
+  let current = 0;
+  function show(i){
+    current = (i + reels.length) % reels.length;
+    const r = reels[current];
+    lbVideo.poster = r.dataset.poster; lbVideo.src = r.dataset.full; lbTag.textContent = r.dataset.tag;
+    lbVideo.play().catch(() => {});
+  }
+  reels.forEach((r, i) => r.addEventListener("click", () => {
+    if (hasDialog) lb.showModal(); else lb.setAttribute("open", "");
+    lock(true); holdLoops(true); show(i);
+  }));
+  const closeLb = () => hasDialog ? lb.close() : (lb.removeAttribute("open"), onLbClose());
+  function onLbClose(){
+    lbVideo.pause(); lbVideo.removeAttribute("src"); lbVideo.load(); lock(false);
+    const card = reels[current];
+    card.scrollIntoView({block: "nearest", inline: "nearest"});
+    card.focus({preventScroll: true}); holdLoops(false);
+  }
+  lb.addEventListener("close", onLbClose);
+  $(".lb__x", lb).addEventListener("click", closeLb);
+  $$(".lb__nav", lb).forEach(b => b.addEventListener("click", () => show(current + +b.dataset.step)));
+  lb.addEventListener("click", e => { if (e.target === lb || e.target.matches(".lb__in, .lb__stage")) closeLb(); });
 
-  /* estrellas de fondo */
-  const cv = document.getElementById("stars"), cx = cv.getContext("2d");
-  let W, H, stars = [];
+  /* ===== estrellas de fondo (30 fps, pausadas si la pestaña no se ve) ===== */
+  const cv = $("#stars"), cx = cv.getContext("2d");
+  let W = 0, H = 0, vw = 0, dpr = 1, stars = [], raf = 0, last = 0;
   function size(){
-    const dpr = Math.min(devicePixelRatio || 1, 2);
-    W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr;
-    cv.style.width = innerWidth + "px"; cv.style.height = innerHeight + "px";
-    let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-    stars = Array.from({length: Math.round(innerWidth*innerHeight/9000)}, () => ({x:rnd()*W, y:rnd()*H, r:(rnd()*1.1+.3)*dpr, p:rnd()*6.28, s:rnd()*.8+.3}));
+    dpr = Math.min(devicePixelRatio || 1, 1.5);
+    vw = innerWidth;
+    W = cv.width = Math.round(innerWidth * dpr); H = cv.height = Math.round(innerHeight * dpr);
+    const n = Math.min(innerWidth <= 640 ? 70 : 160, Math.round(innerWidth * innerHeight / 7000));
+    let seed = 7; const rnd = () => (seed = seed * 16807 % 2147483647) / 2147483647;
+    stars = Array.from({length: n}, () => ({x: rnd() * W, y: rnd() * H, r: (rnd() * 1.1 + .3) * dpr, p: rnd() * 6.28, s: rnd() * .8 + .3}));
   }
   function draw(t){
-    cx.clearRect(0,0,W,H);
-    const off = (scrollY * .15) % H;
+    cx.clearRect(0, 0, W, H);
+    cx.fillStyle = "#b9ccff";
+    const off = reduce ? 0 : (scrollY * .15 * dpr) % H;
     for (const s of stars){
-      const a = reduce ? .5 : .25 + .45 * (Math.sin(t/1000*s.s + s.p) * .5 + .5);
-      cx.globalAlpha = a; cx.fillStyle = "#b9ccff";
-      cx.beginPath(); cx.arc(s.x, (s.y - off*s.s + H) % H, s.r, 0, 6.28); cx.fill();
+      cx.globalAlpha = reduce ? .5 : .25 + .45 * (Math.sin(t / 1000 * s.s + s.p) * .5 + .5);
+      cx.beginPath(); cx.arc(s.x, (s.y - off * s.s + H) % H, s.r, 0, 6.283); cx.fill();
     }
-    if (!reduce) requestAnimationFrame(draw);
   }
-  size(); addEventListener("resize", size); requestAnimationFrame(draw);
+  function loop(t){ raf = requestAnimationFrame(loop); if (t - last < 33) return; last = t; draw(t); }
+  const start = () => { if (!raf && !reduce && !document.hidden) raf = requestAnimationFrame(loop); };
+  const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+  size(); draw(0); start();
+  addEventListener("resize", () => {
+    if (innerWidth !== vw) size(); else if (Math.round(innerHeight * dpr) !== H) H = cv.height = Math.round(innerHeight * dpr); else return;
+    draw(performance.now());
+  });
+  document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());
 })();
 </script>
 </body>
