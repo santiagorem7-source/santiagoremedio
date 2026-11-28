@@ -1,4 +1,10 @@
 {
+  "redirects": [
+    { "source": "/skool", "destination": "https://www.skool.com/cardinal-6821/about", "permanent": false },
+    { "source": "/skool/", "destination": "https://www.skool.com/cardinal-6821/about", "permanent": false },
+    { "source": "/school", "destination": "https://www.skool.com/cardinal-6821/about", "permanent": false },
+    { "source": "/school/", "destination": "https://www.skool.com/cardinal-6821/about", "permanent": false }
+  ],
   "rewrites": [
     { "source": "/api/sync", "destination": "/api/sync" },
     { "source": "/mri-sales", "destination": "/mri-sales/index.html" },
